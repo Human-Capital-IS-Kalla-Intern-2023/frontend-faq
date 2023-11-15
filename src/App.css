@@ -1,42 +1,41 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* @font-face {
+  font-family: 'Poppins';
+  font-weight: 300;
+  src: url(./assets/fonts/Poppins-Light.ttf);
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+@font-face {
+  font-family: 'Poppins';
+  font-weight: 400;
+  src: url(./assets/fonts/Poppins-Regular.ttf);
+} */
+
+/* @font-face {
+  font-family: 'Poppins';
+  font-weight: 700;
+  src: url(./assets/fonts/Poppins-Bold.ttf);
+} */
+
+@font-face {
+  font-family: 'Poppins';
+  font-weight: 500;
+  src: url(./assets/fonts/Poppins-Medium.ttf);
+  font-display: swap;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+body {
+  font-family: 'Poppins';
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.small-placeholder::placeholder {
+  font-size: 0.85rem;
 }
 
-.card {
-  padding: 2em;
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
 
-.read-the-docs {
-  color: #888;
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
