@@ -249,6 +249,8 @@ const TabelBody: React.FC<TabelBodyProps> = ({
       return customCell.location[0].location_name;
     } else if (['category_name'].includes(cell.key)) {
       return truncateText(customCell[cell.key], 16);
+    } else if (['faq_name'].includes(cell.key)) {
+      return truncateText(customCell[cell.key], 25);
     } else {
       return customCell[cell.key];
     }

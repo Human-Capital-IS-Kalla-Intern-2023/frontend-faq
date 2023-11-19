@@ -45,10 +45,7 @@ const TabelHeader: React.FC<TabelHeaderProps> = ({
   const location = useLocation();
 
   const openModal = () => {
-    if (onNavigate) {
-      navigate(onNavigate);
-      setModalOpen(true);
-    }
+    setModalOpen(true);
   };
 
   const closeModal = useCallback(() => {
@@ -98,6 +95,7 @@ const TabelHeader: React.FC<TabelHeaderProps> = ({
 
     if (location.pathname.endsWith('/add') && !onNavigate) {
       setModalOpen(true);
+      console.log('first');
     }
     const handleEscapeKey = (event: any) => {
       if (event.key === 'Escape') {

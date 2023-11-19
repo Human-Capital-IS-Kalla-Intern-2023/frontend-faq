@@ -12,7 +12,8 @@ import DetailModal from './components/modals/DetailModal';
 import DeleteModal from './components/modals/DeleteModal';
 
 // Import Page
-import FaqAdmin from './pages/admin/FaqAdmin';
+import FaqAdmin from './pages/admin/FAQ/FaqAdmin';
+import AddFaqAdmin from './pages/admin/FAQ/AddFaqAdmin';
 import CategoryAdmin from './pages/admin/CategoryAdmin';
 
 import HomeUser from './pages/user/HomeUser';
@@ -35,8 +36,9 @@ const App: React.FC = () => {
             <AdminLayout>
               <Routes>
                 <Route path="faq" element={<FaqAdmin />}>
-                  <Route path="add" element={<AddModal />} />
+                  <Route path="delete" element={<DeleteModal />} />
                 </Route>
+
                 <Route path="category" element={<CategoryAdmin />}>
                   <Route path="add" element={<AddModal />} />
                   <Route path="edit/:modalEditId" element={<EditModal />} />
@@ -54,6 +56,8 @@ const App: React.FC = () => {
             </AdminLayout>
           }
         />
+
+        <Route path="admin/faq/add" element={<AddFaqAdmin />}></Route>
         {/* Admin Routes End */}
 
         {/* User Routes Start */}

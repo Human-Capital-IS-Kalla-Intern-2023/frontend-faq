@@ -125,12 +125,12 @@ const Sidebar = () => {
             <ul className="whitespace-pre px-2.5 text-[0.9rem] py-5 flex flex-col gap-1 font-medium overflow-x-hidden scrollbar-thin scrollbar-track-white scrollbar-thumb-slate-100 md:h-[68%] h-[70%] rounded-md">
               <li
                 className={`px-1 py-2 mb-1 rounded-md text-base   ${
-                  pathname.includes('/dashboard')
+                  pathname.includes('/admin/dashboard')
                     ? 'bg-primary text-white '
                     : 'hover:bg-slate-300'
                 }`}
               >
-                <NavLink to={'/dashboard'} className="flex items-center">
+                <NavLink to={'/admin/dashboard'} className="flex items-center">
                   <DashboardIcon className="min-w-max" />
                   <motion.span
                     variants={textAnimation}
@@ -144,12 +144,12 @@ const Sidebar = () => {
 
               <li
                 className={`px-1 py-2 mb-1 rounded-md text-base  ${
-                  pathname.includes('/reports')
+                  pathname.includes('/admin/reports')
                     ? 'bg-primary text-white '
                     : 'hover:bg-slate-300 '
                 }`}
               >
-                <NavLink to={'/reports'} className="flex items-center">
+                <NavLink to={'/admin/reports'} className="flex items-center">
                   <ReportIcon className="min-w-max" />
                   <motion.span
                     variants={textAnimation}
