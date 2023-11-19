@@ -8,11 +8,6 @@ import ReactLoading from 'react-loading';
 // Import Assets
 import { SearchIcon, PlusIcon } from '../../assets/icons/icon';
 
-interface FilterOption {
-  id: string;
-  label: string;
-}
-
 interface InputField {
   id: string;
   label: string;
@@ -22,7 +17,6 @@ interface InputField {
 interface TabelHeaderProps {
   addButtonText: string;
   title: string;
-  filterOptions: FilterOption[];
   inputFields: InputField[];
   onSubmit?: any;
   onSearch?: any;

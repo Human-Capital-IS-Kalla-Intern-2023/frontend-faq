@@ -4,7 +4,7 @@ import ReactLoading from 'react-loading';
 import Select from 'react-select';
 
 // Import Assets
-import { CloseButtonIcon } from '../../../assets/icons/icon';
+import { CloseButtonIcon } from '../../assets/icons/icon';
 
 // Interface
 interface FormData {

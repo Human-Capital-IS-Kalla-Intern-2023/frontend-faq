@@ -4,10 +4,10 @@ import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 // Import Components
-import EditModal from '../modals/EditModal';
-import DeleteModal from '../modals/DeleteModal';
-import DetailModal from '../modals/DetailModal';
-import { DeleteText } from '../../../helpers/DeleteText.tsx';
+import EditModal from '../modals/EditModal.tsx';
+import DeleteModal from '../modals/DeleteModal.tsx';
+import DetailModal from '../modals/DetailModal.tsx';
+import { DeleteText } from '../../helpers/DeleteText.tsx';
 
 // Import Assets
 import {
@@ -15,7 +15,7 @@ import {
   EditIcon,
   DetailIcon,
   TrashIcon,
-} from '../../../assets/icons/icon.tsx';
+} from '../../assets/icons/icon.tsx';
 
 interface ColCells {
   key: any;
