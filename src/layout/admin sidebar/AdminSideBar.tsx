@@ -6,6 +6,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 
 // Components Import
 // import SideBarMenu from './SideBarMenu';
+import ButtonLogout from '../../components/buttons/ButtonLogout';
 
 // Assets Import
 // import logoKalla from '../../assets/img/kalla-logo-full.webp';
@@ -17,8 +18,11 @@ import logo1280 from '../../assets/img/logo/logo-1280.webp';
 import logo3000 from '../../assets/img/logo/logo-3000.webp';
 
 import {
+  DashboardIcon,
+  ReportIcon,
   FAQIcon,
   CategoryIcon,
+  SettingIcon,
   CloseSidebarIcon,
   ReponsiveSidebarIcon,
 } from '../../assets/icons/icon';
@@ -156,24 +160,67 @@ const Sidebar = () => {
                 }`}
               >
                 <NavLink to={'/dashboard'} className="flex items-center">
+                  <DashboardIcon className="min-w-max" />
+                  <motion.span
+                    variants={textAnimation}
+                    animate={open ? 'open' : 'closed'}
+                    className="ml-2 link"
+                  >
+                    Dashboard
+                  </motion.span>
+                </NavLink>
+              </li>
+
+              <li
+                className={`px-1 py-2 mb-1 rounded-md text-base  ${
+                  pathname.includes('/reports')
+                    ? 'bg-primary text-white '
+                    : 'hover:bg-slate-300 '
+                }`}
+              >
+                <NavLink to={'/reports'} className="flex items-center">
+                  <ReportIcon className="min-w-max" />
+                  <motion.span
+                    variants={textAnimation}
+                    animate={open ? 'open' : 'closed'}
+                    className="ml-2 link"
+                  >
+                    Reports
+                  </motion.span>
+                </NavLink>
+              </li>
+
+              <li className="pt-4 pb-1 border-b border-slate-300 ">
+                <p className="inline-block pl-3 mb-2 text-[17px] text-slate-500">
+                  Other Section
+                </p>
+              </li>
+              <li
+                className={`px-1 py-2 mb-1 rounded-md text-base   ${
+                  pathname.includes('/admin/faq')
+                    ? 'bg-primary text-white '
+                    : 'hover:bg-slate-300'
+                }`}
+              >
+                <NavLink to={'/admin/faq'} className="flex items-center">
                   <FAQIcon className="min-w-max" />
                   <motion.span
                     variants={textAnimation}
                     animate={open ? 'open' : 'closed'}
                     className="ml-2 link"
                   >
-                    FAQ Icon
+                    FAQ
                   </motion.span>
                 </NavLink>
               </li>
               <li
                 className={`px-1 py-2 mb-1 rounded-md text-base  ${
-                  pathname.includes('/employee')
+                  pathname.includes('/admin/category')
                     ? 'bg-primary text-white '
                     : 'hover:bg-slate-300 '
                 }`}
               >
-                <NavLink to={'/employee'} className="flex items-center">
+                <NavLink to={'/admin/category'} className="flex items-center">
                   <CategoryIcon className="min-w-max" />
                   <motion.span
                     variants={textAnimation}
@@ -183,6 +230,28 @@ const Sidebar = () => {
                     Category
                   </motion.span>
                 </NavLink>
+              </li>
+              <li
+                className={`px-1 py-2 mb-1 rounded-md text-base  ${
+                  pathname.includes('/admin/setting')
+                    ? 'bg-primary text-white '
+                    : 'hover:bg-slate-300 '
+                }`}
+              >
+                <NavLink to={'/admin/setting'} className="flex items-center">
+                  <SettingIcon className="min-w-max" />
+                  <motion.span
+                    variants={textAnimation}
+                    animate={open ? 'open' : 'closed'}
+                    className="ml-2 link"
+                  >
+                    Setting
+                  </motion.span>
+                </NavLink>
+              </li>
+
+              <li className="mt-5 border-t border-slate-300">
+                <ButtonLogout />
               </li>
 
               {/* <li className=" border-slate-300">
