@@ -1,3 +1,11 @@
+/* eslint-disable react-refresh/only-export-components */
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { iconList } from '../icons/categoriIcon';
+interface SelectOption {
+  label: any;
+  value: string;
+}
+
 // Import API
 
 const colCells = [
@@ -15,9 +23,11 @@ const inputField = [
   },
   {
     id: 'icons_name',
-    label: 'Icons',
+    label: 'Category Icon',
     name: 'icons_name',
-    type: 'img',
+    icons: true,
+    type: 'select',
+    options: [] as SelectOption[],
   },
   {
     id: 'is_active',
@@ -28,4 +38,34 @@ const inputField = [
   },
 ];
 
-export { colCells, inputField };
+const generateIconOptions = () => {
+  return iconList.map(({ value, icon }) => ({
+    value,
+    icon: <FontAwesomeIcon icon={icon} />,
+  }));
+};
+
+const getIconList = async () => {
+  try {
+    const iconOptions = generateIconOptions();
+
+    // Find the 'Category Icon' field in the inputField array
+    const iconsField = inputField.find(
+      (field) => field.label === 'Category Icon'
+    );
+    if (iconsField) {
+      iconsField.options = iconOptions.map((option) => ({
+        value: option.value,
+        label: (
+          <>
+            {option.icon} {option.value}
+          </>
+        ),
+      }));
+    }
+  } catch (error) {
+    console.error('Error fetching icon');
+  }
+};
+
+export { colCells, inputField, getIconList };

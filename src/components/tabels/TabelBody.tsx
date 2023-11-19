@@ -237,7 +237,7 @@ const TabelBody: React.FC<TabelBodyProps> = ({
             type="checkbox"
             value=""
             className="sr-only peer"
-            defaultChecked={customCell[cell.key] === 1}
+            // defaultChecked={customCell[cell.key] === 1}
             onChange={async () => {
               const newValue = customCell[cell.key] === 1 ? 0 : 1;
               try {
