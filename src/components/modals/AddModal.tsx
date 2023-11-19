@@ -136,7 +136,15 @@ const AddModal = ({ isOpen, onClose, title, inputFields, onSubmit }: any) => {
                     <Select
                       id={field.id}
                       name={field.name}
-                      className="w-full capitalize border rounded"
+                      className="w-full capitalize "
+                      styles={{
+                        control: (provided) => ({
+                          ...provided,
+                          border: '1px solid black',
+                          outline: 'none',
+                          boxShadow: 'none',
+                        }),
+                      }}
                       options={field.options}
                       onChange={(selectedOptions) =>
                         handleChange({

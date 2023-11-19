@@ -251,7 +251,7 @@ const CategoryAdmin: React.FC = () => {
       await changeIsActiveCategoryAdmin(idIsActive, newIsActive);
       // fetchCategoryAdmin();
     } catch (error: any) {
-      console.error('Error change is active configureSalary:', error);
+      console.error('Error change is active category admin:', error);
       const errorMessages = Object.values(error.response.data.errors).flat();
       setErrorMessage(errorMessages.join('\n'));
     }

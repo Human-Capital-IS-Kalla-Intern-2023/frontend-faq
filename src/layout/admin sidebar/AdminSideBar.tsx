@@ -85,35 +85,6 @@ const Sidebar = () => {
         },
       };
 
-  // const subMenusList = [
-  //   {
-  //     name: 'company',
-  //     icon: <CompanyIcon className="min-w-max" />,
-  //     menus: [
-  //       'business unit',
-  //       'directorate',
-  //       'division',
-  //       'section',
-  //       'location',
-  //     ],
-  //   },
-  //   {
-  //     name: 'position',
-  //     icon: <PositionIcon className="w-6 h-6 min-w-max" />,
-  //     menus: ['posisi', 'grade'],
-  //   },
-  //   {
-  //     name: 'salary',
-  //     icon: <SalaryIcon className="w-6 h-6 min-w-max" />,
-  //     menus: ['compensation', 'configures', 'regulation'],
-  //   },
-  //   {
-  //     name: 'setting',
-  //     icon: <SettingIcon className="min-w-max" />,
-  //     menus: ['profile', 'account'],
-  //   },
-  // ];
-
   return (
     <>
       <div className="shadow-xl">

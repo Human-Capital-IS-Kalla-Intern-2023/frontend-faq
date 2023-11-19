@@ -29,39 +29,12 @@ const EditModal = ({
         ...prevData,
         [name]: checked,
       }));
-    } else if (name === 'locations_id') {
-      setFormData((prevData) => ({
-        ...prevData,
-        locations_id: value,
-      }));
     } else {
-      let parsedValue = value;
-      if (name === 'id_main_position') {
-        parsedValue = parseInt(value, 10) || null;
-      }
-
-      if (name === 'id_additional_position') {
-        const selectedOptions = Array.isArray(value)
-          ? value.map((option) => option.value)
-          : [parseInt(value, 10) || null];
-
-        // Hapus posisi tambahan yang dipilih sebelumnya dari formData
-        const updatedAdditionalPositions = formData[
-          'id_additional_position'
-        ].filter((position: any) => !selectedOptions.includes(position));
-
-        setFormData((prevData) => ({
-          ...prevData,
-          [name]: selectedOptions,
-          id_additional_position: updatedAdditionalPositions,
-        }));
-      }
-
       setFormData((prevData) => ({
         ...prevData,
         [name]: Array.isArray(value)
           ? value.map((option) => option.value)
-          : parsedValue,
+          : value,
       }));
     }
   };
@@ -95,10 +68,6 @@ const EditModal = ({
         }
       });
 
-      if ('company_name' in initialFormData) {
-        initialData['company_name'] = initialFormData['company_name'];
-      }
-
       if ('is_hide' in initialFormData) {
         initialData['is_hide'] = initialFormData['is_hide'] === 1 ? 1 : 0;
       }
@@ -109,10 +78,6 @@ const EditModal = ({
 
       if ('is_edit' in initialFormData) {
         initialData['is_edit'] = initialFormData['is_edit'] === 1 ? 1 : 0;
-      }
-
-      if ('salary_name' in initialFormData) {
-        initialData['salary_name'] = initialFormData['salary_name'];
       }
 
       // Check 'id_additional_position' if it exists in initialFormData

@@ -43,7 +43,6 @@ const TabelHeader: React.FC<TabelHeaderProps> = ({
 
   const navigate = useNavigate();
   const location = useLocation();
-  const isCompensationPage = location.pathname === '/salary/compensation';
 
   const openModal = () => {
     if (onNavigate) {
@@ -97,20 +96,12 @@ const TabelHeader: React.FC<TabelHeaderProps> = ({
       setSearchInput(searchValue);
     }
 
-    // // compensation Modal
-    // if (isCompensationPage && CompensationModalOpen) {
-    //   SetCompensationModalOpen(true);
-    // } else {
-    //   SetCompensationModalOpen(false);
-    // }
-
     if (location.pathname.endsWith('/add') && !onNavigate) {
       setModalOpen(true);
     }
     const handleEscapeKey = (event: any) => {
       if (event.key === 'Escape') {
         closeModal();
-        // SetCompensationModalOpen(false);
       }
     };
 
@@ -128,13 +119,7 @@ const TabelHeader: React.FC<TabelHeaderProps> = ({
       window.removeEventListener('keydown', handleEscapeKey);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    closeModal,
-    location.pathname,
-    isFilterDropdownOpen,
-    isCompensationPage,
-    onNavigate,
-  ]);
+  }, [closeModal, location.pathname, isFilterDropdownOpen, onNavigate]);
 
   return (
     <section
@@ -198,12 +183,6 @@ const TabelHeader: React.FC<TabelHeaderProps> = ({
                   onSubmit={onSubmit}
                 />
               )}
-              {/* {isCompensationPage && !CompensationModalOpen && (
-                <CompensationAddCard
-                  isOpen={CompensationModalOpen}
-                  onClose={closeModal}
-                />
-              )} */}
             </div>
           </div>
         </div>
