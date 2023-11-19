@@ -20,7 +20,6 @@ const EditModal = ({
   const [formData, setFormData] = useState<FormData>({});
   const [isLoading, setIsLoading] = useState(false);
   const firstInputRef = useRef<HTMLInputElement | null>(null);
-  const selectRef = useRef<HTMLSelectElement | null>(null);
 
   const handleChange = (e: any) => {
     const { name, value, type, checked } = e.target;
@@ -195,47 +194,35 @@ const EditModal = ({
                     }
                   />
                 ) : (
-                  <select
+                  <Select
                     id={field.id}
                     name={field.name}
-                    className={`w-full px-3 py-2 border rounded ${
-                      field.label === 'Legal Employee' ||
-                      field.label === 'Payroll Component'
-                        ? 'bg-[#d3d3d3] text-gray cursor-not-allowed'
-                        : ''
-                    }`}
-                    onChange={handleChange}
-                    ref={index === 0 ? selectRef : null}
-                    value={formData[field.name] || ''}
-                    disabled={
-                      field.label === 'Legal Employee' ||
-                      field.label === 'Payroll Component'
+                    className="w-full capitalize border rounded text-start"
+                    options={field.options}
+                    onChange={(selectedOptions) =>
+                      handleChange({
+                        target: { name: field.name, value: selectedOptions },
+                      })
                     }
-                    title={
-                      field.label === 'Legal Employee' ||
-                      field.label === 'Payroll Component'
-                        ? 'Not Allowed to Edit SBU or Payroll'
-                        : ''
-                    }
-                  >
-                    <option value="">Select {field.label}</option>
-                    {field.options.map((option: any) => (
-                      <option key={option.label} value={option.value}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </select>
+                  />
                 )
               ) : field.type === 'checkbox' ? (
-                <div className="flex items-center">
+                <label
+                  className={`relative inline-flex w-full  cursor-pointer mt-2`}
+                >
                   <input
                     type="checkbox"
                     id={field.id}
                     name={field.name}
-                    checked={formData[field.name] || false}
                     onChange={handleChange}
+                    ref={index === 0 ? firstInputRef : null}
+                    className="sr-only peer"
+                    checked={formData[field.name] || false}
                   />
-                </div>
+                  <div
+                    className={`w-11 h-6 bg-red-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-white dark:peer-focus:ring-gray-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600`}
+                  ></div>
+                </label>
               ) : (
                 <input
                   type={field.type || 'text'}

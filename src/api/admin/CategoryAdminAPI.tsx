@@ -153,7 +153,7 @@ const searchCategoryAdmin = async (searchInput: any) => {
 };
 
 // Change Is Active CategoryAdmin
-const changeIsActiveMasterComponent = async (
+const changeIsActiveCategoryAdmin = async (
   idIsActive: any,
   newIsActive: any
 ) => {
@@ -170,12 +170,12 @@ const changeIsActiveMasterComponent = async (
       `category-admin/is_active/${idIsActive}`,
       sendData,
       headerToken,
-      'Mengubah Active Master'
+      'Mengubah Active Category Admin'
     );
 
     return responseIsActiveChange;
   } catch (error) {
-    console.error('Kesalahan saat mengubah Active Master:', error);
+    console.error('Kesalahan saat mengubah Active Category Admin:', error);
     throw error;
   }
 };
@@ -187,5 +187,5 @@ export {
   updateCategoryAdmin,
   deleteCategoryAdmin,
   searchCategoryAdmin,
-  changeIsActiveMasterComponent,
+  changeIsActiveCategoryAdmin,
 };

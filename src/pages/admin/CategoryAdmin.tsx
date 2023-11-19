@@ -19,7 +19,7 @@ import {
   updateCategoryAdmin,
   deleteCategoryAdmin,
   searchCategoryAdmin,
-  changeIsActiveMasterComponent,
+  changeIsActiveCategoryAdmin,
 } from '../../api/admin/CategoryAdminAPI';
 
 const categoryAdmin = [
@@ -243,12 +243,12 @@ const CategoryAdmin: React.FC = () => {
     );
   };
 
-  const handleChangeIsActiveMasterComponent = async (
+  const handleChangeIsActiveCategoryAdmin = async (
     idIsActive: any,
     newIsActive: any
   ) => {
     try {
-      await changeIsActiveMasterComponent(idIsActive, newIsActive);
+      await changeIsActiveCategoryAdmin(idIsActive, newIsActive);
       // fetchCategoryAdmin();
     } catch (error: any) {
       console.error('Error change is active configureSalary:', error);
@@ -284,14 +284,14 @@ const CategoryAdmin: React.FC = () => {
       )}
       <TabelHeader
         onNavigate="add"
-        addButtonText="Add Master Salary"
-        title="Add Master Salary"
+        addButtonText="Add Category"
+        title="Add Category"
         inputFields={inputField}
         onSubmit={handleAddCategoryAdmin}
         onSearch={handleSearchCategoryAdmin}
       />
       <TabelBody
-        title="Edit Master Salary"
+        title="Edit Category"
         colCells={colCells}
         data={
           searchResults.length > 0 ? searchResults : currentCategoryAdminData
@@ -301,7 +301,7 @@ const CategoryAdmin: React.FC = () => {
         onDelete={handleDeleteCategoryAdmin}
         detailedData={detailedData}
         fetchDetailedData={fetchDetailCategoryAdmin}
-        changeIsActive={handleChangeIsActiveMasterComponent}
+        changeIsActive={handleChangeIsActiveCategoryAdmin}
       />
       <TabelFooter
         currentPage={currentPage}
