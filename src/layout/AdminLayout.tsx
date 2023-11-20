@@ -1,29 +1,21 @@
-import { useLocation } from 'react-router-dom';
-import Sidebar from './admin sidebar/AdminSideBar';
-import Cookies from 'js-cookie';
+// import { useLocation } from 'react-router-dom';
+import AdminSidebar from './admin sidebar/AdminSideBar';
 
 function AdminLayout({ children }: any) {
-  const location = useLocation();
+  // const location = useLocation();
 
-  const sidebarPaths = ['/admin/faq', '/admin/category'];
+  // const sidebarPaths = ['/admin/faq', '/admin/category'];
 
-  const hiddenSidebarPaths = ['/'];
+  // const hiddenSidebarPaths = ['/faq', '/category'];
 
-  const isAuthenticated = !!Cookies.get('access_token');
-
-  const shouldShowSidebar =
-    isAuthenticated &&
-    sidebarPaths.some((path) => location.pathname.startsWith(path)) &&
-    !hiddenSidebarPaths.some((path) => location.pathname.startsWith(path));
+  // const shouldShowSidebar =
+  //   sidebarPaths.some((path) => location.pathname.startsWith(path)) &&
+  //   !hiddenSidebarPaths.some((path) => location.pathname.startsWith(path));
 
   return (
     <div className="flex flex-col md:flex-row ">
-      {shouldShowSidebar && <Sidebar />}
-      <main
-        className={
-          shouldShowSidebar ? 'flex-1 mx-auto max-w-sm md:max-w-none' : 'w-full'
-        }
-      >
+      <AdminSidebar />
+      <main className={'flex-1 mx-auto max-w-sm md:max-w-none'}>
         {children}
       </main>
     </div>

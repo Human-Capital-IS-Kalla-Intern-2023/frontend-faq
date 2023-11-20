@@ -85,24 +85,13 @@ const TabelBody: React.FC<TabelBodyProps> = ({
       if (data) {
         const dataToEdit = await data.find((item: any) => item.id === id);
         if (dataToEdit) {
-          // Extract the salaryId from the onEditNavigate prop
-          const salaryId = dataToEdit.id;
-          if (onEditNavigate) {
-            const navigateUrl = onEditNavigate.replace(
-              '{salaryId}',
-              salaryId.toString()
-            );
-            // Use the `navigate` function with the correct URL
-            navigate(navigateUrl, { replace: true });
-          } else {
-            setEditId(id);
-            setEditedData(dataToEdit);
-            setEditModalOpen(true);
-          }
+          setEditId(id);
+          setEditedData(dataToEdit);
+          setEditModalOpen(true);
         }
       }
     },
-    [data, onEditNavigate, navigate]
+    [data]
   );
 
   const { modalEditId, modalDetailId, modalDeleteId } = useParams();
@@ -203,8 +192,7 @@ const TabelBody: React.FC<TabelBodyProps> = ({
   }
   const renderTableCell = (
     cell: TableCell,
-    customCell: Record<string, any>,
-    locationPathname: string
+    customCell: Record<string, any>
   ) => {
     // Check if the cell key is "type" and if the value is "fixed pay" or "deductions"
     if (
@@ -237,7 +225,7 @@ const TabelBody: React.FC<TabelBodyProps> = ({
             type="checkbox"
             value=""
             className="sr-only peer"
-            defaultChecked={customCell[cell.key] === 1}
+            // defaultChecked={customCell[cell.key] === 1}
             onChange={async () => {
               const newValue = customCell[cell.key] === 1 ? 0 : 1;
               try {
@@ -259,20 +247,10 @@ const TabelBody: React.FC<TabelBodyProps> = ({
 
     if (cell.key === 'location[0].location_name') {
       return customCell.location[0].location_name;
-    } else if (
-      ['fullname', 'company_email', 'main_position'].includes(cell.key)
-    ) {
+    } else if (['category_name'].includes(cell.key)) {
       return truncateText(customCell[cell.key], 16);
-    } else if (
-      locationPathname.includes('/position/posisi') &&
-      [
-        'division_name',
-        'section_name',
-        'directorat_name',
-        'position_name',
-      ].includes(cell.key)
-    ) {
-      return truncateText(customCell[cell.key], 14);
+    } else if (['faq_name'].includes(cell.key)) {
+      return truncateText(customCell[cell.key], 25);
     } else {
       return customCell[cell.key];
     }
@@ -333,7 +311,6 @@ const TabelBody: React.FC<TabelBodyProps> = ({
   useEffect(() => {
     if (modalDetailId !== undefined) {
       const modalDetailNumber = parseInt(modalDetailId, 10);
-
       if (!isNaN(modalDetailNumber)) {
         setActiveDropdown(modalDetailNumber);
 
@@ -343,6 +320,8 @@ const TabelBody: React.FC<TabelBodyProps> = ({
             fetchDetailedData(modalDetailNumber);
           }
         }
+      } else {
+        navigate('/notfound');
       }
     }
   }, [
@@ -473,20 +452,10 @@ const TabelBody: React.FC<TabelBodyProps> = ({
                                 <Link
                                   to={
                                     onDetailNavigate
-                                      ? onDetailNavigate
-                                          .replace(
-                                            '{employeeId}',
-                                            customCell.id
-                                          )
-                                          .replace(
-                                            '{compensationId}',
-                                            customCell.id
-                                          )
-                                          .replace('{salaryId}', customCell.id)
-                                          .replace(
-                                            '{positionId}',
-                                            customCell.id_main_position
-                                          )
+                                      ? onDetailNavigate.replace(
+                                          '{categoryId}',
+                                          customCell.id
+                                        )
                                       : `detail/${customCell.id}`
                                   }
                                   onClick={() => openDetailModal(customCell.id)}
@@ -544,7 +513,7 @@ const TabelBody: React.FC<TabelBodyProps> = ({
                           key={cellIndex}
                           className={`px-2 py-4 font-medium text-black whitespace-nowrap text-[15px]`}
                         >
-                          {renderTableCell(cell, customCell, location.pathname)}
+                          {renderTableCell(cell, customCell)}
                         </td>
                       ))}
                     </tr>
