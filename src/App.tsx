@@ -73,7 +73,7 @@ const App: React.FC = () => {
           element={
             <UserLayout>
               <Routes>
-                <Route path="/faq/home" element={<HomeUser />} />
+                <Route path="" element={<HomeUser />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </UserLayout>
