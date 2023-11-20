@@ -297,6 +297,8 @@ const FaqAdmin: React.FC = () => {
         detailedData={detailedData}
         fetchDetailedData={fetchDetailFaqAdmin}
         changeIsActive={handleChangeIsActiveFaqAdmin}
+        onDetailNavigate="detail"
+        onEditNavigate="edit"
       />
       <TabelFooter
         currentPage={currentPage}

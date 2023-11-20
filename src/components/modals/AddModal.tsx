@@ -131,6 +131,14 @@ const AddModal = ({ isOpen, onClose, title, inputFields, onSubmit }: any) => {
                           target: { name: field.name, value: selectedOptions },
                         })
                       }
+                      styles={{
+                        control: (provided) => ({
+                          ...provided,
+                          border: '1px solid black',
+                          outline: 'none',
+                          boxShadow: 'none',
+                        }),
+                      }}
                     />
                   ) : (
                     <Select
