@@ -5,7 +5,7 @@ import { useMediaQuery } from 'react-responsive';
 import { NavLink, useLocation } from 'react-router-dom';
 
 // Components Import
-// import SideBarMenu from './SideBarMenu';
+import SideBarMenu from './SideBarMenu';
 
 // Assets Import
 // import logoKalla from '../../assets/img/kalla-logo-full.webp';
@@ -81,6 +81,16 @@ const Sidebar = () => {
         },
       };
 
+
+  const subMenusList = [
+    {
+      name: 'company',
+      icon: <CategoryIcon className="min-w-max" />,
+      menus: ['ICT', 'Holding', 'HCBP', 'Accounting', 'Management'],
+    },
+  ];
+
+
   return (
     <>
       <div className="shadow-xl">
@@ -137,7 +147,7 @@ const Sidebar = () => {
                   </motion.span>
                 </NavLink>
               </li>
-              <li
+              {/* <li
                 className={`px-1 py-2 mb-1 rounded-md text-base  ${
                   pathname.includes('/employee')
                     ? 'bg-primary text-white '
@@ -154,18 +164,15 @@ const Sidebar = () => {
                     Category
                   </motion.span>
                 </NavLink>
-              </li>
+              </li> */}
 
-              {/* <li className=" border-slate-300">
+              <li className=" border-slate-300">
                 {(open || isTabletMid) && (
-                  <div className="py-5 border-y border-slate-300 ">
-                    <p className="inline-block pl-3 mb-2 text-[17px] text-slate-500">
-                      Other Section
-                    </p>
+                  <div className="py-5 border-y border-slate-300 s">
                     {subMenusList?.map((menu: any) => (
                       <div
                         key={menu.name}
-                        className="flex flex-col gap-1 px-1 py-2 mb-1 text-base rounded-md hover:bg-primary hover:text-white"
+                        className="flex flex-col gap-1 px-1 py-2 mb-1 scrollbar-thin scrollbar-track-white scrollbar-thumb-slate-100 md:h-[68%] h-[70%] text-base rounded-md hover:bg-primary hover:text-white"
                       >
                         <SideBarMenu data={menu} />
                       </div>
@@ -173,9 +180,6 @@ const Sidebar = () => {
                   </div>
                 )}
               </li>
-              <li className="">
-                <ButtonLogout />
-              </li> */}
             </ul>
           </div>
           <motion.div
