@@ -1,15 +1,9 @@
 import { useEffect, useState } from 'react';
-import { SearchIcon, PlusIcon } from '../../assets/icons/icon';
+import { SearchIcon, PlusIcon, CategoryIcon } from '../../assets/icons/icon';
 import { useNavigate } from 'react-router-dom';
 import ReactLoading from 'react-loading';
 
-import {
-  CompanyIcon2,
-  DivisionIcon,
-  EmployeeIcon,
-  SectionIcon,
-  DirectorateIcon,
-} from '../../assets/icons/icon';
+// import { faMusic } from '../../assets/icons/categoriIcon';
 
 interface FilterOption {
   id: string;
@@ -129,7 +123,7 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({
           <div className="flex justify-center w-full">
             <div>
               <div className="flex items-center justify-center p-3">
-                <EmployeeIcon className="lg:w-10 lg:h-10 w-8 h-8" />
+                <CategoryIcon className="lg:w-10 lg:h-10 w-8 h-8" />
               </div>
               <div className="pb-2 text-sm lg:text-base font-bold whitespace-normal break-all">
                 Pengaturan Akun
@@ -147,7 +141,7 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({
           <div className="flex justify-center w-full">
             <div>
               <div className="flex items-center justify-center p-1">
-                <CompanyIcon2 className="lg:w-10 lg:h-10 w-8 h-8" />
+                <CategoryIcon className="lg:w-10 lg:h-10 w-8 h-8" />
               </div>
               <div className="pb-2 text-sm lg:text-base font-bold">
                 Business Unit
@@ -165,7 +159,7 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({
           <div className="flex justify-center w-full">
             <div>
               <div className="flex items-center justify-center p-1">
-                <DirectorateIcon className="lg:w-11 lg:h-11 w-9 h-9" />
+                <CategoryIcon className="lg:w-11 lg:h-11 w-9 h-9" />
               </div>
               <div className="pb-2 text-sm lg:text-base font-bold">
                 Directorate
@@ -183,7 +177,7 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({
           <div className="flex justify-center w-full">
             <div>
               <div className="flex items-center justify-center p-1">
-                <DivisionIcon className="lg:w-10 lg:h-10 w-8 h-8" />
+                <CategoryIcon className="lg:w-10 lg:h-10 w-8 h-8" />
               </div>
               <div className="p-2 text-xs lg:text-base font-bold">Division</div>
             </div>
@@ -199,7 +193,7 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({
           <div className="flex justify-center w-full">
             <div>
               <div className="flex items-center justify-center p-2">
-                <SectionIcon className="lg:w-10 lg:h-10 w-8 h-8" />
+                <CategoryIcon className="lg:w-10 lg:h-10 w-8 h-8" />
               </div>
               <div className="pb-2 text-sm lg:text-base font-bold">Section</div>
             </div>
@@ -214,7 +208,7 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({
           <div className="flex justify-center w-full">
             <div>
               <div className="flex items-center justify-center p-2">
-                <SectionIcon className="lg:w-10 lg:h-10 w-8 h-8" />
+                <CategoryIcon className="lg:w-10 lg:h-10 w-8 h-8" />
               </div>
               <div className="pb-2 text-sm lg:text-base font-bold">Section</div>
             </div>
@@ -229,7 +223,7 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({
           <div className="flex justify-center w-full">
             <div>
               <div className="flex items-center justify-center p-2">
-                <SectionIcon className="lg:w-10 lg:h-10 w-8 h-8" />
+                <CategoryIcon className="lg:w-10 lg:h-10 w-8 h-8" />
               </div>
               <div className="pb-2 text-sm lg:text-base font-bold">Section</div>
             </div>
@@ -244,7 +238,7 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({
           <div className="flex justify-center w-full">
             <div>
               <div className="flex items-center justify-center p-2">
-                <SectionIcon className="lg:w-10 lg:h-10 w-8 h-8" />
+                <CategoryIcon className="lg:w-10 lg:h-10 w-8 h-8" />
               </div>
               <div className="pb-2 text-sm lg:text-base font-bold">Section</div>
             </div>

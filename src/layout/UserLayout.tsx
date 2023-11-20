@@ -5,7 +5,13 @@ import Cookies from 'js-cookie';
 function UserLayout({ children }: any) {
   const location = useLocation();
 
-  const sidebarPaths = ['/category', '/faq', 'faq/home', '/faq/category'];
+  const sidebarPaths = [
+    '/category',
+    '/faq',
+    'faq/home',
+    '/faq/category',
+    '/dashboard',
+  ];
 
   const hiddenSidebarPaths = ['/admin'];
 

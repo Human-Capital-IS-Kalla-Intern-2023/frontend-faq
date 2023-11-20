@@ -6,6 +6,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 
 // Components Import
 import SideBarMenu from './SideBarMenu';
+import ButtonLogout from '../../components/buttons/ButtonLogout';
 
 // Assets Import
 // import logoKalla from '../../assets/img/kalla-logo-full.webp';
@@ -21,6 +22,7 @@ import {
   CategoryIcon,
   CloseSidebarIcon,
   ReponsiveSidebarIcon,
+  DashboardIcon,
 } from '../../assets/icons/icon';
 
 const Sidebar = () => {
@@ -81,15 +83,13 @@ const Sidebar = () => {
         },
       };
 
-
   const subMenusList = [
     {
-      name: 'company',
+      name: 'Category',
       icon: <CategoryIcon className="min-w-max" />,
       menus: ['ICT', 'Holding', 'HCBP', 'Accounting', 'Management'],
     },
   ];
-
 
   return (
     <>
@@ -133,17 +133,17 @@ const Sidebar = () => {
                 className={`px-1 py-2 mb-1 rounded-md text-base   ${
                   pathname.includes('/dashboard')
                     ? 'bg-primary text-white '
-                    : 'hover:bg-slate-300'
+                    : 'hover:bg-primary hover:text-white'
                 }`}
               >
                 <NavLink to={'/dashboard'} className="flex items-center">
-                  <FAQIcon className="min-w-max" />
+                  <DashboardIcon className="min-w-max" />
                   <motion.span
                     variants={textAnimation}
                     animate={open ? 'open' : 'closed'}
                     className="ml-2 link"
                   >
-                    FAQ Icon
+                    Dashboard
                   </motion.span>
                 </NavLink>
               </li>
@@ -179,6 +179,9 @@ const Sidebar = () => {
                     ))}
                   </div>
                 )}
+              </li>
+              <li className="">
+                <ButtonLogout />
               </li>
             </ul>
           </div>
