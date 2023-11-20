@@ -4,7 +4,7 @@ import ReactLoading from 'react-loading';
 import Select from 'react-select';
 
 // Import Assets
-import { CloseButtonIcon } from '../../../assets/icons/icon';
+import { CloseButtonIcon } from '../../assets/icons/icon';
 
 // Interface
 interface FormData {
@@ -33,12 +33,17 @@ const AddModal = ({ isOpen, onClose, title, inputFields, onSubmit }: any) => {
         ...prevData,
         [name]: checked ? 1 : 0,
       }));
+    } else if (name === 'icons_name') {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value.value,
+      }));
     } else {
       setFormData((prevData) => ({
         ...prevData,
         [name]: Array.isArray(value)
           ? value.map((option) => option.value)
-          : null,
+          : value,
       }));
     }
   };
@@ -48,7 +53,6 @@ const AddModal = ({ isOpen, onClose, title, inputFields, onSubmit }: any) => {
 
     try {
       setIsLoading(true);
-
       await onSubmit(formData);
       onClose();
       localStorage.removeItem('formData');
@@ -127,46 +131,55 @@ const AddModal = ({ isOpen, onClose, title, inputFields, onSubmit }: any) => {
                           target: { name: field.name, value: selectedOptions },
                         })
                       }
+                      styles={{
+                        control: (provided) => ({
+                          ...provided,
+                          border: '1px solid black',
+                          outline: 'none',
+                          boxShadow: 'none',
+                        }),
+                      }}
                     />
                   ) : (
-                    <select
+                    <Select
                       id={field.id}
                       name={field.name}
-                      className={`w-full px-3 py-2 border rounded ${
-                        field.name === 'salary_id' && !formData.company_id
-                          ? 'bg-[#d3d3d3] text-gray cursor-not-allowed'
-                          : ''
-                      }`}
-                      onChange={handleChange}
-                      ref={index === 0 ? selectRef : null}
-                      disabled={
-                        field.name === 'salary_id' && !formData.company_id
+                      className="w-full capitalize "
+                      styles={{
+                        control: (provided) => ({
+                          ...provided,
+                          border: '1px solid black',
+                          outline: 'none',
+                          boxShadow: 'none',
+                        }),
+                      }}
+                      options={field.options}
+                      onChange={(selectedOptions) =>
+                        handleChange({
+                          target: { name: field.name, value: selectedOptions },
+                        })
                       }
-                      title={
-                        field.name === 'salary_id' && !formData.company_id
-                          ? 'Please select a company first before choosing a salary'
-                          : ''
-                      }
-                    >
-                      <option value="">Select {field.label}</option>
-                      {field.options.map((option: any) => (
-                        <option key={option.value} value={option.value}>
-                          {option.label}
-                        </option>
-                      ))}
-                    </select>
+                    />
                   )
                 ) : field.type === 'checkbox' ? (
-                  <input
-                    type="checkbox"
-                    id={field.id}
-                    name={field.name}
-                    onChange={handleChange}
-                    ref={index === 0 ? firstInputRef : null}
-                    defaultChecked={
-                      formData[field.name as keyof FormData] === 1
-                    }
-                  />
+                  <label
+                    className={`relative inline-flex items-center cursor-pointer mt-2`}
+                  >
+                    <input
+                      type="checkbox"
+                      id={field.id}
+                      name={field.name}
+                      onChange={handleChange}
+                      ref={index === 0 ? firstInputRef : null}
+                      defaultChecked={
+                        formData[field.name as keyof FormData] === 1
+                      }
+                      className="sr-only peer"
+                    />
+                    <div
+                      className={`w-11 h-6 bg-red-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-white dark:peer-focus:ring-gray-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600`}
+                    ></div>
+                  </label>
                 ) : (
                   <input
                     type={field.type || 'text'}

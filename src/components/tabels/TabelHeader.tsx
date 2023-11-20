@@ -8,11 +8,6 @@ import ReactLoading from 'react-loading';
 // Import Assets
 import { SearchIcon, PlusIcon } from '../../assets/icons/icon';
 
-interface FilterOption {
-  id: string;
-  label: string;
-}
-
 interface InputField {
   id: string;
   label: string;
@@ -22,7 +17,6 @@ interface InputField {
 interface TabelHeaderProps {
   addButtonText: string;
   title: string;
-  filterOptions: FilterOption[];
   inputFields: InputField[];
   onSubmit?: any;
   onSearch?: any;
@@ -49,13 +43,9 @@ const TabelHeader: React.FC<TabelHeaderProps> = ({
 
   const navigate = useNavigate();
   const location = useLocation();
-  const isCompensationPage = location.pathname === '/salary/compensation';
 
   const openModal = () => {
-    if (onNavigate) {
-      navigate(onNavigate);
-      setModalOpen(true);
-    }
+    setModalOpen(true);
   };
 
   const closeModal = useCallback(() => {
@@ -103,20 +93,13 @@ const TabelHeader: React.FC<TabelHeaderProps> = ({
       setSearchInput(searchValue);
     }
 
-    // // compensation Modal
-    // if (isCompensationPage && CompensationModalOpen) {
-    //   SetCompensationModalOpen(true);
-    // } else {
-    //   SetCompensationModalOpen(false);
-    // }
-
     if (location.pathname.endsWith('/add') && !onNavigate) {
       setModalOpen(true);
+      console.log('first');
     }
     const handleEscapeKey = (event: any) => {
       if (event.key === 'Escape') {
         closeModal();
-        // SetCompensationModalOpen(false);
       }
     };
 
@@ -134,13 +117,7 @@ const TabelHeader: React.FC<TabelHeaderProps> = ({
       window.removeEventListener('keydown', handleEscapeKey);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    closeModal,
-    location.pathname,
-    isFilterDropdownOpen,
-    isCompensationPage,
-    onNavigate,
-  ]);
+  }, [closeModal, location.pathname, isFilterDropdownOpen, onNavigate]);
 
   return (
     <section
@@ -204,12 +181,6 @@ const TabelHeader: React.FC<TabelHeaderProps> = ({
                   onSubmit={onSubmit}
                 />
               )}
-              {/* {isCompensationPage && !CompensationModalOpen && (
-                <CompensationAddCard
-                  isOpen={CompensationModalOpen}
-                  onClose={closeModal}
-                />
-              )} */}
             </div>
           </div>
         </div>
