@@ -1,18 +1,15 @@
 import { useLocation } from 'react-router-dom';
-import Sidebar from './admin sidebar/AdminSideBar';
+import Sidebar from './user sidebar/UserSideBar';
 import Cookies from 'js-cookie';
 
 function UserLayout({ children }: any) {
   const location = useLocation();
 
-  const sidebarPaths = ['/category', '/faq'];
+  const sidebarPaths = ['/category', '/faq', 'faq/home', '/faq/category'];
 
-  const hiddenSidebarPaths = ['/'];
-
-  const isAuthenticated = !!Cookies.get('access_token');
+  const hiddenSidebarPaths = ['/admin'];
 
   const shouldShowSidebar =
-    isAuthenticated &&
     sidebarPaths.some((path) => location.pathname.startsWith(path)) &&
     !hiddenSidebarPaths.some((path) => location.pathname.startsWith(path));
 
