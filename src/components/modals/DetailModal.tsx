@@ -1,5 +1,5 @@
 // Import Assets
-import { CloseButtonIcon } from '../../../assets/icons/icon';
+import { CloseButtonIcon } from '../../assets/icons/icon';
 const DetailModal = ({ isOpen, onClose, data, inputField }: any) => {
   const handleOverlayClick = (e: any) => {
     if (e.target.classList.contains('overlay')) {

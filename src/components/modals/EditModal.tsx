@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import ReactLoading from 'react-loading';
 import Select from 'react-select';
 
-import { CloseButtonIcon } from '../../../assets/icons/icon';
+import { CloseButtonIcon } from '../../assets/icons/icon';
 
 interface FormData {
   [key: string]: any;
