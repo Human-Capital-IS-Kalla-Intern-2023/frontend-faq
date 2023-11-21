@@ -6,6 +6,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 
 // Components Import
 import SideBarMenu from './SideBarMenu';
+import ButtonLogout from '../../components/buttons/ButtonLogout';
 
 // Assets Import
 // import logoKalla from '../../assets/img/kalla-logo-full.webp';
@@ -21,6 +22,7 @@ import {
   CategoryIcon,
   CloseSidebarIcon,
   ReponsiveSidebarIcon,
+  DashboardIcon,
 } from '../../assets/icons/icon';
 
 const Sidebar = () => {
@@ -81,15 +83,18 @@ const Sidebar = () => {
         },
       };
 
-
   const subMenusList = [
     {
-      name: 'company',
+      name: 'Category',
       icon: <CategoryIcon className="min-w-max" />,
-      menus: ['ICT', 'Holding', 'HCBP', 'Accounting', 'Management'],
+      menus: [
+        'Leave Management',
+        'Work Schedule',
+        'Dress Code',
+        'Employee Feedback',
+      ],
     },
   ];
-
 
   return (
     <>
@@ -131,19 +136,19 @@ const Sidebar = () => {
             <ul className="whitespace-pre px-2.5 text-[0.9rem] py-5 flex flex-col gap-1 font-medium overflow-x-hidden scrollbar-thin scrollbar-track-white scrollbar-thumb-slate-100 md:h-[68%] h-[70%] rounded-md">
               <li
                 className={`px-1 py-2 mb-1 rounded-md text-base   ${
-                  pathname.includes('/dashboard')
+                  pathname.includes('/faq')
                     ? 'bg-primary text-white '
-                    : 'hover:bg-slate-300'
+                    : 'hover:bg-primary hover:text-white'
                 }`}
               >
-                <NavLink to={'/dashboard'} className="flex items-center">
-                  <FAQIcon className="min-w-max" />
+                <NavLink to={'/faq'} className="flex items-center">
+                  <DashboardIcon className="min-w-max" />
                   <motion.span
                     variants={textAnimation}
                     animate={open ? 'open' : 'closed'}
                     className="ml-2 link"
                   >
-                    FAQ Icon
+                    Dashboard
                   </motion.span>
                 </NavLink>
               </li>
@@ -168,7 +173,7 @@ const Sidebar = () => {
 
               <li className=" border-slate-300">
                 {(open || isTabletMid) && (
-                  <div className="py-5 border-y border-slate-300 s">
+                  <div className="py-5 border-y border-slate-300 ">
                     {subMenusList?.map((menu: any) => (
                       <div
                         key={menu.name}
@@ -179,6 +184,9 @@ const Sidebar = () => {
                     ))}
                   </div>
                 )}
+              </li>
+              <li className="">
+                <ButtonLogout />
               </li>
             </ul>
           </div>

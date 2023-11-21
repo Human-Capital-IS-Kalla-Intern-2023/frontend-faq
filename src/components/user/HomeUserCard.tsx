@@ -1,15 +1,7 @@
 import { useEffect, useState } from 'react';
-import { SearchIcon } from '../../assets/icons/icon';
+import { SearchIcon, PlusIcon, CategoryIcon } from '../../assets/icons/icon';
 import { useNavigate } from 'react-router-dom';
 import ReactLoading from 'react-loading';
-
-import {
-  CategoryIcon,
-  DashboardIcon,
-  SettingIcon,
-  FAQIcon,
-  EditIcon,
-} from '../../assets/icons/icon';
 
 interface FilterOption {
   id: string;
@@ -113,16 +105,13 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch }) => {
         </div>
       </div>
 
-      {/* Topik Populer */}
-      <div className="px-6 py-5 text-lg">Topik Populer</div>
-
       {/* Grid 8 item dibagi menjadi 4 kolom */}
       <div className="grid items-center justify-center w-full min-h-full grid-cols-4 gap-4 p-6 pt-2 gap-y-16">
         <div className="flex flex-row flex-wrap items-center justify-center w-full py-3 pt-4 overflow-hidden bg-white rounded-md shadow-lg px-9 lg:p-2 whitespace-nowrap">
           <div className="flex justify-center w-full">
             <div>
               <div className="flex items-center justify-center p-3">
-                <SettingIcon className="w-8 h-8 lg:w-10 lg:h-10" />
+                <CategoryIcon className="lg:w-10 lg:h-10 w-8 h-8" />
               </div>
               <div className="pb-2 text-sm font-bold break-all whitespace-normal lg:text-base">
                 Pengaturan Akun
@@ -140,7 +129,7 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch }) => {
           <div className="flex justify-center w-full">
             <div>
               <div className="flex items-center justify-center p-1">
-                <CategoryIcon className="w-8 h-8 lg:w-10 lg:h-10" />
+                <CategoryIcon className="lg:w-10 lg:h-10 w-8 h-8" />
               </div>
               <div className="pb-2 text-sm font-bold lg:text-base">
                 Business Unit
@@ -158,7 +147,7 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch }) => {
           <div className="flex justify-center w-full">
             <div>
               <div className="flex items-center justify-center p-1">
-                <EditIcon className="lg:w-11 lg:h-11 w-9 h-9" />
+                <CategoryIcon className="lg:w-11 lg:h-11 w-9 h-9" />
               </div>
               <div className="pb-2 text-sm font-bold lg:text-base">
                 Directorate
@@ -176,7 +165,7 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch }) => {
           <div className="flex justify-center w-full">
             <div>
               <div className="flex items-center justify-center p-1">
-                <DashboardIcon className="w-8 h-8 lg:w-10 lg:h-10" />
+                <CategoryIcon className="lg:w-10 lg:h-10 w-8 h-8" />
               </div>
               <div className="p-2 text-xs font-bold lg:text-base">Division</div>
             </div>
@@ -192,7 +181,7 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch }) => {
           <div className="flex justify-center w-full">
             <div>
               <div className="flex items-center justify-center p-2">
-                <FAQIcon className="w-8 h-8 lg:w-10 lg:h-10" />
+                <CategoryIcon className="lg:w-10 lg:h-10 w-8 h-8" />
               </div>
               <div className="pb-2 text-sm font-bold lg:text-base">Section</div>
             </div>
@@ -207,7 +196,7 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch }) => {
           <div className="flex justify-center w-full">
             <div>
               <div className="flex items-center justify-center p-2">
-                <FAQIcon className="w-8 h-8 lg:w-10 lg:h-10" />
+                <CategoryIcon className="lg:w-10 lg:h-10 w-8 h-8" />
               </div>
               <div className="pb-2 text-sm font-bold lg:text-base">Section</div>
             </div>
@@ -222,7 +211,7 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch }) => {
           <div className="flex justify-center w-full">
             <div>
               <div className="flex items-center justify-center p-2">
-                <FAQIcon className="w-8 h-8 lg:w-10 lg:h-10" />
+                <CategoryIcon className="lg:w-10 lg:h-10 w-8 h-8" />
               </div>
               <div className="pb-2 text-sm font-bold lg:text-base">Section</div>
             </div>
@@ -237,7 +226,7 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch }) => {
           <div className="flex justify-center w-full">
             <div>
               <div className="flex items-center justify-center p-2">
-                <FAQIcon className="w-8 h-8 lg:w-10 lg:h-10" />
+                <CategoryIcon className="lg:w-10 lg:h-10 w-8 h-8" />
               </div>
               <div className="pb-2 text-sm font-bold lg:text-base">Section</div>
             </div>

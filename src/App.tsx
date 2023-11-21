@@ -18,7 +18,9 @@ import DetailFaqAdmin from './pages/admin/FAQ/DetailFaqAdmin';
 import EditFaqAdmin from './pages/admin/FAQ/EditFaqAdmin';
 
 import CategoryAdmin from './pages/admin/CategoryAdmin';
+
 import HomeUser from './pages/user/HomeUser';
+import Question from './pages/user/Question';
 
 import NotFound from './pages/auth/NotFound';
 import PermissionDenied from './pages/auth/PermissionDenied';
@@ -73,7 +75,8 @@ const App: React.FC = () => {
           element={
             <UserLayout>
               <Routes>
-                <Route path="" element={<HomeUser />} />
+                <Route path="/faq/home" element={<HomeUser />} />
+                <Route path="/faq/category" element={<Question />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </UserLayout>
