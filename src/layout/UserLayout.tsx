@@ -1,6 +1,5 @@
 import { useLocation } from 'react-router-dom';
 import Sidebar from './user sidebar/UserSideBar';
-import Cookies from 'js-cookie';
 
 function UserLayout({ children }: any) {
   const location = useLocation();
