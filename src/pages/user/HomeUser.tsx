@@ -15,7 +15,7 @@ const HomeUser: React.FC = () => {
   return (
     <>
       <h1 className="px-6 py-4 text-2xl font-sans font-semibold">
-        Frequently Asked Questions
+        Populer Topic Asked
       </h1>
       <HomeUserCard
         addButtonText={''}

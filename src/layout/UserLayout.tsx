@@ -7,10 +7,11 @@ function UserLayout({ children }: any) {
 
   const sidebarPaths = [
     '/category',
-    '/faq',
-    'faq/home',
+    // '/faq',
+    '/faq/home',
     '/faq/category',
     '/dashboard',
+    '/leavemanagement/faq',
   ];
 
   const hiddenSidebarPaths = ['/admin'];

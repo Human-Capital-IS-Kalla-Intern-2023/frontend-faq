@@ -87,7 +87,12 @@ const Sidebar = () => {
     {
       name: 'Category',
       icon: <CategoryIcon className="min-w-max" />,
-      menus: ['ICT', 'Holding', 'HCBP', 'Accounting', 'Management'],
+      menus: [
+        'Leave Management',
+        'Work Schedule',
+        'Dress Code',
+        'Employee Feedback',
+      ],
     },
   ];
 
@@ -131,12 +136,12 @@ const Sidebar = () => {
             <ul className="whitespace-pre px-2.5 text-[0.9rem] py-5 flex flex-col gap-1 font-medium overflow-x-hidden scrollbar-thin scrollbar-track-white scrollbar-thumb-slate-100 md:h-[68%] h-[70%] rounded-md">
               <li
                 className={`px-1 py-2 mb-1 rounded-md text-base   ${
-                  pathname.includes('/dashboard')
+                  pathname.includes('/faq')
                     ? 'bg-primary text-white '
                     : 'hover:bg-primary hover:text-white'
                 }`}
               >
-                <NavLink to={'/dashboard'} className="flex items-center">
+                <NavLink to={'/faq'} className="flex items-center">
                   <DashboardIcon className="min-w-max" />
                   <motion.span
                     variants={textAnimation}
@@ -168,7 +173,7 @@ const Sidebar = () => {
 
               <li className=" border-slate-300">
                 {(open || isTabletMid) && (
-                  <div className="py-5 border-y border-slate-300 s">
+                  <div className="py-5 border-y border-slate-300 ">
                     {subMenusList?.map((menu: any) => (
                       <div
                         key={menu.name}

@@ -114,9 +114,6 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({
         </div>
       </div>
 
-      {/* Topik Populer */}
-      <div className="px-6 py-5 text-lg">Topik Populer</div>
-
       {/* Grid 8 item dibagi menjadi 4 kolom */}
       <div className="grid grid-cols-4 items-center justify-center w-full min-h-full pt-2 p-6 gap-4 gap-y-16">
         <div className="flex flex-row flex-wrap items-center justify-center w-full  px-9 py-3 lg:p-2 pt-4 bg-white rounded-md shadow-lg overflow-hidden whitespace-nowrap">
