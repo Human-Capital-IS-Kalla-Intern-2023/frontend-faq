@@ -1,22 +1,26 @@
 // Import Library And
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ReactLoading from 'react-loading';
+import Select from 'react-select';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
-import { getCategoryAdmin } from '../../../api/admin/CategoryAdminAPI';
-import JoditEditor from 'jodit-react';
-import Select from 'react-select';
+import 'react-quill/dist/quill.snow.css';
+import ReactQuill from 'react-quill';
 
+// Import Component Component
+import QuillToolbar from '../../../components/editor/QuillToolbar';
+import { modules, formats } from '../../../components/editor/QuillConfig';
 import {
   ErrorAlert,
   SuccessAlert,
   ConfirmationAlert,
 } from '../../../components/alerts/CustomAlert';
-
 import { ResetAlert } from '../../../helpers/ResetAlert';
 
+// Import API's
 import { addFaqAdmin } from '../../../api/admin/FaqAdminAPI';
+import { getCategoryAdmin } from '../../../api/admin/CategoryAdminAPI';
 
 interface FieldOptions {
   label: string;
@@ -24,49 +28,33 @@ interface FieldOptions {
 }
 
 const AddFaqAdmin = () => {
-  const [companyDropdownValue, setCompanyDropdownValue] = useState<
+  const [categoryDropdownValue, setCategoryDropdownValue] = useState<
     number | string
   >('');
 
   const [faqAdminNameValue, setFaqAdminNameValue] = useState('');
 
-  const [companyOptions, setCompanyOptions] = useState<Array<FieldOptions>>([]);
-  // const [masterComponentOptions, setMasterComponentOptions] = useState<
-  //   Array<FieldOptions>
-  // >([]);
-
+  const [categoryOptions, setCategoryOptions] = useState<Array<FieldOptions>>(
+    []
+  );
   const [isLoading, setIsLoading] = useState(false);
 
   const [formData, setFormData] = useState<{
-    company_id: string | number;
+    category_id: string | number;
     faq_name: string;
     is_active: number;
-    components: {
-      component_id: number;
-      order: number;
-      component_name: string;
-      type: string;
-      is_hide: number;
-      is_edit: number;
-      is_active: number;
-    }[];
+    content: any;
   }>({
-    company_id: '',
+    category_id: '',
     faq_name: '',
     is_active: 1,
-    components: [],
+    content: '',
   });
 
   // Alert State
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [successTitle, setSuccessTitle] = useState<string | null>(null);
 
-  // const [successConfirmMessage, setSuccessConfirmMessage] = useState<
-  //   string | null
-  // >(null);
-  // const [successConfirmTitle, setSuccessConfirmTitle] = useState<string | null>(
-  //   null
-  // );
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [errorTitle, setErrorTitle] = useState<string | null>(null);
 
@@ -80,36 +68,21 @@ const AddFaqAdmin = () => {
     localStorage.setItem('faqAdminAddData', JSON.stringify(data));
   };
 
-  ///* FEATCH SECTION
-  async function fetchCompanyData() {
+  ///* FEATCH Category
+  async function featchCategory() {
     try {
       const responseData = await getCategoryAdmin();
-      const companyOptions = responseData.data.map((item: any) => ({
-        label: item.company_name,
+      const categoryOptions = responseData.data.map((item: any) => ({
+        label: item.category_name,
         value: item.id,
       }));
-      setCompanyOptions(companyOptions);
+      setCategoryOptions(categoryOptions);
     } catch (error) {
       console.error('Error fetching companies:', error);
     }
   }
 
-  // async function fetchMasterComponent() {
-  //   try {
-  //     const responseData = await getMasterSalary();
-  //     const masterComponentOptions = responseData.data.map((item: any) => ({
-  //       label: item.component_name,
-  //       value: item.id,
-  //     }));
-
-  //     setMasterComponentOptions(masterComponentOptions);
-  //   } catch (error) {
-  //     console.error('Error fetching companies:', error);
-  //   }
-  // }
-
   ///* NAVBAR SECTION
-
   // Handler Cancel Navbar Button
   const cancelHandler = async () => {
     localStorage.removeItem('faqAdminAddData');
@@ -153,15 +126,15 @@ const AddFaqAdmin = () => {
   };
 
   ///* LEFT CARD SECTION
-  // Handle Company Name
-  const handleCompanyChange = (e: any) => {
-    const selectedCompany = e.target.value;
-    const companyId = parseInt(selectedCompany, 10);
-    setFormData({ ...formData, company_id: selectedCompany });
-    setCompanyDropdownValue(companyId);
+  // Handle handle Category Select
+  const handleCategorySelect = (e: any) => {
+    const selectedCategory = e.target.value;
+    const categoryId = parseInt(selectedCategory, 10);
+    setFormData({ ...formData, category_id: selectedCategory });
+    setCategoryDropdownValue(categoryId);
 
     // Save data to local storage
-    const newData = { ...formData, company_id: companyId };
+    const newData = { ...formData, category_id: categoryId };
     saveDataToLocalStorage(newData);
   };
 
@@ -194,26 +167,21 @@ const AddFaqAdmin = () => {
   };
 
   ///* RIGHT CARD SECTION
+  const [blogContent, setBlogContent] = useState('');
 
-  ///* MODAL COMPONENT SECTION
-  // Handle Master Component
-  // const handleMasterComponentChange = async (e: any) => {
-  //   const selectedComponentId = e.target.value;
+  const handleBlogContentChange = (content: any) => {
+    setBlogContent(content);
 
-  //   const responseData = await getDetailMasterSalary(selectedComponentId);
-  //   const masterComponentName = responseData.data.component_name;
+    // Update the formData and save to local storage
+    const updatedFormData = {
+      ...formData,
+      content: content,
+    };
 
-  //   setComponentDropdownValue({
-  //     id: selectedComponentId,
-  //     name: masterComponentName || '',
-  //   });
-  // };
-
-  // Handle New Component Name
-  // const handleNewComponentNameInput = (e: any) => {
-  //   setNewComponentNameValue(e.target.value);
-  // };
-
+    // Save data to local storage
+    setFormData(updatedFormData);
+    saveDataToLocalStorage(updatedFormData);
+  };
   //* USE EFFECT SECTION
   useEffect(() => {
     const savedData = localStorage.getItem('faqAdminAddData');
@@ -221,7 +189,7 @@ const AddFaqAdmin = () => {
       const parsedData = JSON.parse(savedData);
       // Update your component state with the loaded data
       setFormData(parsedData);
-      setCompanyDropdownValue(parsedData.company_id);
+      setCategoryDropdownValue(parsedData.category_id);
       setFaqAdminNameValue(parsedData.faq_name);
 
       setLeftActiveCheckbox(parsedData.is_active === 1);
@@ -229,44 +197,9 @@ const AddFaqAdmin = () => {
   }, []);
 
   useEffect(() => {
-    fetchCompanyData();
-    // fetchMasterComponent();
-
-    // async function fetchTypeOptions() {
-    //   try {
-    //     if (componentDropdownValue.id) {
-    //       const responseData = await getDetailMasterSalary(
-    //         componentDropdownValue.id
-    //       );
-
-    //       setTypeMasterComponentOptoins(responseData.data.type);
-    //     }
-    //   } catch (error) {
-    //     console.error('Error fetching types:', error);
-    //   }
-    // }
-    // fetchTypeOptions();
+    featchCategory();
   }, []);
 
-  const componentsByType: { [key: string]: any[] } = {};
-  formData.components.forEach((component) => {
-    const type = component.type;
-    if (!componentsByType[type]) {
-      componentsByType[type] = [];
-    }
-    componentsByType[type].push(component);
-  });
-
-  const editor = useRef(null);
-  const [content, setContent] = useState('');
-
-  // const config = useMemo(
-  //   {
-  //     readonly: false, // all options from https://xdsoft.net/jodit/docs/,
-  //     placeholder: 'Start typings...',
-  //   },
-  //   []
-  // );
   return (
     <>
       {isLoading && (
@@ -280,7 +213,7 @@ const AddFaqAdmin = () => {
         <h1 className="p-2 text-base font-medium border-b-2 sm:text-lg md:text-xl lg:text-[22px] border-primary">
           Add Frequently Asked Questions
         </h1>
-        <div className="flex text-xs font-medium sm:flex-row lg:text-sm ">
+        <div className="lg:flex md:flex text-xs font-medium hidden lg:text-sm">
           <button
             aria-label="Cancel"
             className="px-1 py-2 mr-2 duration-300 bg-transparent  rounded-md lg:text-lg text-pureBlack lg:px-4 lg:py-2 lg:mr-4 bg-stone-300 hover:text-pureBlack hover:bg-slate-400 lg:hover:scale-[1.03] "
@@ -300,27 +233,27 @@ const AddFaqAdmin = () => {
 
       {/* Left Card Design  */}
       <div className="flex flex-col m-4 sm:flex-row">
-        <div className="w-full mb-4 bg-gray-100 shadow-2xl sm:w-1/4 sm:mb-0">
+        <div className="w-full mb-4 bg-gray-100 shadow-2xl sm:w-[20%] sm:mb-0">
           <div className="mb-4">
             <h1 className="py-4 pl-4 shadow-lg sm:text-sm lg:text-[18px] uppercase border-gray bg-slate-300 rounded-t-md">
               Property
             </h1>
             <div className="p-4">
               <label
-                htmlFor="dropdown company"
+                htmlFor="dropdown category"
                 className="block mt-3 font-medium text-gray-700"
               >
                 Category *
               </label>
               <Select
-                id="dropdown company"
-                name="dropdown company"
-                value={companyOptions.find(
-                  (option) => option.value === companyDropdownValue
+                id="dropdown category"
+                name="dropdown category"
+                value={categoryOptions.find(
+                  (option) => option.value === categoryDropdownValue
                 )}
                 isMulti
                 onChange={(selectedOption: any) =>
-                  handleCompanyChange(selectedOption.value)
+                  handleCategorySelect(selectedOption.value)
                 }
                 styles={{
                   control: (provided) => ({
@@ -330,7 +263,7 @@ const AddFaqAdmin = () => {
                     boxShadow: 'none',
                   }),
                 }}
-                options={companyOptions}
+                options={categoryOptions}
                 className="mt-1"
               />
 
@@ -372,16 +305,37 @@ const AddFaqAdmin = () => {
         </div>
 
         {/* Right Card Design  */}
-        <div className="w-full ml-0 overflow-auto rounded-md shadow-2xl sm:w-3/4 sm:ml-10">
+        <div className="w-full ml-0 overflow-auto rounded-md shadow-2xl sm:w-[80%] sm:ml-10">
           <h1 className="flex py-4 pl-4 shadow-lg sm:text-sm lg:text-[18px] border-gray bg-slate-300 rounded-t-md">
             CONTENT
           </h1>
-          <JoditEditor
-            ref={editor}
-            value={content}
-            onChange={(newContent) => setContent(newContent)}
+          <QuillToolbar />
+          <ReactQuill
+            theme="snow"
+            value={blogContent}
+            onChange={handleBlogContentChange}
+            placeholder={'Write Blog Content Here....'}
+            modules={modules}
+            formats={formats}
           />
         </div>
+      </div>
+
+      <div className="flex md:hidden text-xs justify-end mx-4 font-medium lg:text-sm my-3">
+        <button
+          aria-label="Cancel"
+          className="px-1 py-2 mr-2 duration-300 bg-transparent rounded-md lg:text-lg text-pureBlack lg:px-4 lg:py-2 lg:mr-4 bg-stone-300 hover:text-pureBlack hover:bg-slate-400 lg:hover:scale-[1.03] "
+          onClick={cancelHandler}
+        >
+          CANCEL
+        </button>
+        <button
+          aria-label="Save and Close"
+          className="px-1 py-2 text-white duration-300 rounded-md lg:text-[17px] lg:px-4 lg:py-2 bg-primary hover:bg-green-600 lg:hover:scale-[1.03]"
+          onClick={handleSaveAndClose}
+        >
+          SAVE & CLOSE
+        </button>
       </div>
 
       {successMessage && successTitle && (
