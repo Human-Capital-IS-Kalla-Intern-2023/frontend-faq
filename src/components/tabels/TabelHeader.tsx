@@ -95,7 +95,6 @@ const TabelHeader: React.FC<TabelHeaderProps> = ({
 
     if (location.pathname.endsWith('/add') && !onNavigate) {
       setModalOpen(true);
-      console.log('first');
     }
     const handleEscapeKey = (event: any) => {
       if (event.key === 'Escape') {
