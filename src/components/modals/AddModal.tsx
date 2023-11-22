@@ -1,10 +1,15 @@
 // Library & Package Import
 import { useState, useEffect, useRef } from 'react';
 import ReactLoading from 'react-loading';
-import Select from 'react-select';
 
 // Import Assets
 import { CloseButtonIcon } from '../../assets/icons/icon';
+
+// Import Components
+import CheckboxField from '../field/CheckboxField';
+import InputField from '../field/InputField';
+import SelectField from '../field/SelectField';
+import TextAreaField from '../field/TextAreaField';
 
 // Interface
 interface FormData {
@@ -25,6 +30,7 @@ const AddModal = ({ isOpen, onClose, title, inputFields, onSubmit }: any) => {
   const selectRef = useRef<HTMLSelectElement | null>(null);
   const [inputField] = useState(inputFields);
 
+  console.log(formData);
   const handleChange = (e: any) => {
     const { name, value, type, checked } = e.target;
 
@@ -71,10 +77,9 @@ const AddModal = ({ isOpen, onClose, title, inputFields, onSubmit }: any) => {
 
   useEffect(() => {
     if (isOpen) {
-      if (firstInputRef.current) {
-        firstInputRef.current.focus();
-      } else if (selectRef.current) {
-        selectRef.current.focus();
+      const focusTarget = firstInputRef.current || selectRef.current;
+      if (focusTarget) {
+        focusTarget.focus();
       }
     }
   }, [isOpen]);
@@ -98,19 +103,18 @@ const AddModal = ({ isOpen, onClose, title, inputFields, onSubmit }: any) => {
             </span>
             <div className="absolute top-1/2 text-black bg-black left-0 transform -translate-y-1/2 w-full h-0.5 bg-primaryColor z-0"></div>
           </div>
-          <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-6 mt-8">
+          <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4 mt-8">
             {inputField.map((field: any, index: number) => (
               <div
                 key={field.id}
-                className={
-                  inputField.length === 1
-                    ? 'col-span-2'
-                    : inputField.length === 2
-                    ? 'col-span-2'
-                    : index === 0 && inputField.length >= 3
+                className={`${
+                  inputField.length === 1 ||
+                  inputField.length === 2 ||
+                  field.id === 'topic_description' ||
+                  (index === 0 && inputField.length >= 3)
                     ? 'col-span-2'
                     : ''
-                }
+                }`}
               >
                 <label
                   className="flex justify-start mb-2 font-medium"
@@ -118,79 +122,47 @@ const AddModal = ({ isOpen, onClose, title, inputFields, onSubmit }: any) => {
                 >
                   {field.label}
                 </label>
-                {field.type === 'select' ? (
-                  field.isMulti ? (
-                    <Select
-                      id={field.id}
-                      name={field.name}
-                      isMulti
-                      className="w-full"
-                      options={field.options}
-                      onChange={(selectedOptions) =>
-                        handleChange({
-                          target: { name: field.name, value: selectedOptions },
-                        })
-                      }
-                      styles={{
-                        control: (provided) => ({
-                          ...provided,
-                          border: '1px solid black',
-                          outline: 'none',
-                          boxShadow: 'none',
-                        }),
-                      }}
-                    />
-                  ) : (
-                    <Select
-                      id={field.id}
-                      name={field.name}
-                      className="w-full capitalize "
-                      styles={{
-                        control: (provided) => ({
-                          ...provided,
-                          border: '1px solid black',
-                          outline: 'none',
-                          boxShadow: 'none',
-                        }),
-                      }}
-                      options={field.options}
-                      onChange={(selectedOptions) =>
-                        handleChange({
-                          target: { name: field.name, value: selectedOptions },
-                        })
-                      }
-                    />
-                  )
-                ) : field.type === 'checkbox' ? (
-                  <label
-                    className={`relative inline-flex items-center cursor-pointer mt-2`}
-                  >
-                    <input
-                      type="checkbox"
-                      id={field.id}
-                      name={field.name}
-                      onChange={handleChange}
-                      ref={index === 0 ? firstInputRef : null}
-                      defaultChecked={
-                        formData[field.name as keyof FormData] === 1
-                      }
-                      className="sr-only peer"
-                    />
-                    <div
-                      className={`w-11 h-6 bg-red-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-white dark:peer-focus:ring-gray-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600`}
-                    ></div>
-                  </label>
-                ) : (
-                  <input
-                    type={field.type || 'text'}
+
+                {field.type === 'select' && (
+                  <SelectField
+                    id={field.id}
+                    name={field.name}
+                    isMulti={field.isMulti}
+                    options={field.options}
+                    onChange={handleChange}
+                  />
+                )}
+
+                {field.type === 'checkbox' && (
+                  <CheckboxField
+                    id={field.id}
+                    name={field.name}
+                    checked={formData[field.name as keyof FormData] === 1}
+                    onChange={handleChange}
+                  />
+                )}
+
+                {(field.type === 'text-area' || field.type === 'textarea') && (
+                  <TextAreaField
                     id={field.id}
                     name={field.name}
                     placeholder={`Input ${field.label}`}
-                    className="w-full px-3 py-2 border rounded"
                     onChange={handleChange}
-                    ref={index === 0 ? firstInputRef : null}
                   />
                 )}
+
+                {field.type !== 'select' &&
+                  field.type !== 'checkbox' &&
+                  field.type !== 'text-area' &&
+                  field.type !== 'textarea' && (
+                    <InputField
+                      id={field.id}
+                      name={field.name}
+                      type={field.type}
+                      placeholder={`Input ${field.label}`}
+                      onChange={handleChange}
+                    />
+                  )}
               </div>
             ))}
 
