@@ -3,7 +3,8 @@ import React from 'react';
 interface CheckboxFieldProps {
   id: string;
   name: string;
-  checked: boolean;
+  checked?: boolean;
+  defaultCheck?: any;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -11,6 +12,7 @@ const CheckboxField: React.FC<CheckboxFieldProps> = ({
   id,
   name,
   checked,
+  defaultCheck,
   onChange,
 }) => (
   <label className={`relative inline-flex items-center cursor-pointer mt-2`}>
@@ -19,7 +21,8 @@ const CheckboxField: React.FC<CheckboxFieldProps> = ({
       id={id}
       name={name}
       onChange={onChange}
-      defaultChecked={checked}
+      defaultChecked={defaultCheck}
+      checked={checked}
       className="sr-only peer"
     />
     <div
