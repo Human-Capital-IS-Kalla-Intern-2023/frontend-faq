@@ -2,7 +2,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ReactLoading from 'react-loading';
-import Select from 'react-select';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import 'react-quill/dist/quill.snow.css';
@@ -17,10 +16,13 @@ import {
   ConfirmationAlert,
 } from '../../../components/alerts/CustomAlert';
 import { ResetAlert } from '../../../helpers/ResetAlert';
+import CancelButton from '../../../components/buttons/CancelButton';
+import { SubmitButton } from '../../../components/buttons/SubmitButton';
 
 // Import API's
 import { addFaqAdmin } from '../../../api/admin/FaqAdminAPI';
 import { getCategoryAdmin } from '../../../api/admin/CategoryAdminAPI';
+import SelectField from '../../../components/field/SelectField';
 
 interface FieldOptions {
   label: string;
@@ -28,10 +30,6 @@ interface FieldOptions {
 }
 
 const AddFaqAdmin = () => {
-  const [categoryDropdownValue, setCategoryDropdownValue] = useState<
-    number | string
-  >('');
-
   const [faqAdminNameValue, setFaqAdminNameValue] = useState('');
 
   const [categoryOptions, setCategoryOptions] = useState<Array<FieldOptions>>(
@@ -40,12 +38,12 @@ const AddFaqAdmin = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const [formData, setFormData] = useState<{
-    category_id: string | number;
+    topic_id: number[];
     faq_name: string;
     is_active: number;
     content: any;
   }>({
-    category_id: '',
+    topic_id: [], // Initialize as an empty array
     faq_name: '',
     is_active: 1,
     content: '',
@@ -74,7 +72,7 @@ const AddFaqAdmin = () => {
       const responseData = await getCategoryAdmin();
       const categoryOptions = responseData.data.map((item: any) => ({
         label: item.topic_name,
-        value: item.id,
+        value: item.topic_id,
       }));
       setCategoryOptions(categoryOptions);
     } catch (error) {
@@ -128,13 +126,14 @@ const AddFaqAdmin = () => {
   ///* LEFT CARD SECTION
   // Handle handle Category Select
   const handleCategorySelect = (e: any) => {
-    const selectedCategory = e.target.value;
-    const categoryId = parseInt(selectedCategory, 10);
-    setFormData({ ...formData, category_id: selectedCategory });
-    setCategoryDropdownValue(categoryId);
+    const selectedOptions = e.target.value;
+    const selectedValues = selectedOptions.map((option: any) => option.value);
+
+    // Update formData with an array of category IDs
+    setFormData({ ...formData, topic_id: selectedValues });
 
     // Save data to local storage
-    const newData = { ...formData, category_id: categoryId };
+    const newData = { ...formData, topic_id: selectedValues };
     saveDataToLocalStorage(newData);
   };
 
@@ -189,7 +188,6 @@ const AddFaqAdmin = () => {
       const parsedData = JSON.parse(savedData);
       // Update your component state with the loaded data
       setFormData(parsedData);
-      setCategoryDropdownValue(parsedData.category_id);
       setFaqAdminNameValue(parsedData.faq_name);
 
       setLeftActiveCheckbox(parsedData.is_active === 1);
@@ -214,20 +212,8 @@ const AddFaqAdmin = () => {
           Add Frequently Asked Questions
         </h1>
         <div className="hidden text-xs font-medium lg:flex md:flex lg:text-sm">
-          <button
-            aria-label="Cancel"
-            className="px-1 py-2 mr-2 duration-300 bg-transparent  rounded-md lg:text-lg text-pureBlack lg:px-4 lg:py-2 lg:mr-4 bg-stone-300 hover:text-pureBlack hover:bg-slate-400 lg:hover:scale-[1.03] "
-            onClick={cancelHandler}
-          >
-            CANCEL
-          </button>
-          <button
-            aria-label="Save and Close"
-            className="px-1 py-2 text-white duration-300 rounded-md lg:text-[17px] lg:px-4 lg:py-2 bg-primary hover:bg-green-600 lg:hover:scale-[1.03]"
-            onClick={handleSaveAndClose}
-          >
-            SAVE & CLOSE
-          </button>
+          <CancelButton onClick={cancelHandler} />
+          <SubmitButton onClick={handleSaveAndClose} title="SAVE & ClOSE" />
         </div>
       </header>
 
@@ -245,26 +231,14 @@ const AddFaqAdmin = () => {
               >
                 Category *
               </label>
-              <Select
+              <SelectField
                 id="dropdown category"
                 name="dropdown category"
-                value={categoryOptions.find(
-                  (option) => option.value === categoryDropdownValue
-                )}
                 isMulti
+                options={categoryOptions}
                 onChange={(selectedOption: any) =>
                   handleCategorySelect(selectedOption)
                 }
-                styles={{
-                  control: (provided) => ({
-                    ...provided,
-                    border: '1px solid black',
-                    outline: 'none',
-                    boxShadow: 'none',
-                  }),
-                }}
-                options={categoryOptions}
-                className="mt-1"
               />
 
               <div className="mt-4 mb-4">
@@ -322,20 +296,8 @@ const AddFaqAdmin = () => {
       </div>
 
       <div className="flex justify-end mx-4 my-3 text-xs font-medium md:hidden lg:text-sm">
-        <button
-          aria-label="Cancel"
-          className="px-1 py-2 mr-2 duration-300 bg-transparent rounded-md lg:text-lg text-pureBlack lg:px-4 lg:py-2 lg:mr-4 bg-stone-300 hover:text-pureBlack hover:bg-slate-400 lg:hover:scale-[1.03] "
-          onClick={cancelHandler}
-        >
-          CANCEL
-        </button>
-        <button
-          aria-label="Save and Close"
-          className="px-1 py-2 text-white duration-300 rounded-md lg:text-[17px] lg:px-4 lg:py-2 bg-primary hover:bg-green-600 lg:hover:scale-[1.03]"
-          onClick={handleSaveAndClose}
-        >
-          SAVE & CLOSE
-        </button>
+        <CancelButton onClick={cancelHandler} />
+        <SubmitButton onClick={handleSaveAndClose} title="SAVE & ClOSE" />
       </div>
 
       {successMessage && successTitle && (
