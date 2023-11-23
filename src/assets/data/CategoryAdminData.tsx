@@ -27,7 +27,7 @@ const inputField = [
     id: topicEnum.TOPIC_DESCRIPTION,
     label: 'description ',
     name: topicEnum.TOPIC_DESCRIPTION,
-    type: 'text-area',
+    type: 'textarea',
   },
   {
     id: topicEnum.TOPIC_IMAGE,
