@@ -5,17 +5,17 @@ import TokenHelper from '../../helpers/TokenHelpers';
 // GET CategoryAdmin
 const getCategoryAdmin = async () => {
   try {
-    const token = TokenHelper();
+    // const token = TokenHelper();
 
-    const headerToken = {
-      Authorization: `Bearer ${token}`,
-    };
+    // const headerToken = {
+    //   Authorization: `Bearer ${token}`,
+    // };
 
     const responseGetCategoryAdmin = await RequestApi(
       'GET',
-      'category-admin',
+      'faq/topics',
       {},
-      headerToken,
+      {},
       'Mengambil category admin'
     );
 
@@ -40,7 +40,7 @@ const getDetailCategoryAdmin = async (id: any) => {
 
     const reponseGetDetailCategoryAdmin = await RequestApi(
       'GET',
-      `category-admin/${id}`,
+      `faq/topics/${id}`,
       {},
       headerToken,
       'Mengambil detail category admin'
@@ -67,7 +67,7 @@ const addCategoryAdmin = async (formData: any) => {
 
     const reponseAddCategoryAdmin = await RequestApi(
       'POST',
-      'category-admin',
+      'faq/topics',
       formData,
       headerToken,
       'Membuat category admin'
@@ -91,7 +91,7 @@ const updateCategoryAdmin = async (id: any, CategoryAdminData: any) => {
 
     const reponseUpdateCategoryAdmin = await RequestApi(
       'PUT',
-      `category-admin/${id}`,
+      `faq/topics/${id}`,
       CategoryAdminData,
       headerToken,
       'Memperbarui category admin'
@@ -115,7 +115,7 @@ const deleteCategoryAdmin = async (id: any) => {
 
     const reponseDeleteCategoryAdmin = await RequestApi(
       'DELETE',
-      `category-admin/${id}`,
+      `faq/topics/${id}`,
       null,
       headerToken,
       'Menghapus category admin'
@@ -131,23 +131,23 @@ const deleteCategoryAdmin = async (id: any) => {
 // Search CategoryAdmin
 const searchCategoryAdmin = async (searchInput: any) => {
   try {
-    const token = TokenHelper();
+    // const token = TokenHelper();
 
-    const headerToken = {
-      Authorization: `Bearer ${token}`,
-    };
+    // const headerToken = {
+    //   Authorization: `Bearer ${token}`,
+    // };
 
     const responseSearchCategoryAdmin = await RequestApi(
       'GET',
-      `category-admin?search=${searchInput}`,
+      `faq/topics?search=${searchInput}`,
       null,
-      headerToken,
+      {},
       'Mencari categoryAdmin'
     );
 
     return responseSearchCategoryAdmin;
   } catch (error) {
-    console.error('Kesalahan saat mencari categoryAdmin:', error);
+    console.error('Kesalahan saat mencari category admin:', error);
     throw error;
   }
 };

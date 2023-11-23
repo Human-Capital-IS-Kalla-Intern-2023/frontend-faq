@@ -13,7 +13,7 @@ import { ResetAlert } from '../../helpers/ResetAlert';
 
 // Import API
 import {
-  // getCategoryAdmin,
+  getCategoryAdmin,
   getDetailCategoryAdmin,
   addCategoryAdmin,
   updateCategoryAdmin,
@@ -21,39 +21,6 @@ import {
   searchCategoryAdmin,
   changeIsActiveCategoryAdmin,
 } from '../../api/admin/CategoryAdminAPI';
-
-const categoryAdmin = [
-  {
-    id: 1,
-    category_name: 'Electronics',
-    total_used: 25,
-    is_active: true,
-  },
-  {
-    id: 2,
-    category_name: 'Clothing',
-    total_used: 18,
-    is_active: false,
-  },
-  {
-    id: 3,
-    category_name: 'Books',
-    total_used: 30,
-    is_active: true,
-  },
-  {
-    id: 4,
-    category_name: 'Home Decor',
-    total_used: 15,
-    is_active: true,
-  },
-  {
-    id: 5,
-    category_name: 'Sports',
-    total_used: 22,
-    is_active: false,
-  },
-];
 
 import {
   colCells,
@@ -69,7 +36,7 @@ const CategoryAdmin: React.FC = () => {
   const [errorTitle, setErrorTitle] = useState<string | null>(null);
 
   // CategoryAdmin State
-  // const [categoryAdmin, setCategoryAdmin] = useState<string[]>([]);
+  const [categoryAdmin, setCategoryAdmin] = useState<string[]>([]);
   const [detailedData, setDetailedData] = useState<string | null>(null);
 
   // Loading
@@ -99,27 +66,27 @@ const CategoryAdmin: React.FC = () => {
   );
 
   // GET all categoryAdmin data
-  // const fetchCategoryAdmin = async () => {
-  //   setIsLoading(true);
+  const fetchCategoryAdmin = async () => {
+    setIsLoading(true);
 
-  //   try {
-  //     const reponseData = await getCategoryAdmin();
-  //     setCategoryAdmin(reponseData.data);
-  //   } catch (error: any) {
-  //     console.error('Error fetch all category admin:', error);
-  //     setErrorTitle(`Error fetch all category admin`);
+    try {
+      const reponseData = await getCategoryAdmin();
+      setCategoryAdmin(reponseData.data);
+    } catch (error: any) {
+      console.error('Error fetch all category admin:', error);
+      setErrorTitle(`Error fetch all category admin`);
 
-  //     setErrorMessage(error.response.data.message);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  //   ResetAlert(
-  //     setSuccessTitle,
-  //     setSuccessMessage,
-  //     setErrorTitle,
-  //     setErrorMessage
-  //   );
-  // };
+      setErrorMessage(error.response.data.message);
+    } finally {
+      setIsLoading(false);
+    }
+    ResetAlert(
+      setSuccessTitle,
+      setSuccessMessage,
+      setErrorTitle,
+      setErrorMessage
+    );
+  };
 
   // GET detail categoryAdmin data by id
   const fetchDetailCategoryAdmin = async (id: number) => {
@@ -151,7 +118,7 @@ const CategoryAdmin: React.FC = () => {
       setSuccessTitle(`${responseData.status}`);
       setSuccessMessage(`${responseData.message}`);
 
-      // fetchCategoryAdmin();
+      fetchCategoryAdmin();
     } catch (error: any) {
       console.error('Error adding categoryAdmin:', error);
       setErrorTitle(`Error adding categoryAdmin`);
@@ -197,7 +164,7 @@ const CategoryAdmin: React.FC = () => {
       const responseData = await deleteCategoryAdmin(id);
       setSuccessTitle(`${responseData.status}`);
       setSuccessMessage(`${responseData.message}`);
-      // fetchCategoryAdmin();
+      fetchCategoryAdmin();
     } catch (error: any) {
       console.error('Error deleting categoryAdmin:', error);
       setErrorTitle(`Error deleting categoryAdmin`);
@@ -249,7 +216,7 @@ const CategoryAdmin: React.FC = () => {
   ) => {
     try {
       await changeIsActiveCategoryAdmin(idIsActive, newIsActive);
-      // fetchCategoryAdmin();
+      fetchCategoryAdmin();
     } catch (error: any) {
       console.error('Error change is active category admin:', error);
       const errorMessages = Object.values(error.response.data.errors).flat();
@@ -265,7 +232,7 @@ const CategoryAdmin: React.FC = () => {
 
   useEffect(() => {
     getIconList();
-    // fetchCategoryAdmin();
+    fetchCategoryAdmin();
   }, []);
 
   return (

@@ -5,17 +5,17 @@ import TokenHelper from '../../helpers/TokenHelpers';
 // GET FaqAdmin
 const getFaqAdmin = async () => {
   try {
-    const token = TokenHelper();
+    // const token = TokenHelper();
 
-    const headerToken = {
-      Authorization: `Bearer ${token}`,
-    };
+    // const headerToken = {
+    //   Authorization: `Bearer ${token}`,
+    // };
 
     const responseGetFaqAdmin = await RequestApi(
       'GET',
-      'category-admin',
+      'faq/questions',
       {},
-      headerToken,
+      {},
       'Mengambil faq admin'
     );
 

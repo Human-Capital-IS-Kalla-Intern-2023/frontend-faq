@@ -1,30 +1,30 @@
 // Import API
 const colCells = [
-  { key: 'faq_name', text: 'Faq Name' },
-  { key: 'category_name', text: 'Category' },
-  { key: 'likes', text: 'Likes' },
-  { key: 'dislikes', text: 'Dislike' },
-  { key: 'is_active', text: 'Active' },
+  { key: 'question_name', text: 'Faq Name' },
+  { key: 'topic_name', text: 'Topic' },
+  { key: 'question_likes', text: 'Likes' },
+  { key: 'question_dislikes', text: 'Dislike' },
+  { key: 'question_is_status', text: 'Active' },
 ];
 
 const inputField = [
   {
-    id: 'faq_name',
+    id: 'question_name',
     label: 'Faq Name',
-    name: 'faq_name',
+    name: 'question_name',
     type: 'text',
   },
   {
-    id: 'category_name',
+    id: 'topic_name',
     label: 'Category Name',
-    name: 'category_name',
+    name: 'topic_name',
     type: 'text',
   },
 
   {
-    id: 'is_active',
+    id: 'question_is_status',
     label: 'Active',
-    name: 'is_active',
+    name: 'question_is_status',
     type: 'checkbox',
     checked: 1,
   },

@@ -2,7 +2,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-
 // Import Components
 import EditModal from '../modals/EditModal.tsx';
 import DeleteModal from '../modals/DeleteModal.tsx';
@@ -176,7 +175,7 @@ const TabelBody: React.FC<TabelBodyProps> = ({
   };
 
   const truncateText = (text: string, maxLength: number) => {
-    return text.length > maxLength
+    return text?.length > maxLength
       ? text.substring(0, maxLength) + '...'
       : text;
   };
@@ -194,38 +193,24 @@ const TabelBody: React.FC<TabelBodyProps> = ({
     cell: TableCell,
     customCell: Record<string, any>
   ) => {
-    // Check if the cell key is "type" and if the value is "fixed pay" or "deductions"
-    if (
-      cell.key === 'type' &&
-      (customCell.type === 'fixed pay' || customCell.type === 'deductions')
-    ) {
-      const bgColorClass =
-        customCell.type === 'fixed pay' ? 'bg-blue-300' : 'bg-red-300';
+    if (cell.key === 'topic_image') {
       return (
-        <span className={`px-4 py-2 rounded-full ${bgColorClass}`}>
-          {customCell.type}
-        </span>
-      );
-    }
-    if (['is_hide', 'is_edit'].includes(cell.key)) {
-      const bgColorClass =
-        customCell[cell.key] === 1 ? 'bg-green-300' : 'bg-red-300';
-      const textContent = customCell[cell.key] === 1 ? 'Yes' : 'No';
-      return (
-        <span className={`px-4 py-2 rounded-full ${bgColorClass}`}>
-          {textContent}
-        </span>
+        <img
+          src={customCell.image}
+          alt={`Image for ${customCell.image}`}
+          className="object-cover w-16 h-8 rounded"
+        />
       );
     }
 
-    if (cell.key === 'is_active') {
+    if (cell.key === 'topic_is_status' || cell.key === 'question_is_status') {
       return (
         <label className="relative inline-flex items-center cursor-pointer">
           <input
             type="checkbox"
             value=""
             className="sr-only peer"
-            // defaultChecked={customCell[cell.key] === 1}
+            defaultChecked={customCell[cell.key] === 1}
             onChange={async () => {
               const newValue = customCell[cell.key] === 1 ? 0 : 1;
               try {
@@ -233,7 +218,7 @@ const TabelBody: React.FC<TabelBodyProps> = ({
                   await changeIsActive(customCell.id, newValue);
                 }
               } catch (error) {
-                console.error('Error changing is_active:', error);
+                console.error('Error changing topic_is_status:', error);
               }
             }}
           />
@@ -247,9 +232,11 @@ const TabelBody: React.FC<TabelBodyProps> = ({
 
     if (cell.key === 'location[0].location_name') {
       return customCell.location[0].location_name;
-    } else if (['category_name'].includes(cell.key)) {
-      return truncateText(customCell[cell.key], 16);
-    } else if (['faq_name'].includes(cell.key)) {
+    } else if (
+      ['category_name', 'topic_description', 'question_name'].includes(cell.key)
+    ) {
+      return truncateText(customCell[cell.key], 32);
+    } else if (['topic_name'].includes(cell.key)) {
       return truncateText(customCell[cell.key], 25);
     } else {
       return customCell[cell.key];
