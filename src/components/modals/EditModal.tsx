@@ -7,8 +7,13 @@ import InputField from '../field/InputField';
 import SelectField from '../field/SelectField';
 import TextAreaField from '../field/TextAreaField';
 
+// Imoport Assets
 import { CloseButtonIcon } from '../../assets/icons/icon';
 
+// Import Type
+import { generalEnum } from '../../state/enum/generalEnum';
+import { topicEnum } from '../../state/enum/topicEnum';
+import { questionEnum } from '../../state/enum/questionEnum';
 interface FormData {
   [key: string]: any;
 }
@@ -29,7 +34,7 @@ const EditModal = ({
   const handleChange = (e: any) => {
     const { name, value, type, checked } = e.target;
 
-    if (type === 'checkbox') {
+    if (type === generalEnum.CHECKBOX) {
       setFormData((prevData) => ({
         ...prevData,
         [name]: checked,
@@ -62,37 +67,23 @@ const EditModal = ({
     if (isOpen) {
       const initialData: FormData = {};
       inputFields.forEach((field: any) => {
-        if (field.type === 'select' && field.isMulti) {
-          // Handle multi-select fields
+        if (field.type === generalEnum.SELECT && field.isMulti) {
           initialData[field.name] = initialFormData[field.name] || [];
-        } else if (field.type === 'checkbox') {
-          // Initialize checkboxes based on initialFormData
+        } else if (field.type === generalEnum.CHECKBOX) {
           initialData[field.name] = initialFormData[field.name] === 1 ? 1 : 0;
         } else {
           initialData[field.name] = initialFormData[field.name] || '';
         }
       });
 
-      if ('is_hide' in initialFormData) {
-        initialData['is_hide'] = initialFormData['is_hide'] === 1 ? 1 : 0;
+      if (topicEnum.TOPIC_STATUS in initialFormData) {
+        initialData[topicEnum.TOPIC_STATUS] =
+          initialFormData[topicEnum.TOPIC_STATUS] === 1 ? 1 : 0;
       }
 
-      if ('is_active' in initialFormData) {
-        initialData['is_active'] = initialFormData['is_active'] === 1 ? 1 : 0;
-      }
-
-      if ('is_edit' in initialFormData) {
-        initialData['is_edit'] = initialFormData['is_edit'] === 1 ? 1 : 0;
-      }
-
-      // Check 'id_additional_position' if it exists in initialFormData
-      if ('additional_position' in initialFormData) {
-        initialData['id_additional_position'] = initialFormData[
-          'additional_position'
-        ].map((position: any) => position.id_additional_position);
-      } else {
-        // Handle the case when 'additional_position' is not present
-        initialData['id_additional_position'] = [];
+      if (questionEnum.QUESTION_STATUS in initialFormData) {
+        initialData[questionEnum.QUESTION_STATUS] =
+          initialFormData[questionEnum.QUESTION_STATUS] === 1 ? 1 : 0;
       }
 
       setFormData(initialData);

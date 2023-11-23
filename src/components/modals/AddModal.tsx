@@ -11,6 +11,9 @@ import InputField from '../field/InputField';
 import SelectField from '../field/SelectField';
 import TextAreaField from '../field/TextAreaField';
 
+// Import Type
+import { generalEnum } from '../../state/enum/generalEnum';
+import { topicEnum } from '../../state/enum/topicEnum';
 // Interface
 interface FormData {
   [key: string]: string | number | boolean | null | undefined;
@@ -19,7 +22,7 @@ interface FormData {
 const AddModal = ({ isOpen, onClose, title, inputFields, onSubmit }: any) => {
   const initialFormData: FormData = {};
   inputFields.forEach((field: any) => {
-    if (field.type === 'checkbox') {
+    if (field.type === generalEnum.CHECKBOX) {
       initialFormData[field.name] = 1;
     }
   });
@@ -30,16 +33,15 @@ const AddModal = ({ isOpen, onClose, title, inputFields, onSubmit }: any) => {
   const selectRef = useRef<HTMLSelectElement | null>(null);
   const [inputField] = useState(inputFields);
 
-  console.log(formData);
   const handleChange = (e: any) => {
     const { name, value, type, checked } = e.target;
 
-    if (type === 'checkbox') {
+    if (type === generalEnum.CHECKBOX) {
       setFormData((prevData) => ({
         ...prevData,
         [name]: checked ? 1 : 0,
       }));
-    } else if (name === 'icons_name') {
+    } else if (name === topicEnum.ICONNAME) {
       setFormData((prevData) => ({
         ...prevData,
         [name]: value.value,

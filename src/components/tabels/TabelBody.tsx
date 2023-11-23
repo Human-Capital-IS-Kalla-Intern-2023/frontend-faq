@@ -2,11 +2,13 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+
 // Import Components
 import EditModal from '../modals/EditModal.tsx';
 import DeleteModal from '../modals/DeleteModal.tsx';
 import DetailModal from '../modals/DetailModal.tsx';
 import { DeleteText } from '../../helpers/DeleteText.tsx';
+import { TruncateText } from '../../helpers/TruncateText.tsx';
 
 // Import Assets
 import {
@@ -15,6 +17,11 @@ import {
   DetailIcon,
   TrashIcon,
 } from '../../assets/icons/icon.tsx';
+
+// Import Type
+import { generalEnum } from '../../state/enum/generalEnum.tsx';
+import { topicEnum } from '../../state/enum/topicEnum.tsx';
+import { questionEnum } from '../../state/enum/questionEnum.tsx';
 
 interface ColCells {
   key: any;
@@ -174,18 +181,6 @@ const TabelBody: React.FC<TabelBodyProps> = ({
     setActiveDropdown(false);
   };
 
-  const truncateText = (text: string, maxLength: number) => {
-    return text?.length > maxLength
-      ? text.substring(0, maxLength) + '...'
-      : text;
-  };
-  // const handleClickOutsideDropdown = (event: any) => {
-  //   // Periksa apakah event.target bukan bagian dari dropdown
-  //   if (event.target.closest(`#dropdown-button-`) === null) {
-  //     setActiveDropdown(null); // Menutup dropdown jika klik diluar dropdown
-  //   }
-  // };
-
   interface TableCell {
     key: string;
   }
@@ -197,8 +192,8 @@ const TabelBody: React.FC<TabelBodyProps> = ({
       return (
         <img
           src={customCell.image}
-          alt={`Image for ${customCell.image}`}
-          className="object-cover w-16 h-8 rounded"
+          alt={`Image ${TruncateText(customCell.topic_name, 10)}`}
+          className="object-cover w-full h-8 rounded"
         />
       );
     }
@@ -230,14 +225,8 @@ const TabelBody: React.FC<TabelBodyProps> = ({
       );
     }
 
-    if (cell.key === 'location[0].location_name') {
-      return customCell.location[0].location_name;
-    } else if (
-      ['category_name', 'topic_description', 'question_name'].includes(cell.key)
-    ) {
-      return truncateText(customCell[cell.key], 32);
-    } else if (['topic_name'].includes(cell.key)) {
-      return truncateText(customCell[cell.key], 25);
+    if ((topicEnum.TOPICNAME, questionEnum.QUESTION_NAME.includes(cell.key))) {
+      return TruncateText(customCell[cell.key], 25);
     } else {
       return customCell[cell.key];
     }
@@ -252,7 +241,7 @@ const TabelBody: React.FC<TabelBodyProps> = ({
     };
 
     const handleEscapeKey = (event: any) => {
-      if (event.key === 'Escape') {
+      if (event.key === generalEnum.ESCAPE) {
         closeEditModal();
         closeDeleteModal();
         closeDetailModal();
@@ -262,13 +251,11 @@ const TabelBody: React.FC<TabelBodyProps> = ({
 
     window.addEventListener('scroll', handleScroll);
     window.addEventListener('keydown', handleEscapeKey);
-    // document.addEventListener('click', handleClickOutsideDropdown);
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('keydown', handleEscapeKey);
       document.removeEventListener('keydown', handleEscapeKey);
-      // document.removeEventListener('click', handleClickOutsideDropdown);
     };
   }, [closeDeleteModal, closeDetailModal, closeEditModal]);
 
@@ -339,20 +326,6 @@ const TabelBody: React.FC<TabelBodyProps> = ({
   }, [data, location.search, modalDeleteId, navigate, openDeleteModal]);
 
   const dropdownRef = useRef<HTMLTableRowElement | null>(null);
-
-  // useEffect(() => {
-  //   const handleClickOutsideDropdown = (event: any) => {
-  //     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-  //       setActiveDropdown(null);
-  //     }
-  //   };
-
-  //   document.addEventListener('click', handleClickOutsideDropdown);
-
-  //   return () => {
-  //     document.removeEventListener('click', handleClickOutsideDropdown);
-  //   };
-  // }, []);
 
   return (
     <section className="py-3 antialiased sm:py-2 overlay">
