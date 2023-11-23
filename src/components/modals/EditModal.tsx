@@ -9,6 +9,7 @@ import TextAreaField from '../field/TextAreaField';
 import CloseButton from '../buttons/CloseButton';
 
 // Imoport Assets
+import { getIconList } from '../../assets/data/TopicAdminData';
 
 // Import Type
 import { generalEnum } from '../../state/enum/generalEnum';
@@ -38,6 +39,11 @@ const EditModal = ({
       setFormData((prevData) => ({
         ...prevData,
         [name]: checked,
+      }));
+    } else if (name === topicEnum.ICONNAME) {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value.value,
       }));
     } else {
       setFormData((prevData) => ({
@@ -75,6 +81,7 @@ const EditModal = ({
           initialData[field.name] = initialFormData[field.name] || '';
         }
       });
+      getIconList();
 
       if (topicEnum.TOPIC_STATUS in initialFormData) {
         initialData[topicEnum.TOPIC_STATUS] =
@@ -85,7 +92,6 @@ const EditModal = ({
         initialData[questionEnum.QUESTION_STATUS] =
           initialFormData[questionEnum.QUESTION_STATUS] === 1 ? 1 : 0;
       }
-
       setFormData(initialData);
     }
   }, [isOpen, initialFormData, inputFields]);
@@ -119,7 +125,7 @@ const EditModal = ({
                 className={`${
                   inputFields.length === 1 ||
                   inputFields.length === 2 ||
-                  field.id === 'topic_description' ||
+                  field.id === topicEnum.TOPIC_DESCRIPTION ||
                   (index === 0 && inputFields.length >= 3)
                     ? 'col-span-2'
                     : ''
@@ -140,6 +146,7 @@ const EditModal = ({
                     options={field.options}
                     onChange={handleChange}
                     showImageInputCheckbox={field.label === 'icon'}
+                    // value={formData[field.name] || ''}
                   />
                 )}
 
@@ -156,6 +163,7 @@ const EditModal = ({
                   <TextAreaField
                     id={field.id}
                     name={field.name}
+                    value={formData[field.name] || ''}
                     placeholder={`Input ${field.label}`}
                     onChange={handleChange}
                   />
@@ -168,6 +176,7 @@ const EditModal = ({
                       id={field.id}
                       name={field.name}
                       type={field.type}
+                      value={formData[field.name] || ''}
                       placeholder={`Input ${field.label}`}
                       onChange={handleChange}
                     />
