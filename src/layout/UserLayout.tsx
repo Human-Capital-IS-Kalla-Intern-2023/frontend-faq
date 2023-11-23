@@ -10,6 +10,7 @@ function UserLayout({ children }: any) {
     '/faq/home',
     '/faq/category',
     '/dashboard',
+    '/faq/question',
     '/leavemanagement/faq',
   ];
 
