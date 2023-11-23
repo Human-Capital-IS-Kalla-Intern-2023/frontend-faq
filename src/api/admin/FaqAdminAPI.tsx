@@ -37,7 +37,7 @@ const getDetailFaqAdmin = async (id: any) => {
 
     const reponseGetDetailFaqAdmin = await RequestApi(
       'GET',
-      `category-admin/${id}`,
+      `topic-admin/${id}`,
       {},
       headerToken,
       'Mengambil detail faq admin'
@@ -61,7 +61,7 @@ const addFaqAdmin = async (formData: any) => {
 
     const reponseAddFaqAdmin = await RequestApi(
       'POST',
-      'category-admin',
+      'topic-admin',
       formData,
       headerToken,
       'Membuat faq admin'
@@ -85,7 +85,7 @@ const updateFaqAdmin = async (id: any, FaqAdminData: any) => {
 
     const reponseUpdateFaqAdmin = await RequestApi(
       'PUT',
-      `category-admin/${id}`,
+      `topic-admin/${id}`,
       FaqAdminData,
       headerToken,
       'Memperbarui faq admin'
@@ -109,7 +109,7 @@ const deleteFaqAdmin = async (id: any) => {
 
     const reponseDeleteFaqAdmin = await RequestApi(
       'DELETE',
-      `category-admin/${id}`,
+      `topic-admin/${id}`,
       null,
       headerToken,
       'Menghapus faq admin'
@@ -133,7 +133,7 @@ const searchFaqAdmin = async (searchInput: any) => {
 
     const responseSearchFaqAdmin = await RequestApi(
       'GET',
-      `category-admin?search=${searchInput}`,
+      `topic-admin?search=${searchInput}`,
       null,
       headerToken,
       'Mencari faqAdmin'
@@ -158,7 +158,7 @@ const changeIsActiveFaqAdmin = async (idIsActive: any, newIsActive: any) => {
 
     const responseIsActiveChange = await RequestApi(
       'PUT',
-      `category-admin/is_active/${idIsActive}`,
+      `topic-admin/is_active/${idIsActive}`,
       sendData,
       headerToken,
       'Mengubah active faq admin'

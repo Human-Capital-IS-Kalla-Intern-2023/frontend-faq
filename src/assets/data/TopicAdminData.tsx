@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { iconList } from '../icons/categoriIcon';
+import { iconList } from '../icons/topicIcon';
 import { topicEnum } from '../../state/enum/topicEnum';
 interface SelectOption {
   label: any;
@@ -10,7 +10,7 @@ interface SelectOption {
 // Import API
 
 const colCells = [
-  { key: topicEnum.TOPICNAME, text: 'category name' },
+  { key: topicEnum.TOPICNAME, text: 'topic name' },
   { key: topicEnum.TOPIC_AUTHOR, text: 'author' },
   { key: topicEnum.TOPIC_IMAGE, text: 'icon' },
   { key: topicEnum.TOPIC_STATUS, text: 'active' },
@@ -19,7 +19,7 @@ const colCells = [
 const inputField = [
   {
     id: topicEnum.TOPICNAME,
-    label: 'category name',
+    label: 'topic name',
     name: topicEnum.TOPICNAME,
     type: 'text',
   },
@@ -57,7 +57,7 @@ const getIconList = async () => {
   try {
     const iconOptions = generateIconOptions();
 
-    // Find the 'Category Icon' field in the inputField array
+    // Find the 'Topic Icon' field in the inputField array
     const iconsField = inputField.find((field) => field.label === 'icon');
     if (iconsField) {
       iconsField.options = iconOptions.map((option) => ({

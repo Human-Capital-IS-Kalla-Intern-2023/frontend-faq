@@ -6,7 +6,7 @@ export const DeleteText = (
     return customCell.faq_name;
   }
 
-  if (locationPathname.includes('/admin/category')) {
+  if (locationPathname.includes('/admin/topic')) {
     return customCell.name;
   }
   return '';

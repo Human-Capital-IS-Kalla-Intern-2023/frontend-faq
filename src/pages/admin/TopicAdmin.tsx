@@ -13,30 +13,30 @@ import { ResetAlert } from '../../helpers/ResetAlert';
 
 // Import API
 import {
-  getCategoryAdmin,
-  getDetailCategoryAdmin,
-  addCategoryAdmin,
-  updateCategoryAdmin,
-  deleteCategoryAdmin,
-  searchCategoryAdmin,
-  changeIsActiveCategoryAdmin,
-} from '../../api/admin/CategoryAdminAPI';
+  getTopicAdmin,
+  getDetailTopicAdmin,
+  addTopicAdmin,
+  updateTopicAdmin,
+  deleteTopicAdmin,
+  searchTopicAdmin,
+  changeIsActiveTopicAdmin,
+} from '../../api/admin/TopicAdminAPI';
 
 import {
   colCells,
   inputField,
   getIconList,
-} from '../../assets/data/CategoryAdminData';
+} from '../../assets/data/TopicAdminData';
 
-const CategoryAdmin: React.FC = () => {
+const TopicAdmin: React.FC = () => {
   // Alert State
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successTitle, setSuccessTitle] = useState<string | null>(null);
   const [errorTitle, setErrorTitle] = useState<string | null>(null);
 
-  // CategoryAdmin State
-  const [categoryAdmin, setCategoryAdmin] = useState<string[]>([]);
+  // TopicAdmin State
+  const [topicAdmin, setTopicAdmin] = useState<string[]>([]);
   const [detailedData, setDetailedData] = useState<string | null>(null);
 
   // Loading
@@ -55,26 +55,23 @@ const CategoryAdmin: React.FC = () => {
   };
 
   const totalDataCount =
-    searchResults.length > 0 ? searchResults.length : categoryAdmin.length;
+    searchResults.length > 0 ? searchResults.length : topicAdmin.length;
   const totalPages = Math.ceil(totalDataCount / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage + 1;
   const endIndex =
     currentPage === totalPages ? totalDataCount : startIndex + itemsPerPage - 1;
-  const currentCategoryAdminData = categoryAdmin.slice(
-    startIndex - 1,
-    endIndex
-  );
+  const currentTopicAdminData = topicAdmin.slice(startIndex - 1, endIndex);
 
-  // GET all categoryAdmin data
-  const fetchCategoryAdmin = async () => {
+  // GET all topicAdmin data
+  const fetchTopicAdmin = async () => {
     setIsLoading(true);
 
     try {
-      const reponseData = await getCategoryAdmin();
-      setCategoryAdmin(reponseData.data);
+      const reponseData = await getTopicAdmin();
+      setTopicAdmin(reponseData.data);
     } catch (error: any) {
-      console.error('Error fetch all category admin:', error);
-      setErrorTitle(`Error fetch all category admin`);
+      console.error('Error fetch all topic admin:', error);
+      setErrorTitle(`Error fetch all topic admin`);
 
       setErrorMessage(error.response.data.message);
     } finally {
@@ -88,16 +85,16 @@ const CategoryAdmin: React.FC = () => {
     );
   };
 
-  // GET detail categoryAdmin data by id
-  const fetchDetailCategoryAdmin = async (id: number) => {
+  // GET detail topicAdmin data by id
+  const fetchDetailTopicAdmin = async (id: number) => {
     try {
       setIsLoading(true);
 
-      const responseData = await getDetailCategoryAdmin(id);
+      const responseData = await getDetailTopicAdmin(id);
       setDetailedData(responseData.data);
     } catch (error: any) {
-      console.error('Error fetch detail categoryAdmin:', error);
-      setErrorTitle(`Error fetch detail categoryAdmin`);
+      console.error('Error fetch detail topicAdmin:', error);
+      setErrorTitle(`Error fetch detail topicAdmin`);
       navigate('/notfound');
       setErrorMessage(error.response.data.message);
     } finally {
@@ -111,17 +108,17 @@ const CategoryAdmin: React.FC = () => {
     );
   };
 
-  // POST new categoryAdmin data
-  const handleAddCategoryAdmin = async (formData: string) => {
+  // POST new topicAdmin data
+  const handleAddTopicAdmin = async (formData: string) => {
     try {
-      const responseData = await addCategoryAdmin(formData);
+      const responseData = await addTopicAdmin(formData);
       setSuccessTitle(`${responseData.status}`);
       setSuccessMessage(`${responseData.message}`);
 
-      fetchCategoryAdmin();
+      fetchTopicAdmin();
     } catch (error: any) {
-      console.error('Error adding categoryAdmin:', error);
-      setErrorTitle(`Error adding categoryAdmin`);
+      console.error('Error adding topicAdmin:', error);
+      setErrorTitle(`Error adding topicAdmin`);
 
       const errorMessages = Object.values(error.response.data.errors).flat();
       setErrorMessage(errorMessages.join('\n'));
@@ -134,17 +131,17 @@ const CategoryAdmin: React.FC = () => {
     );
   };
 
-  // PUT categoryAdmin data
-  const handleEditCategoryAdmin = async (formData: string, id: number) => {
+  // PUT topicAdmin data
+  const handleEditTopicAdmin = async (formData: string, id: number) => {
     try {
-      const responseData = await updateCategoryAdmin(id, formData);
+      const responseData = await updateTopicAdmin(id, formData);
 
       setSuccessTitle(`${responseData.status}`);
       setSuccessMessage(`${responseData.message}`);
-      // fetchCategoryAdmin();
+      // fetchTopicAdmin();
     } catch (error: any) {
-      console.error('Error editing categoryAdmin:', error);
-      setErrorTitle(`Error editing categoryAdmin`);
+      console.error('Error editing topicAdmin:', error);
+      setErrorTitle(`Error editing topicAdmin`);
       const errorMessages = Object.values(error.response.data.errors).flat();
       setErrorMessage(errorMessages.join('\n'));
     }
@@ -156,18 +153,18 @@ const CategoryAdmin: React.FC = () => {
     );
   };
 
-  // DELETE categoryAdmin data
-  const handleDeleteCategoryAdmin = async (id: number) => {
+  // DELETE topicAdmin data
+  const handleDeleteTopicAdmin = async (id: number) => {
     try {
       setIsLoading(true);
 
-      const responseData = await deleteCategoryAdmin(id);
+      const responseData = await deleteTopicAdmin(id);
       setSuccessTitle(`${responseData.status}`);
       setSuccessMessage(`${responseData.message}`);
-      fetchCategoryAdmin();
+      fetchTopicAdmin();
     } catch (error: any) {
-      console.error('Error deleting categoryAdmin:', error);
-      setErrorTitle(`Error deleting categoryAdmin`);
+      console.error('Error deleting topicAdmin:', error);
+      setErrorTitle(`Error deleting topicAdmin`);
 
       const errorMessages = Object.values(error.response.data.errors).flat();
       setErrorMessage(errorMessages.join('\n'));
@@ -182,12 +179,12 @@ const CategoryAdmin: React.FC = () => {
     );
   };
 
-  const handleSearchCategoryAdmin = async (inputSearch: string) => {
+  const handleSearchTopicAdmin = async (inputSearch: string) => {
     try {
       if (inputSearch.trim() === '') {
         setSearchResults([]);
       } else {
-        const responseData = await searchCategoryAdmin(inputSearch);
+        const responseData = await searchTopicAdmin(inputSearch);
 
         if (responseData.data.length === 0) {
           setErrorTitle('No Results');
@@ -197,8 +194,8 @@ const CategoryAdmin: React.FC = () => {
         }
       }
     } catch (error: any) {
-      console.error('Error search categoryAdmin:', error);
-      setErrorTitle('Error search categoryAdmin');
+      console.error('Error search topicAdmin:', error);
+      setErrorTitle('Error search topicAdmin');
       const errorMessages = Object.values(error.response.data.errors).flat();
       setErrorMessage(errorMessages.join('\n'));
     }
@@ -210,15 +207,15 @@ const CategoryAdmin: React.FC = () => {
     );
   };
 
-  const handleChangeIsActiveCategoryAdmin = async (
+  const handleChangeIsActiveTopicAdmin = async (
     idIsActive: any,
     newIsActive: any
   ) => {
     try {
-      await changeIsActiveCategoryAdmin(idIsActive, newIsActive);
-      fetchCategoryAdmin();
+      await changeIsActiveTopicAdmin(idIsActive, newIsActive);
+      fetchTopicAdmin();
     } catch (error: any) {
-      console.error('Error change is active category admin:', error);
+      console.error('Error change is active topic admin:', error);
       const errorMessages = Object.values(error.response.data.errors).flat();
       setErrorMessage(errorMessages.join('\n'));
     }
@@ -232,12 +229,12 @@ const CategoryAdmin: React.FC = () => {
 
   useEffect(() => {
     getIconList();
-    fetchCategoryAdmin();
+    fetchTopicAdmin();
   }, []);
 
   return (
     <>
-      <h1 className="px-4 py-2 my-1 text-xl">Category Database</h1>
+      <h1 className="px-4 py-2 my-1 text-xl">Topic Database</h1>
       {isLoading && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <ReactLoading type="spin" color="green" height={50} width={50} />
@@ -251,24 +248,22 @@ const CategoryAdmin: React.FC = () => {
       )}
       <TabelHeader
         onNavigate="add"
-        addButtonText="Add Category"
-        title="Add Category"
+        addButtonText="Add Topic"
+        title="Add Topic"
         inputFields={inputField}
-        onSubmit={handleAddCategoryAdmin}
-        onSearch={handleSearchCategoryAdmin}
+        onSubmit={handleAddTopicAdmin}
+        onSearch={handleSearchTopicAdmin}
       />
       <TabelBody
-        title="Edit Category"
+        title="Edit Topic"
         colCells={colCells}
-        data={
-          searchResults.length > 0 ? searchResults : currentCategoryAdminData
-        }
+        data={searchResults.length > 0 ? searchResults : currentTopicAdminData}
         inputFields={inputField}
-        onSubmit={handleEditCategoryAdmin}
-        onDelete={handleDeleteCategoryAdmin}
+        onSubmit={handleEditTopicAdmin}
+        onDelete={handleDeleteTopicAdmin}
         detailedData={detailedData}
-        fetchDetailedData={fetchDetailCategoryAdmin}
-        changeIsActive={handleChangeIsActiveCategoryAdmin}
+        fetchDetailedData={fetchDetailTopicAdmin}
+        changeIsActive={handleChangeIsActiveTopicAdmin}
       />
       <TabelFooter
         currentPage={currentPage}
@@ -283,4 +278,4 @@ const CategoryAdmin: React.FC = () => {
   );
 };
 
-export default CategoryAdmin;
+export default TopicAdmin;

@@ -69,8 +69,8 @@ const FaqAdmin: React.FC = () => {
       const reponseData = await getFaqAdmin();
       setFaqAdmin(reponseData.data);
     } catch (error: any) {
-      console.error('Error fetch all category admin:', error);
-      setErrorTitle(`Error fetch all category admin`);
+      console.error('Error fetch all topic admin:', error);
+      setErrorTitle(`Error fetch all topic admin`);
 
       setErrorMessage(error.response.data.message);
     } finally {
@@ -214,7 +214,7 @@ const FaqAdmin: React.FC = () => {
       await changeIsActiveFaqAdmin(idIsActive, newIsActive);
       // fetchFaqAdmin();
     } catch (error: any) {
-      console.error('Error change is active category admin:', error);
+      console.error('Error change is active topic admin:', error);
       const errorMessages = Object.values(error.response.data.errors).flat();
       setErrorMessage(errorMessages.join('\n'));
     }

@@ -19,7 +19,7 @@ const inputField = [
   },
   {
     id: topicEnum.TOPICNAME,
-    label: 'Category Name',
+    label: 'Topic Name',
     name: topicEnum.TOPICNAME,
     type: 'text',
   },

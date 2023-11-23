@@ -413,7 +413,7 @@ const TabelBody: React.FC<TabelBodyProps> = ({
                                   to={
                                     onDetailNavigate
                                       ? onDetailNavigate.replace(
-                                          '{categoryId}',
+                                          '{topicId}',
                                           customCell.id
                                         )
                                       : `detail/${customCell.id}`

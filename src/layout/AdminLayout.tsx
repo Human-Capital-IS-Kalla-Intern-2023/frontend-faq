@@ -4,9 +4,9 @@ import AdminSidebar from './admin sidebar/AdminSideBar';
 function AdminLayout({ children }: any) {
   // const location = useLocation();
 
-  // const sidebarPaths = ['/admin/faq', '/admin/category'];
+  // const sidebarPaths = ['/admin/faq', '/admin/topic'];
 
-  // const hiddenSidebarPaths = ['/faq', '/category'];
+  // const hiddenSidebarPaths = ['/faq', '/topic'];
 
   // const shouldShowSidebar =
   //   sidebarPaths.some((path) => location.pathname.startsWith(path)) &&

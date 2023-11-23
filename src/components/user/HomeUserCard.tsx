@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { SearchIcon, PlusIcon, CategoryIcon } from '../../assets/icons/icon';
+import { SearchIcon, PlusIcon, TopicIcon } from '../../assets/icons/icon';
 import { useNavigate } from 'react-router-dom';
 import ReactLoading from 'react-loading';
 
@@ -111,7 +111,7 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch }) => {
           <div className="flex justify-center w-full">
             <div>
               <div className="flex items-center justify-center p-3">
-                <CategoryIcon className="lg:w-10 lg:h-10 w-8 h-8" />
+                <TopicIcon className="lg:w-10 lg:h-10 w-8 h-8" />
               </div>
               <div className="pb-2 text-sm font-bold break-all whitespace-normal lg:text-base">
                 Pengaturan Akun
@@ -129,7 +129,7 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch }) => {
           <div className="flex justify-center w-full">
             <div>
               <div className="flex items-center justify-center p-1">
-                <CategoryIcon className="lg:w-10 lg:h-10 w-8 h-8" />
+                <TopicIcon className="lg:w-10 lg:h-10 w-8 h-8" />
               </div>
               <div className="pb-2 text-sm font-bold lg:text-base">
                 Business Unit
@@ -147,7 +147,7 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch }) => {
           <div className="flex justify-center w-full">
             <div>
               <div className="flex items-center justify-center p-1">
-                <CategoryIcon className="lg:w-11 lg:h-11 w-9 h-9" />
+                <TopicIcon className="lg:w-11 lg:h-11 w-9 h-9" />
               </div>
               <div className="pb-2 text-sm font-bold lg:text-base">
                 Directorate
@@ -165,7 +165,7 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch }) => {
           <div className="flex justify-center w-full">
             <div>
               <div className="flex items-center justify-center p-1">
-                <CategoryIcon className="lg:w-10 lg:h-10 w-8 h-8" />
+                <TopicIcon className="lg:w-10 lg:h-10 w-8 h-8" />
               </div>
               <div className="p-2 text-xs font-bold lg:text-base">Division</div>
             </div>
@@ -181,7 +181,7 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch }) => {
           <div className="flex justify-center w-full">
             <div>
               <div className="flex items-center justify-center p-2">
-                <CategoryIcon className="lg:w-10 lg:h-10 w-8 h-8" />
+                <TopicIcon className="lg:w-10 lg:h-10 w-8 h-8" />
               </div>
               <div className="pb-2 text-sm font-bold lg:text-base">Section</div>
             </div>
@@ -196,7 +196,7 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch }) => {
           <div className="flex justify-center w-full">
             <div>
               <div className="flex items-center justify-center p-2">
-                <CategoryIcon className="lg:w-10 lg:h-10 w-8 h-8" />
+                <TopicIcon className="lg:w-10 lg:h-10 w-8 h-8" />
               </div>
               <div className="pb-2 text-sm font-bold lg:text-base">Section</div>
             </div>
@@ -211,7 +211,7 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch }) => {
           <div className="flex justify-center w-full">
             <div>
               <div className="flex items-center justify-center p-2">
-                <CategoryIcon className="lg:w-10 lg:h-10 w-8 h-8" />
+                <TopicIcon className="lg:w-10 lg:h-10 w-8 h-8" />
               </div>
               <div className="pb-2 text-sm font-bold lg:text-base">Section</div>
             </div>
@@ -226,7 +226,7 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch }) => {
           <div className="flex justify-center w-full">
             <div>
               <div className="flex items-center justify-center p-2">
-                <CategoryIcon className="lg:w-10 lg:h-10 w-8 h-8" />
+                <TopicIcon className="lg:w-10 lg:h-10 w-8 h-8" />
               </div>
               <div className="pb-2 text-sm font-bold lg:text-base">Section</div>
             </div>

@@ -21,7 +21,7 @@ import { SubmitButton } from '../../../components/buttons/SubmitButton';
 
 // Import API's
 import { addFaqAdmin } from '../../../api/admin/FaqAdminAPI';
-import { getCategoryAdmin } from '../../../api/admin/CategoryAdminAPI';
+import { getTopicAdmin } from '../../../api/admin/TopicAdminAPI';
 import SelectField from '../../../components/field/SelectField';
 
 interface FieldOptions {
@@ -32,9 +32,7 @@ interface FieldOptions {
 const AddFaqAdmin = () => {
   const [faqAdminNameValue, setFaqAdminNameValue] = useState('');
 
-  const [categoryOptions, setCategoryOptions] = useState<Array<FieldOptions>>(
-    []
-  );
+  const [topicOptions, setTopicOptions] = useState<Array<FieldOptions>>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const [formData, setFormData] = useState<{
@@ -66,15 +64,15 @@ const AddFaqAdmin = () => {
     localStorage.setItem('faqAdminAddData', JSON.stringify(data));
   };
 
-  ///* FEATCH Category
-  async function featchCategory() {
+  ///* FEATCH Topic
+  async function featchTopic() {
     try {
-      const responseData = await getCategoryAdmin();
-      const categoryOptions = responseData.data.map((item: any) => ({
+      const responseData = await getTopicAdmin();
+      const topicOptions = responseData.data.map((item: any) => ({
         label: item.topic_name,
         value: item.topic_id,
       }));
-      setCategoryOptions(categoryOptions);
+      setTopicOptions(topicOptions);
     } catch (error) {
       console.error('Error fetching companies:', error);
     }
@@ -124,12 +122,12 @@ const AddFaqAdmin = () => {
   };
 
   ///* LEFT CARD SECTION
-  // Handle handle Category Select
-  const handleCategorySelect = (e: any) => {
+  // Handle handle Topic Select
+  const handleTopicSelect = (e: any) => {
     const selectedOptions = e.target.value;
     const selectedValues = selectedOptions.map((option: any) => option.value);
 
-    // Update formData with an array of category IDs
+    // Update formData with an array of topic IDs
     setFormData({ ...formData, topic_id: selectedValues });
 
     // Save data to local storage
@@ -195,7 +193,7 @@ const AddFaqAdmin = () => {
   }, []);
 
   useEffect(() => {
-    featchCategory();
+    featchTopic();
   }, []);
 
   return (
@@ -226,18 +224,18 @@ const AddFaqAdmin = () => {
             </h1>
             <div className="p-4">
               <label
-                htmlFor="dropdown category"
+                htmlFor="dropdown topic"
                 className="block mt-3 font-medium text-gray-700"
               >
-                Category *
+                Topic *
               </label>
               <SelectField
-                id="dropdown category"
-                name="dropdown category"
+                id="dropdown topic"
+                name="dropdown topic"
                 isMulti
-                options={categoryOptions}
+                options={topicOptions}
                 onChange={(selectedOption: any) =>
-                  handleCategorySelect(selectedOption)
+                  handleTopicSelect(selectedOption)
                 }
               />
 
