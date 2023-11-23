@@ -76,7 +76,7 @@ const App: React.FC = () => {
             <UserLayout>
               <Routes>
                 <Route path="/faq/home" element={<HomeUser />} />
-                <Route path="/faq/category" element={<Question />} />
+                <Route path="/faq/question" element={<Question />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </UserLayout>

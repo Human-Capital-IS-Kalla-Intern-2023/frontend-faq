@@ -85,7 +85,7 @@ const Sidebar = () => {
 
   const subMenusList = [
     {
-      name: 'Category',
+      name: 'Topic',
       icon: <CategoryIcon className="min-w-max" />,
       menus: [
         'Leave Management',
@@ -136,12 +136,12 @@ const Sidebar = () => {
             <ul className="whitespace-pre px-2.5 text-[0.9rem] py-5 flex flex-col gap-1 font-medium overflow-x-hidden scrollbar-thin scrollbar-track-white scrollbar-thumb-slate-100 md:h-[68%] h-[70%] rounded-md">
               <li
                 className={`px-1 py-2 mb-1 rounded-md text-base   ${
-                  pathname.includes('/faq')
+                  pathname.includes('/faq/home')
                     ? 'bg-primary text-white '
                     : 'hover:bg-primary hover:text-white'
                 }`}
               >
-                <NavLink to={'/faq'} className="flex items-center">
+                <NavLink to={'/faq/home'} className="flex items-center">
                   <DashboardIcon className="min-w-max" />
                   <motion.span
                     variants={textAnimation}
