@@ -96,7 +96,6 @@ const TopicAdmin: React.FC = () => {
       console.error('Error fetch detail topicAdmin:', error);
       setErrorTitle(`Error fetch detail topicAdmin`);
       navigate('/notfound');
-      setErrorMessage(error.response.data.message);
     } finally {
       setIsLoading(false);
     }
@@ -120,8 +119,12 @@ const TopicAdmin: React.FC = () => {
       console.error('Error adding topicAdmin:', error);
       setErrorTitle(`Error adding topicAdmin`);
 
-      const errorMessages = Object.values(error.response.data.errors).flat();
-      setErrorMessage(errorMessages.join('\n'));
+      if (error.response.data.errors) {
+        const errorMessages = Object.values(error.response.data.errors);
+        setErrorMessage(errorMessages.join('\n'));
+      } else {
+        setErrorMessage(error.response.data.message);
+      }
     }
     ResetAlert(
       setSuccessTitle,
@@ -142,8 +145,12 @@ const TopicAdmin: React.FC = () => {
     } catch (error: any) {
       console.error('Error editing topicAdmin:', error);
       setErrorTitle(`Error editing topicAdmin`);
-      const errorMessages = Object.values(error.response.data.errors).flat();
-      setErrorMessage(errorMessages.join('\n'));
+      if (error.response.data.errors) {
+        const errorMessages = Object.values(error.response.data.errors);
+        setErrorMessage(errorMessages.join('\n'));
+      } else {
+        setErrorMessage(error.response.data.message);
+      }
     }
     ResetAlert(
       setSuccessTitle,
@@ -165,9 +172,12 @@ const TopicAdmin: React.FC = () => {
     } catch (error: any) {
       console.error('Error deleting topicAdmin:', error);
       setErrorTitle(`Error deleting topicAdmin`);
-
-      const errorMessages = Object.values(error.response.data.errors).flat();
-      setErrorMessage(errorMessages.join('\n'));
+      if (error.response.data.errors) {
+        const errorMessages = Object.values(error.response.data.errors);
+        setErrorMessage(errorMessages.join('\n'));
+      } else {
+        setErrorMessage(error.response.data.message);
+      }
     } finally {
       setIsLoading(false);
     }
@@ -196,8 +206,12 @@ const TopicAdmin: React.FC = () => {
     } catch (error: any) {
       console.error('Error search topicAdmin:', error);
       setErrorTitle('Error search topicAdmin');
-      const errorMessages = Object.values(error.response.data.errors).flat();
-      setErrorMessage(errorMessages.join('\n'));
+      if (error.response.data.errors) {
+        const errorMessages = Object.values(error.response.data.errors);
+        setErrorMessage(errorMessages.join('\n'));
+      } else {
+        setErrorMessage(error.response.data.message);
+      }
     }
     ResetAlert(
       setSuccessTitle,
@@ -216,8 +230,12 @@ const TopicAdmin: React.FC = () => {
       fetchTopicAdmin();
     } catch (error: any) {
       console.error('Error change is active topic admin:', error);
-      const errorMessages = Object.values(error.response.data.errors).flat();
-      setErrorMessage(errorMessages.join('\n'));
+      if (error.response.data.errors) {
+        const errorMessages = Object.values(error.response.data.errors);
+        setErrorMessage(errorMessages.join('\n'));
+      } else {
+        setErrorMessage(error.response.data.message);
+      }
     }
     ResetAlert(
       setSuccessTitle,
