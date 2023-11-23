@@ -131,7 +131,7 @@ const EditModal = ({
                 }`}
               >
                 <label
-                  className="flex justify-start mb-2 font-medium"
+                  className="flex justify-start mb-2 font-medium capitalize"
                   htmlFor={field.id}
                 >
                   {field.label}
@@ -144,6 +144,7 @@ const EditModal = ({
                     isMulti={field.isMulti}
                     options={field.options}
                     onChange={handleChange}
+                    showImageInputCheckbox={field.label === 'icon'}
                   />
                 )}
 
@@ -156,7 +157,7 @@ const EditModal = ({
                   />
                 )}
 
-                {(field.type === 'text-area' || field.type === 'textarea') && (
+                {(field.type === 'textarea' || field.type === 'textarea') && (
                   <TextAreaField
                     id={field.id}
                     name={field.name}
@@ -167,7 +168,6 @@ const EditModal = ({
 
                 {field.type !== 'select' &&
                   field.type !== 'checkbox' &&
-                  field.type !== 'text-area' &&
                   field.type !== 'textarea' && (
                     <InputField
                       id={field.id}

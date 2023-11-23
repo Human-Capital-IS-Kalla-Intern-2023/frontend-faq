@@ -1,4 +1,6 @@
 import { WarningIcon } from '../../assets/icons/icon';
+import CancelButton from '../buttons/CancelButton';
+
 const DeleteModal = ({ isOpen, onClose, onDelete, deleteData }: any) => {
   const handleDelete = () => {
     onDelete();
@@ -29,13 +31,7 @@ const DeleteModal = ({ isOpen, onClose, onDelete, deleteData }: any) => {
           <span className="font-semibold">"{deleteData}"</span> ?
         </div>
         <div className="flex justify-end mt-8">
-          <button
-            aria-label="Cancel"
-            onClick={onClose}
-            className="w-full px-4 py-2 mr-4  text-base overlay text-black rounded bg-[#EAEAEC]  hover:bg-slate-300  duration-200"
-          >
-            Cancel
-          </button>
+          <CancelButton onClick={onClose} />
           <button
             aria-label="Delete"
             onClick={handleDelete}

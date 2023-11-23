@@ -7,6 +7,7 @@ interface SelectFieldProps {
   isMulti?: boolean;
   options: any[];
   onChange: (selectedOptions: any) => void;
+  showImageInputCheckbox?: boolean;
 }
 
 const SelectField: React.FC<SelectFieldProps> = ({
@@ -15,6 +16,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
   isMulti,
   options,
   onChange,
+  showImageInputCheckbox = false,
 }) => {
   const [useImageInput, setUseImageInput] = useState(false);
 
@@ -24,15 +26,17 @@ const SelectField: React.FC<SelectFieldProps> = ({
 
   return (
     <>
-      <label className="">
-        <input
-          type="checkbox"
-          checked={useImageInput}
-          onChange={handleCheckboxChange}
-          className=""
-        />{' '}
-        Upload New Icon
-      </label>
+      {showImageInputCheckbox && (
+        <label className="">
+          <input
+            type="checkbox"
+            checked={useImageInput}
+            onChange={handleCheckboxChange}
+            className=""
+          />{' '}
+          Upload New Icon
+        </label>
+      )}
       {useImageInput ? (
         <input
           type="file"
@@ -46,7 +50,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
         <Select
           id={id}
           name={name}
-          isMulti={isMulti}
+          isMulti
           className={`w-full my-2 ${isMulti ? '' : 'capitalize'}`}
           options={options}
           onChange={(selectedOptions) =>
