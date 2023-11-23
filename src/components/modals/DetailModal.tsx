@@ -1,5 +1,6 @@
-// Import Assets
-import { CloseButtonIcon } from '../../assets/icons/icon';
+// Import Component
+import CloseButton from '../buttons/CloseButton';
+
 const DetailModal = ({ isOpen, onClose, data, inputField }: any) => {
   const handleOverlayClick = (e: any) => {
     if (e.target.classList.contains('overlay')) {
@@ -16,6 +17,7 @@ const DetailModal = ({ isOpen, onClose, data, inputField }: any) => {
     >
       <div className="fixed inset-0 bg-black opacity-50"></div>
       <div className="relative z-10 p-8 bg-white rounded-lg shadow-lg">
+        <CloseButton onClick={onClose} />
         <div className="relative mt-8 mb-8 text-center ">
           <span className="relative z-10 px-8 py-2 text-2xl text-white border rounded-full bg-primary border-primaryColor">
             Detail Data
@@ -77,13 +79,6 @@ const DetailModal = ({ isOpen, onClose, data, inputField }: any) => {
             </table>
           </div>
         )}
-
-        <div
-          onClick={onClose}
-          className="absolute cursor-pointer top-2 right-2"
-        >
-          <CloseButtonIcon className="w-8 h-8 p-1 duration-200 rounded-full overlay hover:bg-primary hover:text-white" />
-        </div>
       </div>
     </div>
   );
