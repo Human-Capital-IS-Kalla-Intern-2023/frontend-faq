@@ -7,7 +7,7 @@ export const DeleteText = (
   }
 
   if (locationPathname.includes('/admin/topic')) {
-    return customCell.name;
+    return customCell.topic_name;
   }
   return '';
 };
