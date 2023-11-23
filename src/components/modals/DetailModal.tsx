@@ -40,7 +40,7 @@ const DetailModal = ({ isOpen, onClose, data, inputField }: any) => {
               <tbody>
                 {Object.keys(data).map((key) => {
                   // Find the corresponding label in inputField
-                  const field = inputField.find(
+                  const field = inputField?.find(
                     (field: any) => field.id === key
                   );
 
@@ -60,14 +60,19 @@ const DetailModal = ({ isOpen, onClose, data, inputField }: any) => {
                                 {Object.keys(arrayData).map(
                                   (arrayKey: string) => (
                                     <div key={arrayKey}>
-                                      <strong>{arrayKey}:</strong>{' '}
-                                      {arrayData[arrayKey]} <br />
+                                      <div>{arrayKey}:</div>{' '}
+                                      {typeof arrayData[arrayKey] === 'object'
+                                        ? JSON.stringify(arrayData[arrayKey]) // Convert object to string
+                                        : arrayData[arrayKey]}{' '}
+                                      <br />
                                     </div>
                                   )
                                 )}
                               </li>
                             ))}
                           </ul>
+                        ) : typeof data[key] === 'object' ? (
+                          JSON.stringify(data[key]) // Convert object to string
                         ) : (
                           data[key]
                         )}
