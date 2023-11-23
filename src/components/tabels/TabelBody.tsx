@@ -41,9 +41,9 @@ interface TabelBodyProps {
   colCells: ColCells[];
   inputFields: InputField[];
   detailedData?: any | null;
-  fetchDetailedData?: (id: any) => void;
-  onSubmit: (formData: any, id: any) => void;
-  onDelete: (id: any) => void;
+  fetchDetailedData?: (topic_slug: any) => void;
+  onSubmit: (formData: any, topic_slug: any) => void;
+  onDelete: (topic_slug: any) => void;
   onEditNavigate?: string;
   onDetailNavigate?: string;
   changeIsActive?: (idIsActive: any, newIsActive: any) => Promise<any>;
@@ -62,7 +62,7 @@ const TabelBody: React.FC<TabelBodyProps> = ({
   onDetailNavigate,
   changeIsActive,
 }) => {
-  const [activeDropdown, setActiveDropdown] = useState<number | null | boolean>(
+  const [activeDropdown, setActiveDropdown] = useState<string | null | boolean>(
     null
   );
 
@@ -70,14 +70,14 @@ const TabelBody: React.FC<TabelBodyProps> = ({
 
   const scrollRef = useRef(false);
 
-  const toggleDropdown = (idOrNo: number) => {
+  const toggleDropdown = (idOrNo: string) => {
     setActiveDropdown((prevIdOrNo) => (prevIdOrNo === idOrNo ? null : idOrNo));
   };
 
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [detailModalOpen, setIsDetailModalOpen] = useState(false);
-  const [deleteId, setDeleteId] = useState<number | null>(null);
+  const [deleteId, setDeleteId] = useState<string | null>(null);
 
   const [editedData, setEditedData] = useState<any>({});
 
@@ -87,11 +87,13 @@ const TabelBody: React.FC<TabelBodyProps> = ({
   const locationPathname = location.pathname;
 
   const openEditModal = useCallback(
-    async (id: number) => {
+    async (topic_slug: string) => {
       if (data) {
-        const dataToEdit = await data.find((item: any) => item.id === id);
+        const dataToEdit = await data.find(
+          (item: any) => item.topic_slug === topic_slug
+        );
         if (dataToEdit) {
-          setEditId(id);
+          setEditId(topic_slug);
           setEditedData(dataToEdit);
           setEditModalOpen(true);
         }
@@ -100,31 +102,24 @@ const TabelBody: React.FC<TabelBodyProps> = ({
     [data]
   );
 
-  const { modalEditId, modalDetailId, modalDeleteId } = useParams();
+  const { modalEditSlug, modalDetailSlug, modalDeleteSlug } = useParams();
 
   const closeEditModal = useCallback(() => {
     setEditId(null);
     setEditModalOpen(false);
-    if (modalEditId !== undefined) {
-      const modalEditIdNumber = parseInt(modalEditId, 10);
 
-      if (!isNaN(modalEditIdNumber)) {
-        if (modalEditIdNumber >= 10) {
-          const newUrl = location.pathname.slice(0, -8);
-          navigate(newUrl);
-        } else {
-          const newUrl = location.pathname.slice(0, -7);
-          navigate(newUrl);
-        }
-      }
+    if (modalEditSlug !== undefined) {
+      const basePath = location.pathname.replace(`/edit/${modalEditSlug}`, '');
+
+      navigate(basePath);
     }
-  }, [navigate, modalEditId, location.pathname]);
+  }, [navigate, modalEditSlug, location.pathname]);
 
   const openDetailModal = useCallback(
-    async (id: any) => {
+    async (topic_slug: any) => {
       if (fetchDetailedData) {
         try {
-          fetchDetailedData(id);
+          fetchDetailedData(topic_slug);
 
           if (!onDetailNavigate) {
             setIsDetailModalOpen(true);
@@ -139,43 +134,34 @@ const TabelBody: React.FC<TabelBodyProps> = ({
 
   const closeDetailModal = useCallback(() => {
     setIsDetailModalOpen(false);
-    if (modalDetailId !== undefined) {
-      const modalDetailNumber = parseInt(modalDetailId, 10);
+    if (modalDetailSlug !== undefined) {
+      const basePath = location.pathname.replace(
+        `/detail/${modalDetailSlug}`,
+        ''
+      );
 
-      if (!isNaN(modalDetailNumber)) {
-        if (modalDetailNumber >= 10) {
-          const newUrl = location.pathname.slice(0, -10);
-          navigate(newUrl);
-        } else {
-          const newUrl = location.pathname.slice(0, -9);
-          navigate(newUrl);
-        }
-      }
+      navigate(basePath);
     }
-  }, [location.pathname, modalDetailId, navigate]);
+  }, [navigate, modalDetailSlug, location.pathname]);
 
-  const openDeleteModal = useCallback((id: number) => {
-    setDeleteId(id);
+  const openDeleteModal = useCallback((topic_slug: string) => {
+    setDeleteId(topic_slug);
     setDeleteModalOpen(true);
   }, []);
 
   const closeDeleteModal = useCallback(() => {
     setDeleteId(null);
     setDeleteModalOpen(false);
-    if (modalDeleteId !== undefined) {
-      const modalDeleteNumber = parseInt(modalDeleteId, 10);
 
-      if (!isNaN(modalDeleteNumber)) {
-        if (modalDeleteNumber >= 10) {
-          const newUrl = location.pathname.slice(0, -10);
-          navigate(newUrl);
-        } else {
-          const newUrl = location.pathname.slice(0, -9);
-          navigate(newUrl);
-        }
-      }
+    if (modalDeleteSlug !== undefined) {
+      const basePath = location.pathname.replace(
+        `/delete/${modalDeleteSlug}`,
+        ''
+      );
+
+      navigate(basePath);
     }
-  }, [location.pathname, modalDeleteId, navigate]);
+  }, [navigate, modalDeleteSlug, location.pathname]);
 
   const closeFilterDropdown = () => {
     setActiveDropdown(false);
@@ -188,7 +174,7 @@ const TabelBody: React.FC<TabelBodyProps> = ({
     cell: TableCell,
     customCell: Record<string, any>
   ) => {
-    if (cell.key === 'topic_image') {
+    if (cell.key === topicEnum.ICONNAME) {
       return (
         <img
           src={customCell.image}
@@ -210,7 +196,7 @@ const TabelBody: React.FC<TabelBodyProps> = ({
               const newValue = customCell[cell.key] === 1 ? 0 : 1;
               try {
                 if (changeIsActive) {
-                  await changeIsActive(customCell.id, newValue);
+                  await changeIsActive(customCell.topic_slug, newValue);
                 }
               } catch (error) {
                 console.error('Error changing topic_is_status:', error);
@@ -260,46 +246,37 @@ const TabelBody: React.FC<TabelBodyProps> = ({
   }, [closeDeleteModal, closeDetailModal, closeEditModal]);
 
   useEffect(() => {
-    if (modalEditId !== undefined) {
-      const modalEditIdNumber = parseInt(modalEditId, 10);
+    if (modalEditSlug !== undefined) {
+      if (data && Array.isArray(data) && data.length > 0) {
+        const dataToEdit = data.find(
+          (item: any) => item.topic_slug === modalEditSlug
+        );
 
-      if (!isNaN(modalEditIdNumber)) {
-        if (data && Array.isArray(data) && data.length > 0) {
-          const dataToEdit = data.find(
-            (item: any) => item.id === modalEditIdNumber
-          );
-
-          if (dataToEdit && !onEditNavigate) {
-            setActiveDropdown(dataToEdit.id);
-            setEditId(modalEditIdNumber);
-            setEditedData(dataToEdit);
-            setEditModalOpen(true);
-          } else {
-            navigate('/notfound');
-          }
+        if (dataToEdit && !onEditNavigate) {
+          setActiveDropdown(dataToEdit.topic_slug);
+          setEditId(modalEditSlug);
+          setEditedData(dataToEdit);
+          setEditModalOpen(true);
+        } else {
+          navigate('/notfound');
         }
       }
     }
-  }, [data, modalEditId, navigate, onEditNavigate, openEditModal]);
+  }, [data, modalEditSlug, navigate, onEditNavigate, openEditModal]);
 
   useEffect(() => {
-    if (modalDetailId !== undefined) {
-      const modalDetailNumber = parseInt(modalDetailId, 10);
-      if (!isNaN(modalDetailNumber)) {
-        setActiveDropdown(modalDetailNumber);
+    if (modalDetailSlug !== undefined) {
+      setActiveDropdown(modalDetailSlug);
 
-        if (!detailedData && !onDetailNavigate) {
-          if (fetchDetailedData) {
-            setIsDetailModalOpen(true);
-            fetchDetailedData(modalDetailNumber);
-          }
+      if (!detailedData && !onDetailNavigate) {
+        if (fetchDetailedData) {
+          setIsDetailModalOpen(true);
+          fetchDetailedData(modalDetailSlug);
         }
-      } else {
-        navigate('/notfound');
       }
     }
   }, [
-    modalDetailId,
+    modalDetailSlug,
     navigate,
     detailedData,
     fetchDetailedData,
@@ -307,23 +284,22 @@ const TabelBody: React.FC<TabelBodyProps> = ({
   ]);
 
   useEffect(() => {
-    if (modalDeleteId) {
-      const modalDeleteNumber = parseInt(modalDeleteId);
-      setActiveDropdown(modalDeleteNumber);
+    if (modalDeleteSlug) {
+      setActiveDropdown(modalDeleteSlug);
 
       if (data && Array.isArray(data) && data.length > 0) {
         const dataToDelete = data.find(
-          (item: any) => item.id === modalDeleteNumber
+          (item: any) => item.topic_slug === modalDeleteSlug
         );
 
         if (dataToDelete) {
-          openDeleteModal(modalDeleteNumber);
+          openDeleteModal(modalDeleteSlug);
         } else {
           navigate('/notfound');
         }
       }
     }
-  }, [data, location.search, modalDeleteId, navigate, openDeleteModal]);
+  }, [data, location.search, modalDeleteSlug, navigate, openDeleteModal]);
 
   const dropdownRef = useRef<HTMLTableRowElement | null>(null);
 
@@ -353,7 +329,9 @@ const TabelBody: React.FC<TabelBodyProps> = ({
                       className={`border-b ${
                         index === data.length - 1 ? 'border-none' : ''
                       } ${
-                        activeDropdown === customCell.id ? 'bg-slate-200' : ''
+                        activeDropdown === customCell.topic_slug
+                          ? 'bg-slate-200'
+                          : ''
                       } dropdown-wrapper`}
                       key={index}
                     >
@@ -363,15 +341,17 @@ const TabelBody: React.FC<TabelBodyProps> = ({
                           className="inline-flex items-center text-sm font-medium rounded-lg hover:text-center"
                           role="button"
                           aria-label="Dropdown button"
-                          onClick={() => toggleDropdown(customCell.id)}
+                          onClick={() => toggleDropdown(customCell.topic_slug)}
                           aria-haspopup="menu"
                           aria-expanded={
-                            activeDropdown === customCell.id ? 'true' : 'false'
+                            activeDropdown === customCell.topic_slug
+                              ? 'true'
+                              : 'false'
                           }
                         >
                           <ThreeDotIcon className="w-5 h-5" />
                         </button>
-                        {activeDropdown === customCell.id && (
+                        {activeDropdown === customCell.topic_slug && (
                           <div
                             className={`absolute left-0 z-10 ml-10 bg-white divide-y rounded shadow-2xl w-44 ${
                               index === data.length - 1 ? 'mb-20' : ''
@@ -384,10 +364,15 @@ const TabelBody: React.FC<TabelBodyProps> = ({
                                 <Link
                                   to={
                                     onEditNavigate
-                                      ? onEditNavigate
-                                      : `edit/${customCell.id}`
+                                      ? onEditNavigate.replace(
+                                          '{QuestionSlug}',
+                                          customCell.topic_slug
+                                        )
+                                      : `edit/${customCell.topic_slug}`
                                   }
-                                  onClick={() => openEditModal(customCell.id)}
+                                  onClick={() =>
+                                    openEditModal(customCell.topic_slug)
+                                  }
                                   type="button"
                                   aria-label="Edit"
                                   className="flex items-center w-full px-4 py-2 duration-200 hover:text-white hover:bg-primary"
@@ -414,11 +399,13 @@ const TabelBody: React.FC<TabelBodyProps> = ({
                                     onDetailNavigate
                                       ? onDetailNavigate.replace(
                                           '{topicId}',
-                                          customCell.id
+                                          customCell.topic_slug
                                         )
-                                      : `detail/${customCell.id}`
+                                      : `detail/${customCell.topic_slug}`
                                   }
-                                  onClick={() => openDetailModal(customCell.id)}
+                                  onClick={() =>
+                                    openDetailModal(customCell.topic_slug)
+                                  }
                                   type="button"
                                   aria-label="Detail"
                                   className="flex items-center w-full px-4 py-2 duration-200 hover: hover:text-white hover:bg-primary"
@@ -438,10 +425,12 @@ const TabelBody: React.FC<TabelBodyProps> = ({
 
                               <li>
                                 <Link
-                                  to={`delete/${customCell.id}`}
+                                  to={`delete/${customCell.topic_slug}`}
                                   type="button"
                                   aria-label="Delete"
-                                  onClick={() => openDeleteModal(customCell.id)}
+                                  onClick={() =>
+                                    openDeleteModal(customCell.topic_slug)
+                                  }
                                   className="flex items-center w-full px-4 py-2 text-red-500 duration-200 hover: hover:text-white hover:bg-red-800"
                                 >
                                   <TrashIcon className="w-4 h-4 mr-2" />

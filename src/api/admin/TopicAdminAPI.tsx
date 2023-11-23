@@ -27,7 +27,7 @@ const getTopicAdmin = async () => {
 };
 
 // GET Detail TopicAdmin
-const getDetailTopicAdmin = async (id: any) => {
+const getDetailTopicAdmin = async (slug: any) => {
   try {
     const token = TokenHelper();
 
@@ -37,7 +37,7 @@ const getDetailTopicAdmin = async (id: any) => {
 
     const reponseGetDetailTopicAdmin = await RequestApi(
       'GET',
-      `faq/topics/${id}`,
+      `faq/topics/${slug}`,
       {},
       headerToken,
       'Mengambil detail topic admin'
@@ -75,7 +75,7 @@ const addTopicAdmin = async (formData: any) => {
 };
 
 // PUT TopicAdmin
-const updateTopicAdmin = async (id: any, TopicAdminData: any) => {
+const updateTopicAdmin = async (slug: any, TopicAdminData: any) => {
   try {
     const token = TokenHelper();
 
@@ -85,7 +85,7 @@ const updateTopicAdmin = async (id: any, TopicAdminData: any) => {
 
     const reponseUpdateTopicAdmin = await RequestApi(
       'PUT',
-      `faq/topics/${id}`,
+      `faq/topics/${slug}`,
       TopicAdminData,
       headerToken,
       'Memperbarui topic admin'
@@ -99,19 +99,20 @@ const updateTopicAdmin = async (id: any, TopicAdminData: any) => {
 };
 
 // DELETE TopicAdmin
-const deleteTopicAdmin = async (id: any) => {
+const deleteTopicAdmin = async (slug: any) => {
   try {
-    const token = TokenHelper();
+    // const token = TokenHelper();
 
-    const headerToken = {
-      Authorization: `Bearer ${token}`,
-    };
+    // const headerToken = {
+    //   Authorization: `Bearer ${token}`,
+    // };
+    console.log(slug);
 
     const reponseDeleteTopicAdmin = await RequestApi(
       'DELETE',
-      `faq/topics/${id}`,
+      `faq/topics/${slug}`,
       null,
-      headerToken,
+      {},
       'Menghapus topic admin'
     );
 

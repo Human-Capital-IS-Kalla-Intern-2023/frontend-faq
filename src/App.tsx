@@ -14,8 +14,8 @@ import DeleteModal from './components/modals/DeleteModal';
 // Import Page
 import FaqAdmin from './pages/admin/FAQ/FaqAdmin';
 import AddFaqAdmin from './pages/admin/FAQ/AddFaqAdmin';
-import DetailFaqAdmin from './pages/admin/FAQ/DetailFaqAdmin';
 import EditFaqAdmin from './pages/admin/FAQ/EditFaqAdmin';
+import DetailFaqAdmin from './pages/admin/FAQ/DetailFaqAdmin';
 
 import TopicAdmin from './pages/admin/TopicAdmin';
 
@@ -41,20 +41,20 @@ const App: React.FC = () => {
               <Routes>
                 <Route path="faq" element={<FaqAdmin />}>
                   <Route
-                    path="delete/:modalDeleteId"
+                    path="delete/:modalDeleteSlug"
                     element={<DeleteModal />}
                   />
                 </Route>
 
                 <Route path="topic" element={<TopicAdmin />}>
                   <Route path="add" element={<AddModal />} />
-                  <Route path="edit/:modalEditId" element={<EditModal />} />
+                  <Route path="edit/:modalEditSlug" element={<EditModal />} />
                   <Route
-                    path="detail/:modalDetailId"
+                    path="detail/:modalDetailSlug"
                     element={<DetailModal />}
                   />
                   <Route
-                    path="delete/:modalDeleteId"
+                    path="delete/:modalDeleteSlug"
                     element={<DeleteModal />}
                   />
                 </Route>
@@ -65,8 +65,8 @@ const App: React.FC = () => {
         />
 
         <Route path="admin/faq/add" element={<AddFaqAdmin />} />
+        <Route path="admin/faq/edit/:QuestionSlug" element={<EditFaqAdmin />} />
         <Route path="admin/faq/detail" element={<DetailFaqAdmin />} />
-        <Route path="admin/faq/edit" element={<EditFaqAdmin />} />
         {/* Admin Routes End */}
 
         {/* User Routes Start */}

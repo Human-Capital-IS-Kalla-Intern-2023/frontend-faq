@@ -27,7 +27,7 @@ const getFaqAdmin = async () => {
 };
 
 // GET Detail FaqAdmin
-const getDetailFaqAdmin = async (id: any) => {
+const getDetailFaqAdmin = async (slug: any) => {
   try {
     const token = TokenHelper();
 
@@ -37,7 +37,7 @@ const getDetailFaqAdmin = async (id: any) => {
 
     const reponseGetDetailFaqAdmin = await RequestApi(
       'GET',
-      `topic-admin/${id}`,
+      `topic-admin/${slug}`,
       {},
       headerToken,
       'Mengambil detail faq admin'
@@ -75,19 +75,19 @@ const addFaqAdmin = async (formData: any) => {
 };
 
 // PUT FaqAdmin
-const updateFaqAdmin = async (id: any, FaqAdminData: any) => {
+const updateFaqAdmin = async (slug: any, FaqAdminData: any) => {
   try {
-    const token = TokenHelper();
+    // const token = TokenHelper();
 
-    const headerToken = {
-      Authorization: `Bearer ${token}`,
-    };
+    // const headerToken = {
+    //   Authorization: `Bearer ${token}`,
+    // };
 
     const reponseUpdateFaqAdmin = await RequestApi(
       'PUT',
-      `topic-admin/${id}`,
+      `topic-admin/${slug}`,
       FaqAdminData,
-      headerToken,
+      {},
       'Memperbarui faq admin'
     );
 
@@ -99,7 +99,7 @@ const updateFaqAdmin = async (id: any, FaqAdminData: any) => {
 };
 
 // DELETE FaqAdmin
-const deleteFaqAdmin = async (id: any) => {
+const deleteFaqAdmin = async (slug: any) => {
   try {
     const token = TokenHelper();
 
@@ -109,7 +109,7 @@ const deleteFaqAdmin = async (id: any) => {
 
     const reponseDeleteFaqAdmin = await RequestApi(
       'DELETE',
-      `topic-admin/${id}`,
+      `topic-admin/${slug}`,
       null,
       headerToken,
       'Menghapus faq admin'

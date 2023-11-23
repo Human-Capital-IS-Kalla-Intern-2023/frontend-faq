@@ -263,7 +263,7 @@ const FaqAdmin: React.FC = () => {
         fetchDetailedData={fetchDetailFaqAdmin}
         changeIsActive={handleChangeIsActiveFaqAdmin}
         onDetailNavigate="detail"
-        onEditNavigate="edit"
+        onEditNavigate="edit/:QuestionSlug"
       />
       <TabelFooter
         currentPage={currentPage}
