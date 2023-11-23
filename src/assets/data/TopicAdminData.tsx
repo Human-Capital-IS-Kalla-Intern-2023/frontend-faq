@@ -12,7 +12,7 @@ interface SelectOption {
 const colCells = [
   { key: topicEnum.TOPICNAME, text: 'topic name' },
   { key: topicEnum.TOPIC_AUTHOR, text: 'author' },
-  { key: topicEnum.TOPIC_IMAGE, text: 'icon' },
+  { key: topicEnum.ICONNAME, text: 'icon' },
   { key: topicEnum.TOPIC_STATUS, text: 'active' },
 ];
 
@@ -30,9 +30,9 @@ const inputField = [
     type: 'textarea',
   },
   {
-    id: topicEnum.TOPIC_IMAGE,
+    id: topicEnum.ICONNAME,
     label: 'icon',
-    name: topicEnum.TOPIC_IMAGE,
+    name: topicEnum.ICONNAME,
     icons: true,
     type: 'select',
     options: [] as SelectOption[],
