@@ -37,14 +37,14 @@ const AddFaqAdmin = () => {
 
   const [formData, setFormData] = useState<{
     topic_id: number[];
-    faq_name: string;
-    is_active: number;
-    content: any;
+    question_name: string;
+    question_is_status: number;
+    question_answer: any;
   }>({
     topic_id: [], // Initialize as an empty array
-    faq_name: '',
-    is_active: 1,
-    content: '',
+    question_name: '',
+    question_is_status: 1,
+    question_answer: '',
   });
 
   // Alert State
@@ -137,11 +137,11 @@ const AddFaqAdmin = () => {
 
   // Handle Faq Admin Name
   const handleFaqAdminNameInput = (e: any) => {
-    setFormData({ ...formData, faq_name: e.target.value });
+    setFormData({ ...formData, question_name: e.target.value });
     setFaqAdminNameValue(e.target.value);
 
     // Save data to local storage
-    const newData = { ...formData, faq_name: e.target.value };
+    const newData = { ...formData, question_name: e.target.value };
     saveDataToLocalStorage(newData);
   };
 
@@ -155,7 +155,7 @@ const AddFaqAdmin = () => {
     // Update the formData and save to local storage
     const updatedFormData = {
       ...formData,
-      is_active: isChecked ? 1 : 0,
+      question_is_status: isChecked ? 1 : 0,
     };
 
     // Save data to local storage
@@ -166,13 +166,13 @@ const AddFaqAdmin = () => {
   ///* RIGHT CARD SECTION
   const [blogContent, setBlogContent] = useState('');
 
-  const handleBlogContentChange = (content: any) => {
-    setBlogContent(content);
+  const handleBlogContentChange = (question_answer: any) => {
+    setBlogContent(question_answer);
 
     // Update the formData and save to local storage
     const updatedFormData = {
       ...formData,
-      content: content,
+      question_answer: question_answer,
     };
 
     // Save data to local storage
@@ -186,9 +186,9 @@ const AddFaqAdmin = () => {
       const parsedData = JSON.parse(savedData);
       // Update your component state with the loaded data
       setFormData(parsedData);
-      setFaqAdminNameValue(parsedData.faq_name);
+      setFaqAdminNameValue(parsedData.question_name);
 
-      setLeftActiveCheckbox(parsedData.is_active === 1);
+      setLeftActiveCheckbox(parsedData.question_is_status === 1);
     }
   }, []);
 
@@ -268,7 +268,7 @@ const AddFaqAdmin = () => {
                     onChange={handleLeftActiveCheckboxChange}
                   />
                   <div
-                    className={`w-11 h-6 bg-red-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-white dark:peer-focus:ring-gray-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600`}
+                    className={`w-11 h-6 bg-red-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-white dark:peer-focus:ring-gray-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:question_answer-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600`}
                   ></div>
                 </label>
               </div>
