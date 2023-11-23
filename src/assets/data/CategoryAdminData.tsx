@@ -9,30 +9,37 @@ interface SelectOption {
 // Import API
 
 const colCells = [
-  { key: 'category_name', text: 'Category Name' },
-  { key: 'total_used', text: 'Total Used' },
-  { key: 'is_active', text: 'Active' },
+  { key: 'topic_name', text: 'Category Name' },
+  { key: 'topic_author', text: 'Author' },
+  { key: 'topic_image', text: 'Icon' },
+  { key: 'topic_is_status', text: 'Active' },
 ];
 
 const inputField = [
   {
-    id: 'category_name',
+    id: 'topic_name',
     label: 'Category Name',
-    name: 'category_name',
+    name: 'topic_name',
     type: 'text',
   },
   {
-    id: 'icons_name',
-    label: 'Category Icon',
-    name: 'icons_name',
+    id: 'topic_description',
+    label: 'Description ',
+    name: 'topic_description',
+    type: 'text-area',
+  },
+  {
+    id: 'topic_image',
+    label: 'Category',
+    name: 'topic_image',
     icons: true,
     type: 'select',
     options: [] as SelectOption[],
   },
   {
-    id: 'is_active',
+    id: 'topic_is_status',
     label: 'Active',
-    name: 'is_active',
+    name: 'topic_is_status',
     type: 'checkbox',
     checked: 1,
   },
@@ -50,9 +57,7 @@ const getIconList = async () => {
     const iconOptions = generateIconOptions();
 
     // Find the 'Category Icon' field in the inputField array
-    const iconsField = inputField.find(
-      (field) => field.label === 'Category Icon'
-    );
+    const iconsField = inputField.find((field) => field.label === 'Category');
     if (iconsField) {
       iconsField.options = iconOptions.map((option) => ({
         value: option.value,
