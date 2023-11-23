@@ -2,7 +2,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ReactLoading from 'react-loading';
-import Select from 'react-select';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import 'react-quill/dist/quill.snow.css';
@@ -17,10 +16,13 @@ import {
   ConfirmationAlert,
 } from '../../../components/alerts/CustomAlert';
 import { ResetAlert } from '../../../helpers/ResetAlert';
+import CancelButton from '../../../components/buttons/CancelButton';
+import { SubmitButton } from '../../../components/buttons/SubmitButton';
 
 // Import API's
 import { addFaqAdmin } from '../../../api/admin/FaqAdminAPI';
-import { getCategoryAdmin } from '../../../api/admin/CategoryAdminAPI';
+import { getTopicAdmin } from '../../../api/admin/TopicAdminAPI';
+import SelectField from '../../../components/field/SelectField';
 
 interface FieldOptions {
   label: string;
@@ -28,27 +30,21 @@ interface FieldOptions {
 }
 
 const AddFaqAdmin = () => {
-  const [categoryDropdownValue, setCategoryDropdownValue] = useState<
-    number | string
-  >('');
-
   const [faqAdminNameValue, setFaqAdminNameValue] = useState('');
 
-  const [categoryOptions, setCategoryOptions] = useState<Array<FieldOptions>>(
-    []
-  );
+  const [topicOptions, setTopicOptions] = useState<Array<FieldOptions>>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const [formData, setFormData] = useState<{
-    category_id: string | number;
-    faq_name: string;
-    is_active: number;
-    content: any;
+    topic_id: number[];
+    question_name: string;
+    question_is_status: number;
+    question_answer: any;
   }>({
-    category_id: '',
-    faq_name: '',
-    is_active: 1,
-    content: '',
+    topic_id: [], // Initialize as an empty array
+    question_name: '',
+    question_is_status: 1,
+    question_answer: '',
   });
 
   // Alert State
@@ -68,15 +64,15 @@ const AddFaqAdmin = () => {
     localStorage.setItem('faqAdminAddData', JSON.stringify(data));
   };
 
-  ///* FEATCH Category
-  async function featchCategory() {
+  ///* FEATCH Topic
+  async function featchTopic() {
     try {
-      const responseData = await getCategoryAdmin();
-      const categoryOptions = responseData.data.map((item: any) => ({
+      const responseData = await getTopicAdmin();
+      const topicOptions = responseData.data.map((item: any) => ({
         label: item.topic_name,
-        value: item.id,
+        value: item.topic_id,
       }));
-      setCategoryOptions(categoryOptions);
+      setTopicOptions(topicOptions);
     } catch (error) {
       console.error('Error fetching companies:', error);
     }
@@ -126,25 +122,26 @@ const AddFaqAdmin = () => {
   };
 
   ///* LEFT CARD SECTION
-  // Handle handle Category Select
-  const handleCategorySelect = (e: any) => {
-    const selectedCategory = e.target.value;
-    const categoryId = parseInt(selectedCategory, 10);
-    setFormData({ ...formData, category_id: selectedCategory });
-    setCategoryDropdownValue(categoryId);
+  // Handle handle Topic Select
+  const handleTopicSelect = (e: any) => {
+    const selectedOptions = e.target.value;
+    const selectedValues = selectedOptions.map((option: any) => option.value);
+
+    // Update formData with an array of topic IDs
+    setFormData({ ...formData, topic_id: selectedValues });
 
     // Save data to local storage
-    const newData = { ...formData, category_id: categoryId };
+    const newData = { ...formData, topic_id: selectedValues };
     saveDataToLocalStorage(newData);
   };
 
   // Handle Faq Admin Name
   const handleFaqAdminNameInput = (e: any) => {
-    setFormData({ ...formData, faq_name: e.target.value });
+    setFormData({ ...formData, question_name: e.target.value });
     setFaqAdminNameValue(e.target.value);
 
     // Save data to local storage
-    const newData = { ...formData, faq_name: e.target.value };
+    const newData = { ...formData, question_name: e.target.value };
     saveDataToLocalStorage(newData);
   };
 
@@ -158,7 +155,7 @@ const AddFaqAdmin = () => {
     // Update the formData and save to local storage
     const updatedFormData = {
       ...formData,
-      is_active: isChecked ? 1 : 0,
+      question_is_status: isChecked ? 1 : 0,
     };
 
     // Save data to local storage
@@ -169,13 +166,13 @@ const AddFaqAdmin = () => {
   ///* RIGHT CARD SECTION
   const [blogContent, setBlogContent] = useState('');
 
-  const handleBlogContentChange = (content: any) => {
-    setBlogContent(content);
+  const handleBlogContentChange = (question_answer: any) => {
+    setBlogContent(question_answer);
 
     // Update the formData and save to local storage
     const updatedFormData = {
       ...formData,
-      content: content,
+      question_answer: question_answer,
     };
 
     // Save data to local storage
@@ -189,15 +186,14 @@ const AddFaqAdmin = () => {
       const parsedData = JSON.parse(savedData);
       // Update your component state with the loaded data
       setFormData(parsedData);
-      setCategoryDropdownValue(parsedData.category_id);
-      setFaqAdminNameValue(parsedData.faq_name);
+      setFaqAdminNameValue(parsedData.question_name);
 
-      setLeftActiveCheckbox(parsedData.is_active === 1);
+      setLeftActiveCheckbox(parsedData.question_is_status === 1);
     }
   }, []);
 
   useEffect(() => {
-    featchCategory();
+    featchTopic();
   }, []);
 
   return (
@@ -214,20 +210,8 @@ const AddFaqAdmin = () => {
           Add Frequently Asked Questions
         </h1>
         <div className="hidden text-xs font-medium lg:flex md:flex lg:text-sm">
-          <button
-            aria-label="Cancel"
-            className="px-1 py-2 mr-2 duration-300 bg-transparent  rounded-md lg:text-lg text-pureBlack lg:px-4 lg:py-2 lg:mr-4 bg-stone-300 hover:text-pureBlack hover:bg-slate-400 lg:hover:scale-[1.03] "
-            onClick={cancelHandler}
-          >
-            CANCEL
-          </button>
-          <button
-            aria-label="Save and Close"
-            className="px-1 py-2 text-white duration-300 rounded-md lg:text-[17px] lg:px-4 lg:py-2 bg-primary hover:bg-green-600 lg:hover:scale-[1.03]"
-            onClick={handleSaveAndClose}
-          >
-            SAVE & CLOSE
-          </button>
+          <CancelButton onClick={cancelHandler} />
+          <SubmitButton onClick={handleSaveAndClose} title="SAVE & ClOSE" />
         </div>
       </header>
 
@@ -240,31 +224,19 @@ const AddFaqAdmin = () => {
             </h1>
             <div className="p-4">
               <label
-                htmlFor="dropdown category"
+                htmlFor="dropdown topic"
                 className="block mt-3 font-medium text-gray-700"
               >
-                Category *
+                Topic *
               </label>
-              <Select
-                id="dropdown category"
-                name="dropdown category"
-                value={categoryOptions.find(
-                  (option) => option.value === categoryDropdownValue
-                )}
+              <SelectField
+                id="dropdown topic"
+                name="dropdown topic"
                 isMulti
+                options={topicOptions}
                 onChange={(selectedOption: any) =>
-                  handleCategorySelect(selectedOption)
+                  handleTopicSelect(selectedOption)
                 }
-                styles={{
-                  control: (provided) => ({
-                    ...provided,
-                    border: '1px solid black',
-                    outline: 'none',
-                    boxShadow: 'none',
-                  }),
-                }}
-                options={categoryOptions}
-                className="mt-1"
               />
 
               <div className="mt-4 mb-4">
@@ -296,7 +268,7 @@ const AddFaqAdmin = () => {
                     onChange={handleLeftActiveCheckboxChange}
                   />
                   <div
-                    className={`w-11 h-6 bg-red-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-white dark:peer-focus:ring-gray-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600`}
+                    className={`w-11 h-6 bg-red-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-white dark:peer-focus:ring-gray-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:question_answer-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600`}
                   ></div>
                 </label>
               </div>
@@ -322,20 +294,8 @@ const AddFaqAdmin = () => {
       </div>
 
       <div className="flex justify-end mx-4 my-3 text-xs font-medium md:hidden lg:text-sm">
-        <button
-          aria-label="Cancel"
-          className="px-1 py-2 mr-2 duration-300 bg-transparent rounded-md lg:text-lg text-pureBlack lg:px-4 lg:py-2 lg:mr-4 bg-stone-300 hover:text-pureBlack hover:bg-slate-400 lg:hover:scale-[1.03] "
-          onClick={cancelHandler}
-        >
-          CANCEL
-        </button>
-        <button
-          aria-label="Save and Close"
-          className="px-1 py-2 text-white duration-300 rounded-md lg:text-[17px] lg:px-4 lg:py-2 bg-primary hover:bg-green-600 lg:hover:scale-[1.03]"
-          onClick={handleSaveAndClose}
-        >
-          SAVE & CLOSE
-        </button>
+        <CancelButton onClick={cancelHandler} />
+        <SubmitButton onClick={handleSaveAndClose} title="SAVE & ClOSE" />
       </div>
 
       {successMessage && successTitle && (

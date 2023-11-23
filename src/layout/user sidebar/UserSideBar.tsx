@@ -19,7 +19,7 @@ import logo3000 from '../../assets/img/logo/logo-3000.webp';
 
 import {
   FAQIcon,
-  CategoryIcon,
+  TopicIcon,
   CloseSidebarIcon,
   ReponsiveSidebarIcon,
   DashboardIcon,
@@ -86,7 +86,7 @@ const Sidebar = () => {
   const subMenusList = [
     {
       name: 'Topic',
-      icon: <CategoryIcon className="min-w-max" />,
+      icon: <TopicIcon className="min-w-max" />,
       menus: [
         'Leave Management',
         'Work Schedule',
@@ -160,13 +160,13 @@ const Sidebar = () => {
                 }`}
               >
                 <NavLink to={'/employee'} className="flex items-center">
-                  <CategoryIcon className="min-w-max" />
+                  <TopicIcon className="min-w-max" />
                   <motion.span
                     variants={textAnimation}
                     animate={open ? 'open' : 'closed'}
                     className="ml-2 link"
                   >
-                    Category
+                    Topic
                   </motion.span>
                 </NavLink>
               </li> */}

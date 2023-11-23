@@ -5,10 +5,10 @@ function UserLayout({ children }: any) {
   const location = useLocation();
 
   const sidebarPaths = [
-    '/category',
+    '/topic',
     // '/faq',
     '/faq/home',
-    '/faq/category',
+    '/faq/topic',
     '/dashboard',
     '/faq/question',
     '/leavemanagement/faq',

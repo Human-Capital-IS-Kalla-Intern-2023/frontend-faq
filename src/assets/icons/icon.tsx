@@ -280,7 +280,7 @@ const FAQIcon: React.FC<SvgIconProps> = ({ className }) => (
   </svg>
 );
 
-const CategoryIcon: React.FC<SvgIconProps> = ({ className }) => (
+const TopicIcon: React.FC<SvgIconProps> = ({ className }) => (
   <svg
     viewBox="0 0 24 24"
     fill="currentColor"
@@ -308,7 +308,7 @@ export {
   DashboardIcon,
   ReportIcon,
   FAQIcon,
-  CategoryIcon,
+  TopicIcon,
   ThreeDotIcon,
   EditIcon,
   DetailIcon,

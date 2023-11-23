@@ -21,7 +21,7 @@ import {
   DashboardIcon,
   ReportIcon,
   FAQIcon,
-  CategoryIcon,
+  TopicIcon,
   SettingIcon,
   CloseSidebarIcon,
   ReponsiveSidebarIcon,
@@ -186,19 +186,19 @@ const Sidebar = () => {
               </li>
               <li
                 className={`px-1 py-2 mb-1 rounded-md text-base  ${
-                  pathname.includes('/admin/category')
+                  pathname.includes('/admin/topic')
                     ? 'bg-primary text-white '
                     : 'hover:bg-slate-300 '
                 }`}
               >
-                <NavLink to={'/admin/category'} className="flex items-center">
-                  <CategoryIcon className="min-w-max" />
+                <NavLink to={'/admin/topic'} className="flex items-center">
+                  <TopicIcon className="min-w-max" />
                   <motion.span
                     variants={textAnimation}
                     animate={open ? 'open' : 'closed'}
                     className="ml-2 link"
                   >
-                    Category
+                    Topic
                   </motion.span>
                 </NavLink>
               </li>

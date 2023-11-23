@@ -32,14 +32,14 @@ const DeleteModal = ({ isOpen, onClose, onDelete, deleteData }: any) => {
           <button
             aria-label="Cancel"
             onClick={onClose}
-            className="w-full px-4 py-2 mr-4  text-base overlay text-black rounded bg-[#EAEAEC]  hover:bg-slate-300  duration-200"
+            className="w-full px-4 py-3 mr-4  text-[17px] overlay text-black rounded bg-[#EAEAEC]  hover:bg-slate-300  duration-200"
           >
             Cancel
           </button>
           <button
             aria-label="Delete"
             onClick={handleDelete}
-            className="w-full px-4 py-2 text-base text-white bg-red-800 rounded hover:bg-[#AD1010]"
+            className="w-full px-4 py-3 text-[17px] text-white bg-red-800 rounded hover:bg-[#AD1010]"
           >
             Delete
           </button>

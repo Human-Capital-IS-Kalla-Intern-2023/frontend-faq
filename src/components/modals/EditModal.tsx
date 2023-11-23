@@ -6,9 +6,15 @@ import CheckboxField from '../field/CheckboxField';
 import InputField from '../field/InputField';
 import SelectField from '../field/SelectField';
 import TextAreaField from '../field/TextAreaField';
+import CloseButton from '../buttons/CloseButton';
 
-import { CloseButtonIcon } from '../../assets/icons/icon';
+// Imoport Assets
+import { getIconList } from '../../assets/data/TopicAdminData';
 
+// Import Type
+import { generalEnum } from '../../state/enum/generalEnum';
+import { topicEnum } from '../../state/enum/topicEnum';
+import { questionEnum } from '../../state/enum/questionEnum';
 interface FormData {
   [key: string]: any;
 }
@@ -29,10 +35,15 @@ const EditModal = ({
   const handleChange = (e: any) => {
     const { name, value, type, checked } = e.target;
 
-    if (type === 'checkbox') {
+    if (type === generalEnum.CHECKBOX) {
       setFormData((prevData) => ({
         ...prevData,
         [name]: checked,
+      }));
+    } else if (name === topicEnum.ICONNAME) {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value.value,
       }));
     } else {
       setFormData((prevData) => ({
@@ -62,39 +73,25 @@ const EditModal = ({
     if (isOpen) {
       const initialData: FormData = {};
       inputFields.forEach((field: any) => {
-        if (field.type === 'select' && field.isMulti) {
-          // Handle multi-select fields
+        if (field.type === generalEnum.SELECT && field.isMulti) {
           initialData[field.name] = initialFormData[field.name] || [];
-        } else if (field.type === 'checkbox') {
-          // Initialize checkboxes based on initialFormData
+        } else if (field.type === generalEnum.CHECKBOX) {
           initialData[field.name] = initialFormData[field.name] === 1 ? 1 : 0;
         } else {
           initialData[field.name] = initialFormData[field.name] || '';
         }
       });
+      getIconList();
 
-      if ('is_hide' in initialFormData) {
-        initialData['is_hide'] = initialFormData['is_hide'] === 1 ? 1 : 0;
+      if (topicEnum.TOPIC_STATUS in initialFormData) {
+        initialData[topicEnum.TOPIC_STATUS] =
+          initialFormData[topicEnum.TOPIC_STATUS] === 1 ? 1 : 0;
       }
 
-      if ('is_active' in initialFormData) {
-        initialData['is_active'] = initialFormData['is_active'] === 1 ? 1 : 0;
+      if (questionEnum.QUESTION_STATUS in initialFormData) {
+        initialData[questionEnum.QUESTION_STATUS] =
+          initialFormData[questionEnum.QUESTION_STATUS] === 1 ? 1 : 0;
       }
-
-      if ('is_edit' in initialFormData) {
-        initialData['is_edit'] = initialFormData['is_edit'] === 1 ? 1 : 0;
-      }
-
-      // Check 'id_additional_position' if it exists in initialFormData
-      if ('additional_position' in initialFormData) {
-        initialData['id_additional_position'] = initialFormData[
-          'additional_position'
-        ].map((position: any) => position.id_additional_position);
-      } else {
-        // Handle the case when 'additional_position' is not present
-        initialData['id_additional_position'] = [];
-      }
-
       setFormData(initialData);
     }
   }, [isOpen, initialFormData, inputFields]);
@@ -111,12 +108,7 @@ const EditModal = ({
     <div>
       <div className="fixed inset-0 z-20 flex items-center justify-center bg-black bg-opacity-50 overlay ">
         <div className="relative w-full p-6 bg-white rounded shadow-lg md:w-3/6 overlay">
-          <div
-            onClick={onClose}
-            className="absolute cursor-pointer top-4 right-5 focus:outline-none"
-          >
-            <CloseButtonIcon className="w-10 h-10 p-1 duration-200 rounded-full overlay hover:bg-primary hover:text-white" />
-          </div>
+          <CloseButton onClick={onClose} />
           <div className="relative mt-8 mb-5 text-center">
             <span className="relative z-10 px-8 py-2 text-2xl text-white border rounded-full bg-primary border-primaryColor">
               {title}
@@ -133,14 +125,14 @@ const EditModal = ({
                 className={`${
                   inputFields.length === 1 ||
                   inputFields.length === 2 ||
-                  field.id === 'topic_description' ||
+                  field.id === topicEnum.TOPIC_DESCRIPTION ||
                   (index === 0 && inputFields.length >= 3)
                     ? 'col-span-2'
                     : ''
                 }`}
               >
                 <label
-                  className="flex justify-start mb-2 font-medium"
+                  className="flex justify-start mb-2 font-medium capitalize"
                   htmlFor={field.id}
                 >
                   {field.label}
@@ -153,6 +145,8 @@ const EditModal = ({
                     isMulti={field.isMulti}
                     options={field.options}
                     onChange={handleChange}
+                    showImageInputCheckbox={field.label === 'icon'}
+                    // value={formData[field.name] || ''}
                   />
                 )}
 
@@ -165,10 +159,11 @@ const EditModal = ({
                   />
                 )}
 
-                {(field.type === 'text-area' || field.type === 'textarea') && (
+                {(field.type === 'textarea' || field.type === 'textarea') && (
                   <TextAreaField
                     id={field.id}
                     name={field.name}
+                    value={formData[field.name] || ''}
                     placeholder={`Input ${field.label}`}
                     onChange={handleChange}
                   />
@@ -176,12 +171,12 @@ const EditModal = ({
 
                 {field.type !== 'select' &&
                   field.type !== 'checkbox' &&
-                  field.type !== 'text-area' &&
                   field.type !== 'textarea' && (
                     <InputField
                       id={field.id}
                       name={field.name}
                       type={field.type}
+                      value={formData[field.name] || ''}
                       placeholder={`Input ${field.label}`}
                       onChange={handleChange}
                     />

@@ -1,6 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { iconList } from '../icons/categoriIcon';
+import { iconList } from '../icons/topicIcon';
+import { topicEnum } from '../../state/enum/topicEnum';
 interface SelectOption {
   label: any;
   value: string;
@@ -9,37 +10,37 @@ interface SelectOption {
 // Import API
 
 const colCells = [
-  { key: 'topic_name', text: 'Category Name' },
-  { key: 'topic_author', text: 'Author' },
-  { key: 'topic_image', text: 'Icon' },
-  { key: 'topic_is_status', text: 'Active' },
+  { key: topicEnum.TOPICNAME, text: 'topic name' },
+  { key: topicEnum.TOPIC_AUTHOR, text: 'author' },
+  { key: topicEnum.ICONNAME, text: 'icon' },
+  { key: topicEnum.TOPIC_STATUS, text: 'active' },
 ];
 
 const inputField = [
   {
-    id: 'topic_name',
-    label: 'Category Name',
-    name: 'topic_name',
+    id: topicEnum.TOPICNAME,
+    label: 'topic name',
+    name: topicEnum.TOPICNAME,
     type: 'text',
   },
   {
-    id: 'topic_description',
-    label: 'Description ',
-    name: 'topic_description',
-    type: 'text-area',
+    id: topicEnum.TOPIC_DESCRIPTION,
+    label: 'description ',
+    name: topicEnum.TOPIC_DESCRIPTION,
+    type: 'textarea',
   },
   {
-    id: 'topic_image',
-    label: 'Category',
-    name: 'topic_image',
+    id: topicEnum.ICONNAME,
+    label: 'icon',
+    name: topicEnum.ICONNAME,
     icons: true,
     type: 'select',
     options: [] as SelectOption[],
   },
   {
-    id: 'topic_is_status',
-    label: 'Active',
-    name: 'topic_is_status',
+    id: topicEnum.TOPIC_STATUS,
+    label: 'active',
+    name: topicEnum.TOPIC_STATUS,
     type: 'checkbox',
     checked: 1,
   },
@@ -56,8 +57,8 @@ const getIconList = async () => {
   try {
     const iconOptions = generateIconOptions();
 
-    // Find the 'Category Icon' field in the inputField array
-    const iconsField = inputField.find((field) => field.label === 'Category');
+    // Find the 'Topic Icon' field in the inputField array
+    const iconsField = inputField.find((field) => field.label === 'icon');
     if (iconsField) {
       iconsField.options = iconOptions.map((option) => ({
         value: option.value,
