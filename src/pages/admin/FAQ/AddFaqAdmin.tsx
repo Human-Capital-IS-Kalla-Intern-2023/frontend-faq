@@ -73,7 +73,7 @@ const AddFaqAdmin = () => {
     try {
       const responseData = await getCategoryAdmin();
       const categoryOptions = responseData.data.map((item: any) => ({
-        label: item.category_name,
+        label: item.topic_name,
         value: item.id,
       }));
       setCategoryOptions(categoryOptions);
@@ -213,7 +213,7 @@ const AddFaqAdmin = () => {
         <h1 className="p-2 text-base font-medium border-b-2 sm:text-lg md:text-xl lg:text-[22px] border-primary">
           Add Frequently Asked Questions
         </h1>
-        <div className="lg:flex md:flex text-xs font-medium hidden lg:text-sm">
+        <div className="hidden text-xs font-medium lg:flex md:flex lg:text-sm">
           <button
             aria-label="Cancel"
             className="px-1 py-2 mr-2 duration-300 bg-transparent  rounded-md lg:text-lg text-pureBlack lg:px-4 lg:py-2 lg:mr-4 bg-stone-300 hover:text-pureBlack hover:bg-slate-400 lg:hover:scale-[1.03] "
@@ -253,7 +253,7 @@ const AddFaqAdmin = () => {
                 )}
                 isMulti
                 onChange={(selectedOption: any) =>
-                  handleCategorySelect(selectedOption.value)
+                  handleCategorySelect(selectedOption)
                 }
                 styles={{
                   control: (provided) => ({
@@ -321,7 +321,7 @@ const AddFaqAdmin = () => {
         </div>
       </div>
 
-      <div className="flex md:hidden text-xs justify-end mx-4 font-medium lg:text-sm my-3">
+      <div className="flex justify-end mx-4 my-3 text-xs font-medium md:hidden lg:text-sm">
         <button
           aria-label="Cancel"
           className="px-1 py-2 mr-2 duration-300 bg-transparent rounded-md lg:text-lg text-pureBlack lg:px-4 lg:py-2 lg:mr-4 bg-stone-300 hover:text-pureBlack hover:bg-slate-400 lg:hover:scale-[1.03] "

@@ -16,7 +16,7 @@ import { ResetAlert } from '../../../helpers/ResetAlert';
 
 // Import API
 import {
-  // getFaqAdmin,
+  getFaqAdmin,
   getDetailFaqAdmin,
   addFaqAdmin,
   updateFaqAdmin,
@@ -24,41 +24,6 @@ import {
   searchFaqAdmin,
   changeIsActiveFaqAdmin,
 } from '../../../api/admin/FaqAdminAPI';
-
-const faqAdmin = [
-  {
-    id: 1,
-    faq_name: 'How to apply for leave?',
-    category_name: 'Leave Management',
-    likes: 20,
-    dislikes: 5,
-    is_active: true,
-  },
-  {
-    id: 2,
-    faq_name: 'What are the working hours?',
-    category_name: 'Work Schedule',
-    likes: 15,
-    dislikes: 3,
-    is_active: true,
-  },
-  {
-    id: 3,
-    faq_name: 'What is the dress code?',
-    category_name: ['Dress Code'],
-    likes: 8,
-    dislikes: 1,
-    is_active: false,
-  },
-  {
-    id: 4,
-    faq_name: 'How to submit a complaint?',
-    category_name: 'Employee Feedback',
-    likes: 25,
-    dislikes: 7,
-    is_active: true,
-  },
-];
 
 import { colCells, inputField } from '../../../assets/data/FaqAdminData';
 
@@ -70,7 +35,7 @@ const FaqAdmin: React.FC = () => {
   const [errorTitle, setErrorTitle] = useState<string | null>(null);
 
   // FaqAdmin State
-  // const [faqAdmin, setFaqAdmin] = useState<string[]>([]);
+  const [faqAdmin, setFaqAdmin] = useState<string[]>([]);
   const [detailedData, setDetailedData] = useState<string | null>(null);
 
   // Loading
@@ -97,27 +62,27 @@ const FaqAdmin: React.FC = () => {
   const currentFaqAdminData = faqAdmin.slice(startIndex - 1, endIndex);
 
   // GET all faqAdmin data
-  // const fetchFaqAdmin = async () => {
-  //   setIsLoading(true);
+  const fetchFaqAdmin = async () => {
+    setIsLoading(true);
 
-  //   try {
-  //     const reponseData = await getFaqAdmin();
-  //     setFaqAdmin(reponseData.data);
-  //   } catch (error: any) {
-  //     console.error('Error fetch all category admin:', error);
-  //     setErrorTitle(`Error fetch all category admin`);
+    try {
+      const reponseData = await getFaqAdmin();
+      setFaqAdmin(reponseData.data);
+    } catch (error: any) {
+      console.error('Error fetch all category admin:', error);
+      setErrorTitle(`Error fetch all category admin`);
 
-  //     setErrorMessage(error.response.data.message);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  //   ResetAlert(
-  //     setSuccessTitle,
-  //     setSuccessMessage,
-  //     setErrorTitle,
-  //     setErrorMessage
-  //   );
-  // };
+      setErrorMessage(error.response.data.message);
+    } finally {
+      setIsLoading(false);
+    }
+    ResetAlert(
+      setSuccessTitle,
+      setSuccessMessage,
+      setErrorTitle,
+      setErrorMessage
+    );
+  };
 
   // GET detail faqAdmin data by id
   const fetchDetailFaqAdmin = async (id: number) => {
@@ -149,7 +114,7 @@ const FaqAdmin: React.FC = () => {
       setSuccessTitle(`${responseData.status}`);
       setSuccessMessage(`${responseData.message}`);
 
-      // fetchFaqAdmin();
+      fetchFaqAdmin();
     } catch (error: any) {
       console.error('Error adding faqAdmin:', error);
       setErrorTitle(`Error adding faqAdmin`);
@@ -172,7 +137,7 @@ const FaqAdmin: React.FC = () => {
 
       setSuccessTitle(`${responseData.status}`);
       setSuccessMessage(`${responseData.message}`);
-      // fetchFaqAdmin();
+      fetchFaqAdmin();
     } catch (error: any) {
       console.error('Error editing faqAdmin:', error);
       setErrorTitle(`Error editing faqAdmin`);
@@ -262,7 +227,7 @@ const FaqAdmin: React.FC = () => {
   };
 
   useEffect(() => {
-    // fetchFaqAdmin();
+    fetchFaqAdmin();
   }, []);
 
   return (
