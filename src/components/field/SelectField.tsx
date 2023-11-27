@@ -9,6 +9,8 @@ interface SelectFieldProps {
   options: any[];
   onChange: (selectedOptions: any) => void;
   showImageInputCheckbox?: boolean;
+  defaultValue?: any;
+  imageFieldName?: string;
 }
 
 const SelectField: React.FC<SelectFieldProps> = ({
@@ -19,11 +21,49 @@ const SelectField: React.FC<SelectFieldProps> = ({
   options,
   onChange,
   showImageInputCheckbox = false,
+  defaultValue,
+  imageFieldName,
 }) => {
   const [useImageInput, setUseImageInput] = useState(false);
 
   const handleCheckboxChange = () => {
     setUseImageInput(!useImageInput);
+  };
+
+  const handleImageInputChange = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const files = e.target.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+
+      if (isValidFileType(file)) {
+        const base64String = await convertFileToBase64(file);
+        onChange({ target: { name: imageFieldName, value: base64String } });
+      } else {
+        alert('Invalid file type. Please select an SVG or PNG file.');
+      }
+    }
+  };
+
+  const isValidFileType = (file: File): boolean => {
+    const allowedTypes = ['image/svg+xml', 'image/png'];
+    return allowedTypes.includes(file.type);
+  };
+
+  const convertFileToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (typeof reader.result === 'string') {
+          resolve(reader.result);
+        } else {
+          reject(new Error('Failed to read file as base64.'));
+        }
+      };
+      reader.onerror = (error) => reject(error);
+      reader.readAsDataURL(file);
+    });
   };
 
   return (
@@ -42,10 +82,10 @@ const SelectField: React.FC<SelectFieldProps> = ({
       {useImageInput ? (
         <input
           type="file"
-          accept="image/*"
-          onChange={(e) =>
-            onChange({ target: { name, value: e.target.files } })
-          }
+          name={name}
+          id={id}
+          accept="image/svg+xml,image/png"
+          onChange={handleImageInputChange}
           className="my-2 w-full border rounded p-[3px] block"
         />
       ) : (
@@ -54,6 +94,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
           name={name}
           isMulti={isMulti}
           value={value}
+          defaultValue={defaultValue}
           className={`w-full my-2 ${isMulti ? '' : 'capitalize'}`}
           options={options}
           onChange={(selectedOptions) =>

@@ -14,6 +14,7 @@ import CloseButton from '../buttons/CloseButton';
 // Import Type
 import { generalEnum } from '../../state/enum/generalEnum';
 import { topicEnum } from '../../state/enum/topicEnum';
+
 // Interface
 interface FormData {
   [key: string]: string | number | boolean | null | undefined;
@@ -33,6 +34,8 @@ const AddModal = ({ isOpen, onClose, title, inputFields, onSubmit }: any) => {
   const selectRef = useRef<HTMLSelectElement | null>(null);
   const [inputField] = useState(inputFields);
 
+  console.log(formData);
+
   const handleChange = (e: any) => {
     const { name, value, type, checked } = e.target;
 
@@ -44,7 +47,14 @@ const AddModal = ({ isOpen, onClose, title, inputFields, onSubmit }: any) => {
     } else if (name === topicEnum.ICONNAME) {
       setFormData((prevData) => ({
         ...prevData,
+        topic_image: null,
         [name]: value.value,
+      }));
+    } else if (name === topicEnum.TOPIC_IMAGE) {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+        [topicEnum.ICONNAME]: null,
       }));
     } else {
       setFormData((prevData) => ({
@@ -83,6 +93,12 @@ const AddModal = ({ isOpen, onClose, title, inputFields, onSubmit }: any) => {
       if (focusTarget) {
         focusTarget.focus();
       }
+
+      setFormData((prevData) => ({
+        ...prevData,
+        topic_user_id: 1,
+        user_id: 1,
+      }));
     }
   }, [isOpen]);
 
@@ -128,6 +144,7 @@ const AddModal = ({ isOpen, onClose, title, inputFields, onSubmit }: any) => {
                     options={field.options}
                     onChange={handleChange}
                     showImageInputCheckbox={field.label === 'icon'}
+                    imageFieldName={topicEnum.TOPIC_IMAGE}
                   />
                 )}
 
