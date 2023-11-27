@@ -34,8 +34,6 @@ const AddModal = ({ isOpen, onClose, title, inputFields, onSubmit }: any) => {
   const selectRef = useRef<HTMLSelectElement | null>(null);
   const [inputField] = useState(inputFields);
 
-  console.log(formData);
-
   const handleChange = (e: any) => {
     const { name, value, type, checked } = e.target;
 
@@ -47,7 +45,7 @@ const AddModal = ({ isOpen, onClose, title, inputFields, onSubmit }: any) => {
     } else if (name === topicEnum.ICONNAME) {
       setFormData((prevData) => ({
         ...prevData,
-        topic_image: null,
+        [topicEnum.TOPIC_IMAGE]: null,
         [name]: value.value,
       }));
     } else if (name === topicEnum.TOPIC_IMAGE) {
