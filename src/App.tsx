@@ -66,7 +66,10 @@ const App: React.FC = () => {
 
         <Route path="admin/faq/add" element={<AddFaqAdmin />} />
         <Route path="admin/faq/edit/:QuestionSlug" element={<EditFaqAdmin />} />
-        <Route path="admin/faq/detail" element={<DetailFaqAdmin />} />
+        <Route
+          path="admin/faq/detail/:QuestionSlug"
+          element={<DetailFaqAdmin />}
+        />
         {/* Admin Routes End */}
 
         {/* User Routes Start */}
