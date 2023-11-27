@@ -33,7 +33,6 @@ const TabelHeader: React.FC<TabelHeaderProps> = ({
 }) => {
   const [isFilterDropdownOpen, setIsFilterDropdownOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
-  // const [CompensationModalOpen, SetCompensationModalOpen] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -93,9 +92,10 @@ const TabelHeader: React.FC<TabelHeaderProps> = ({
       setSearchInput(searchValue);
     }
 
-    if (location.pathname.endsWith('/add') && !onNavigate) {
+    if (location.pathname.endsWith('/add')) {
       setModalOpen(true);
     }
+
     const handleEscapeKey = (event: any) => {
       if (event.key === 'Escape') {
         closeModal();
