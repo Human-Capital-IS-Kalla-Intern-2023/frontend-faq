@@ -4,12 +4,15 @@ import { useNavigate } from 'react-router-dom';
 import ReactLoading from 'react-loading';
 
 // Import Component
-import TabelHeader from '../../components/tabels/TabelHeader';
-import TabelFooter from '../../components/tabels/TabelFooter';
-import TabelBody from '../../components/tabels/TabelBody';
+import TabelHeader from '../../../components/tabels/TabelHeader';
+import TabelFooter from '../../../components/tabels/TabelFooter';
+import TabelBody from '../../../components/tabels/TabelBody';
 
-import { SuccessAlert, ErrorAlert } from '../../components/alerts/CustomAlert';
-import { ResetAlert } from '../../helpers/ResetAlert';
+import {
+  SuccessAlert,
+  ErrorAlert,
+} from '../../../components/alerts/CustomAlert';
+import { ResetAlert } from '../../../helpers/ResetAlert';
 
 // Import API
 import {
@@ -20,13 +23,13 @@ import {
   deleteTopicAdmin,
   searchTopicAdmin,
   changeIsActiveTopicAdmin,
-} from '../../api/admin/TopicAdminAPI';
+} from '../../../api/admin/TopicAdminAPI';
 
 import {
   colCells,
   inputField,
   getIconList,
-} from '../../assets/data/TopicAdminData';
+} from '../../../assets/data/TopicAdminData';
 
 const TopicAdmin: React.FC = () => {
   // Alert State
