@@ -96,8 +96,8 @@ const TopicAdmin: React.FC = () => {
       const responseData = await getDetailTopicAdmin(id);
       setDetailedData(responseData.data);
     } catch (error: any) {
-      console.error('Error fetch detail topicAdmin:', error);
-      setErrorTitle(`Error fetch detail topicAdmin`);
+      console.error('Error fetch detail topic admin:', error);
+      setErrorTitle(`Error fetch detail topic admin`);
       navigate('/notfound');
     } finally {
       setIsLoading(false);
@@ -119,8 +119,8 @@ const TopicAdmin: React.FC = () => {
 
       fetchTopicAdmin();
     } catch (error: any) {
-      console.error('Error adding topicAdmin:', error);
-      setErrorTitle(`Error adding topicAdmin`);
+      console.error('Error adding topic admin:', error);
+      setErrorTitle(`Error adding topic admin`);
 
       if (error.response.data.errors) {
         const errorMessages = Object.values(error.response.data.errors);
@@ -146,8 +146,8 @@ const TopicAdmin: React.FC = () => {
       setSuccessMessage(`${responseData.message}`);
       fetchTopicAdmin();
     } catch (error: any) {
-      console.error('Error editing topicAdmin:', error);
-      setErrorTitle(`Error editing topicAdmin`);
+      console.error('Error editing topic admin:', error);
+      setErrorTitle(`Error editing topic admin`);
       if (error.response.data.errors) {
         const errorMessages = Object.values(error.response.data.errors);
         setErrorMessage(errorMessages.join('\n'));
@@ -173,8 +173,8 @@ const TopicAdmin: React.FC = () => {
       setSuccessMessage(`${responseData.message}`);
       fetchTopicAdmin();
     } catch (error: any) {
-      console.error('Error deleting topicAdmin:', error);
-      setErrorTitle(`Error deleting topicAdmin`);
+      console.error('Error deleting topic admin:', error);
+      setErrorTitle(`Error deleting topic admin`);
       if (error.response.data.errors) {
         const errorMessages = Object.values(error.response.data.errors);
         setErrorMessage(errorMessages.join('\n'));
@@ -207,8 +207,8 @@ const TopicAdmin: React.FC = () => {
         }
       }
     } catch (error: any) {
-      console.error('Error search topicAdmin:', error);
-      setErrorTitle('Error search topicAdmin');
+      console.error('Error search topic admin:', error);
+      setErrorTitle('Error search topic admin');
       if (error.response.data.errors) {
         const errorMessages = Object.values(error.response.data.errors);
         setErrorMessage(errorMessages.join('\n'));
@@ -233,6 +233,7 @@ const TopicAdmin: React.FC = () => {
       fetchTopicAdmin();
     } catch (error: any) {
       console.error('Error change is active topic admin:', error);
+      setErrorTitle('Error when delete topic admin');
       if (error.response.data.errors) {
         const errorMessages = Object.values(error.response.data.errors);
         setErrorMessage(errorMessages.join('\n'));
