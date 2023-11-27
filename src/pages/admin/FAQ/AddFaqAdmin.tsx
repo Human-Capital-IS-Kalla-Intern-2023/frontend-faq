@@ -36,12 +36,14 @@ const AddFaqAdmin = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const [formData, setFormData] = useState<{
+    user_id: number;
     topic_id: number[];
     question_name: string;
     question_is_status: number;
     question_answer: any;
   }>({
-    topic_id: [], // Initialize as an empty array
+    user_id: 1,
+    topic_id: [],
     question_name: '',
     question_is_status: 1,
     question_answer: '',
@@ -97,7 +99,7 @@ const AddFaqAdmin = () => {
 
       ConfirmationAlert({
         title: `${responseData.status}`,
-        html: `${responseData.message}<br/> <small>Click the button below to go faq page</small> `,
+        html: `${responseData.message}<br/> <small>Click button below to go FAQ database page</small> `,
         confirmButtonText: 'Okay & Direct',
         onConfirm: () => {
           navigate('/admin/faq');

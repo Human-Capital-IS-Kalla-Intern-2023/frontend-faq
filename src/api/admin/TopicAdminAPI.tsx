@@ -106,7 +106,6 @@ const deleteTopicAdmin = async (slug: any) => {
     // const headerToken = {
     //   Authorization: `Bearer ${token}`,
     // };
-    console.log(slug);
 
     const reponseDeleteTopicAdmin = await RequestApi(
       'DELETE',

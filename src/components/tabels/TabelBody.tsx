@@ -9,6 +9,7 @@ import DeleteModal from '../modals/DeleteModal.tsx';
 import DetailModal from '../modals/DetailModal.tsx';
 import { DeleteText } from '../../helpers/DeleteText.tsx';
 import { TruncateText } from '../../helpers/TruncateText.tsx';
+import IconRenderer from '../../helpers/IconRenders.tsx';
 
 // Import Assets
 import {
@@ -23,17 +24,14 @@ import { generalEnum } from '../../state/enum/generalEnum.tsx';
 import { topicEnum } from '../../state/enum/topicEnum.tsx';
 import { questionEnum } from '../../state/enum/questionEnum.tsx';
 
-interface ColCells {
-  key: any;
-  text: any;
-}
-
 interface InputField {
   id: any;
   label: any;
   name: any;
   type?: any;
 }
+
+type ColCells = { key: any; text: string } | { keys: any[]; text: string };
 
 interface TabelBodyProps {
   title: string;
@@ -167,21 +165,46 @@ const TabelBody: React.FC<TabelBodyProps> = ({
     setActiveDropdown(false);
   };
 
-  interface TableCell {
-    key: string;
-  }
-  const renderTableCell = (
-    cell: TableCell,
-    customCell: Record<string, any>
-  ) => {
-    if (cell.key === topicEnum.ICONNAME) {
-      return (
-        <img
-          src={customCell.image}
-          alt={`Image ${TruncateText(customCell.topic_name, 10)}`}
-          className="object-cover w-full h-8 rounded"
-        />
-      );
+  const renderTableCell = (cell: ColCells, customCell: Record<string, any>) => {
+    if ('key' in cell) {
+      if (cell.key === topicEnum.TOPIC_IMAGE) {
+        return (
+          <img
+            src={customCell.topic_image}
+            alt={`Image ${TruncateText(customCell.topic_name, 10)}`}
+            className="object-cover w-full h-8 rounded"
+          />
+        );
+      }
+
+      if (cell.key === topicEnum.ICONNAME) {
+        return <IconRenderer value={customCell.topic_icon} />;
+      }
+    } else if ('keys' in cell) {
+      // Multiple keys
+      const renderedValues = cell.keys.map((key) => {
+        if (customCell.topic_image !== '') {
+          if (key === topicEnum.TOPIC_IMAGE) {
+            return (
+              <img
+                key={key}
+                src={customCell.topic_image}
+                alt={`Image ${TruncateText(customCell.topic_name, 10)}`}
+                className="object-cover w-full h-8 rounded"
+              />
+            );
+          }
+        }
+        if (customCell.topic_icon !== '') {
+          if (key === topicEnum.ICONNAME) {
+            return <IconRenderer key={key} value={customCell.topic_icon} />;
+          }
+        }
+
+        return customCell[key];
+      });
+
+      return renderedValues;
     }
 
     if (cell.key === 'topic_is_status' || cell.key === 'question_is_status') {

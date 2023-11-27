@@ -16,12 +16,12 @@ const getFaqAdmin = async () => {
       'faq/questions',
       {},
       {},
-      'Mengambil faq admin'
+      'Mengambil FAQ admin'
     );
 
     return responseGetFaqAdmin;
   } catch (error) {
-    console.error('Terjadi kesalahan saat mengambil data faqAdmin:', error);
+    console.error('Terjadi kesalahan saat mengambil data faq admin:', error);
     throw error;
   }
 };
@@ -37,15 +37,15 @@ const getDetailFaqAdmin = async (slug: any) => {
 
     const reponseGetDetailFaqAdmin = await RequestApi(
       'GET',
-      `topic-admin/${slug}`,
+      `faq/questions/${slug}`,
       {},
       headerToken,
-      'Mengambil detail faq admin'
+      'Mengambil detail FAQ admin'
     );
 
     return reponseGetDetailFaqAdmin;
   } catch (error) {
-    console.error('Terjadi kesalahan saat mengambil data faq admin:', error);
+    console.error('Terjadi kesalahan saat mengambil data FAQ admin:', error);
     throw error;
   }
 };
@@ -61,15 +61,15 @@ const addFaqAdmin = async (formData: any) => {
 
     const reponseAddFaqAdmin = await RequestApi(
       'POST',
-      'topic-admin',
+      'faq/questions',
       formData,
       headerToken,
-      'Membuat faq admin'
+      'Membuat FAQ admin'
     );
 
     return reponseAddFaqAdmin;
   } catch (error) {
-    console.error('Kesalahan saat membuat faq admin:', error);
+    console.error('Kesalahan saat membuat FAQ admin:', error);
     throw error;
   }
 };
@@ -85,15 +85,15 @@ const updateFaqAdmin = async (slug: any, FaqAdminData: any) => {
 
     const reponseUpdateFaqAdmin = await RequestApi(
       'PUT',
-      `topic-admin/${slug}`,
+      `faq/questions/${slug}`,
       FaqAdminData,
       {},
-      'Memperbarui faq admin'
+      'Memperbarui FAQ admin'
     );
 
     return reponseUpdateFaqAdmin;
   } catch (error) {
-    console.error('Kesalahan saat memperbarui faq admin:', error);
+    console.error('Kesalahan saat memperbarui FAQ admin:', error);
     throw error;
   }
 };
@@ -109,15 +109,15 @@ const deleteFaqAdmin = async (slug: any) => {
 
     const reponseDeleteFaqAdmin = await RequestApi(
       'DELETE',
-      `topic-admin/${slug}`,
+      `faq/questions/${slug}`,
       null,
       headerToken,
-      'Menghapus faq admin'
+      'Menghapus FAQ admin'
     );
 
     return reponseDeleteFaqAdmin;
   } catch (error) {
-    console.error('Kesalahan saat menghapus faq admin:', error);
+    console.error('Kesalahan saat menghapus FAQ admin:', error);
     throw error;
   }
 };
@@ -125,23 +125,23 @@ const deleteFaqAdmin = async (slug: any) => {
 // Search FaqAdmin
 const searchFaqAdmin = async (searchInput: any) => {
   try {
-    const token = TokenHelper();
+    // const token = TokenHelper();
 
-    const headerToken = {
-      Authorization: `Bearer ${token}`,
-    };
+    // const headerToken = {
+    //   Authorization: `Bearer ${token}`,
+    // };
 
     const responseSearchFaqAdmin = await RequestApi(
       'GET',
-      `topic-admin?search=${searchInput}`,
+      `faq/questions?search=${searchInput}`,
       null,
-      headerToken,
-      'Mencari faqAdmin'
+      {},
+      'Mencari FAQ'
     );
 
     return responseSearchFaqAdmin;
   } catch (error) {
-    console.error('Kesalahan saat mencari faq admin:', error);
+    console.error('Kesalahan saat mencari FAQ admin:', error);
     throw error;
   }
 };
@@ -158,15 +158,15 @@ const changeIsActiveFaqAdmin = async (idIsActive: any, newIsActive: any) => {
 
     const responseIsActiveChange = await RequestApi(
       'PUT',
-      `topic-admin/is_active/${idIsActive}`,
+      `faq/questions/is_active/${idIsActive}`,
       sendData,
       headerToken,
-      'Mengubah active faq admin'
+      'Mengubah active FAQ admin'
     );
 
     return responseIsActiveChange;
   } catch (error) {
-    console.error('Kesalahan saat mengubah active faq admin:', error);
+    console.error('Kesalahan saat mengubah active FAQ admin:', error);
     throw error;
   }
 };
