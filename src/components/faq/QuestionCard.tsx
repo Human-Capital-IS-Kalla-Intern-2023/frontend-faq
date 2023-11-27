@@ -28,9 +28,14 @@ interface QuestionCardProps {
 const QuestionCard: React.FC<QuestionCardProps> = ({}) => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const [isSelected, setIsSelected] = useState(false);
+
+  const handleClick = () => {
+    setIsSelected(!isSelected);
+  };
 
   return (
-    <section className="py-2 antialiased sm:py-2 overlay">
+    <section className="py-2 antialiased overlay">
       <div className="w-full">
         <div className="relative bg-white shadow-lg">
           <div className="w-full overflow-x-auto">
@@ -39,7 +44,12 @@ const QuestionCard: React.FC<QuestionCardProps> = ({}) => {
                 <div className="px-6 pb-4">
                   <div className="py-5 border-b  border-slate-300">
                     <details className="group">
-                      <summary className="flex items-center justify-between font-medium list-none cursor-pointer">
+                      <summary
+                        className={`flex items-center justify-between hover:text-green-700 font-medium list-none cursor-pointer ${
+                          isSelected ? 'text-green-700 font-semibold' : ''
+                        }`}
+                        onClick={handleClick}
+                      >
                         <span> What is a SAAS platform?</span>
                         <span className="transition group-open:rotate-180">
                           <svg
