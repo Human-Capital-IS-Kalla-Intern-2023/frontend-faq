@@ -141,7 +141,7 @@ const TopicAdmin: React.FC = () => {
 
       setSuccessTitle(`${responseData.status}`);
       setSuccessMessage(`${responseData.message}`);
-      // fetchTopicAdmin();
+      fetchTopicAdmin();
     } catch (error: any) {
       console.error('Error editing topicAdmin:', error);
       setErrorTitle(`Error editing topicAdmin`);
