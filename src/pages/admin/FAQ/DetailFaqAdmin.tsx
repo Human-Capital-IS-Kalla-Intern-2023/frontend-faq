@@ -4,7 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import ReactLoading from 'react-loading';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
-
+import 'react-quill/dist/quill.snow.css';
+import ReactQuill from 'react-quill';
 // Import Component Component
 import CancelButton from '../../../components/buttons/CancelButton';
 
@@ -199,7 +200,16 @@ const DetailFaqAdmin = () => {
               <DropdownIcon />
             </div>
           </div>
-          {showAnswer && <p className="p-4">{blogContent}</p>}
+          {showAnswer && (
+            <>
+              <ReactQuill
+                theme="snow"
+                readOnly={true}
+                value={blogContent}
+                modules={{ toolbar: false }}
+              />
+            </>
+          )}
         </div>
       </div>
 
