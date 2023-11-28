@@ -39,9 +39,9 @@ interface TabelBodyProps {
   colCells: ColCells[];
   inputFields: InputField[];
   detailedData?: any | null;
-  fetchDetailedData?: (topic_slug: any) => void;
-  onSubmit: (formData: any, topic_slug: any) => void;
-  onDelete: (topic_slug: any) => void;
+  fetchDetailedData?: (question_slug: any) => void;
+  onSubmit: (formData: any, question_slug: any) => void;
+  onDelete: (question_slug: any) => void;
   onEditNavigate?: string;
   onDetailNavigate?: string;
   changeIsActive?: (idIsActive: any, newIsActive: any) => Promise<any>;
@@ -85,13 +85,13 @@ const TabelBody: React.FC<TabelBodyProps> = ({
   const locationPathname = location.pathname;
 
   const openEditModal = useCallback(
-    async (topic_slug: string) => {
+    async (question_slug: string) => {
       if (data) {
         const dataToEdit = await data.find(
-          (item: any) => item.topic_slug === topic_slug
+          (item: any) => item.question_slug === question_slug
         );
         if (dataToEdit) {
-          setEditId(topic_slug);
+          setEditId(question_slug);
           setEditedData(dataToEdit);
           setEditModalOpen(true);
         }
@@ -114,10 +114,10 @@ const TabelBody: React.FC<TabelBodyProps> = ({
   }, [navigate, modalEditSlug, location.pathname]);
 
   const openDetailModal = useCallback(
-    async (topic_slug: any) => {
+    async (question_slug: any) => {
       if (fetchDetailedData) {
         try {
-          fetchDetailedData(topic_slug);
+          fetchDetailedData(question_slug);
 
           if (!onDetailNavigate) {
             setIsDetailModalOpen(true);
@@ -142,8 +142,8 @@ const TabelBody: React.FC<TabelBodyProps> = ({
     }
   }, [navigate, modalDetailSlug, location.pathname]);
 
-  const openDeleteModal = useCallback((topic_slug: string) => {
-    setDeleteId(topic_slug);
+  const openDeleteModal = useCallback((question_slug: string) => {
+    setDeleteId(question_slug);
     setDeleteModalOpen(true);
   }, []);
 
@@ -219,7 +219,7 @@ const TabelBody: React.FC<TabelBodyProps> = ({
               const newValue = customCell[cell.key] === 1 ? 0 : 1;
               try {
                 if (changeIsActive) {
-                  await changeIsActive(customCell.topic_slug, newValue);
+                  await changeIsActive(customCell.question_slug, newValue);
                 }
               } catch (error) {
                 console.error('Error changing topic_is_status:', error);
@@ -272,11 +272,11 @@ const TabelBody: React.FC<TabelBodyProps> = ({
     if (modalEditSlug !== undefined) {
       if (data && Array.isArray(data) && data.length > 0) {
         const dataToEdit = data.find(
-          (item: any) => item.topic_slug === modalEditSlug
+          (item: any) => item.question_slug === modalEditSlug
         );
 
         if (dataToEdit && !onEditNavigate) {
-          setActiveDropdown(dataToEdit.topic_slug);
+          setActiveDropdown(dataToEdit.question_slug);
           setEditId(modalEditSlug);
           setEditedData(dataToEdit);
           setEditModalOpen(true);
@@ -312,7 +312,7 @@ const TabelBody: React.FC<TabelBodyProps> = ({
 
       if (data && Array.isArray(data) && data.length > 0) {
         const dataToDelete = data.find(
-          (item: any) => item.topic_slug === modalDeleteSlug
+          (item: any) => item.question_slug === modalDeleteSlug
         );
 
         if (dataToDelete) {
@@ -352,7 +352,7 @@ const TabelBody: React.FC<TabelBodyProps> = ({
                       className={`border-b ${
                         index === data.length - 1 ? 'border-none' : ''
                       } ${
-                        activeDropdown === customCell.topic_slug
+                        activeDropdown === customCell.question_slug
                           ? 'bg-slate-200'
                           : ''
                       } dropdown-wrapper`}
@@ -364,17 +364,19 @@ const TabelBody: React.FC<TabelBodyProps> = ({
                           className="inline-flex items-center text-sm font-medium rounded-lg hover:text-center"
                           role="button"
                           aria-label="Dropdown button"
-                          onClick={() => toggleDropdown(customCell.topic_slug)}
+                          onClick={() =>
+                            toggleDropdown(customCell.question_slug)
+                          }
                           aria-haspopup="menu"
                           aria-expanded={
-                            activeDropdown === customCell.topic_slug
+                            activeDropdown === customCell.question_slug
                               ? 'true'
                               : 'false'
                           }
                         >
                           <ThreeDotIcon className="w-5 h-5" />
                         </button>
-                        {activeDropdown === customCell.topic_slug && (
+                        {activeDropdown === customCell.question_slug && (
                           <div
                             className={`absolute left-0 z-10 ml-10 bg-white divide-y rounded shadow-2xl w-44 ${
                               index === data.length - 1 ? 'mb-20' : ''
@@ -388,13 +390,13 @@ const TabelBody: React.FC<TabelBodyProps> = ({
                                   to={
                                     onEditNavigate
                                       ? onEditNavigate.replace(
-                                          '{QuestionSlug}',
-                                          customCell.topic_slug
+                                          ':QuestionSlug',
+                                          customCell.question_slug
                                         )
-                                      : `edit/${customCell.topic_slug}`
+                                      : `edit/${customCell.question_slug}`
                                   }
                                   onClick={() =>
-                                    openEditModal(customCell.topic_slug)
+                                    openEditModal(customCell.question_slug)
                                   }
                                   type="button"
                                   aria-label="Edit"
@@ -421,13 +423,13 @@ const TabelBody: React.FC<TabelBodyProps> = ({
                                   to={
                                     onDetailNavigate
                                       ? onDetailNavigate.replace(
-                                          '{topicId}',
-                                          customCell.topic_slug
+                                          ':QuestionSlug',
+                                          customCell.question_slug
                                         )
-                                      : `detail/${customCell.topic_slug}`
+                                      : `detail/${customCell.question_slug}`
                                   }
                                   onClick={() =>
-                                    openDetailModal(customCell.topic_slug)
+                                    openDetailModal(customCell.question_slug)
                                   }
                                   type="button"
                                   aria-label="Detail"
@@ -448,11 +450,11 @@ const TabelBody: React.FC<TabelBodyProps> = ({
 
                               <li>
                                 <Link
-                                  to={`delete/${customCell.topic_slug}`}
+                                  to={`delete/${customCell.question_slug}`}
                                   type="button"
                                   aria-label="Delete"
                                   onClick={() =>
-                                    openDeleteModal(customCell.topic_slug)
+                                    openDeleteModal(customCell.question_slug)
                                   }
                                   className="flex items-center w-full px-4 py-2 text-red-500 duration-200 hover: hover:text-white hover:bg-red-800"
                                 >

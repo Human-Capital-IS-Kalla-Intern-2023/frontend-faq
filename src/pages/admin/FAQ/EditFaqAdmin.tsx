@@ -20,7 +20,10 @@ import CancelButton from '../../../components/buttons/CancelButton';
 import { SubmitButton } from '../../../components/buttons/SubmitButton';
 
 // Import API's
-import { updateFaqAdmin } from '../../../api/admin/FaqAdminAPI';
+import {
+  updateFaqAdmin,
+  getDetailFaqAdmin,
+} from '../../../api/admin/FaqAdminAPI';
 import { getTopicAdmin } from '../../../api/admin/TopicAdminAPI';
 import SelectField from '../../../components/field/SelectField';
 
@@ -35,16 +38,18 @@ const EditFaqAdmin = () => {
   const [topicOptions, setTopicOptions] = useState<Array<FieldOptions>>([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const [blogContent, setBlogContent] = useState('');
+
   const [formData, setFormData] = useState<{
     topic_id: number[];
-    faq_name: string;
-    is_active: number;
-    content: any;
+    question_name: string;
+    question_is_status: number;
+    question_answer: any;
   }>({
     topic_id: [],
-    faq_name: '',
-    is_active: 1,
-    content: '',
+    question_name: '',
+    question_is_status: 1,
+    question_answer: '',
   });
 
   const { QuestionSlug } = useParams();
@@ -139,15 +144,20 @@ const EditFaqAdmin = () => {
 
   // Handle Faq Admin Name
   const handleFaqAdminNameInput = (e: any) => {
-    setFormData({ ...formData, faq_name: e.target.value });
-    setFaqAdminNameValue(e.target.value);
+    const newName = e.target.value;
+    setFaqAdminNameValue(newName);
+
+    // Update the formData and save to local storage
+    const updatedFormData = {
+      ...formData,
+      question_name: newName,
+    };
 
     // Save data to local storage
-    const newData = { ...formData, faq_name: e.target.value };
-    saveDataToLocalStorage(newData);
+    saveDataToLocalStorage(updatedFormData);
   };
 
-  // Handle Left Is Active Checbox
+  // Handle Left Is Active Checkbox
   const handleLeftActiveCheckboxChange = (e: any) => {
     const isChecked = e.target.checked;
 
@@ -157,47 +167,75 @@ const EditFaqAdmin = () => {
     // Update the formData and save to local storage
     const updatedFormData = {
       ...formData,
-      is_active: isChecked ? 1 : 0,
+      question_is_status: isChecked ? 1 : 0,
     };
 
     // Save data to local storage
-    setFormData(updatedFormData);
     saveDataToLocalStorage(updatedFormData);
   };
 
-  ///* RIGHT CARD SECTION
-  const [blogContent, setBlogContent] = useState('');
-
-  const handleBlogContentChange = (content: any) => {
-    setBlogContent(content);
+  // Handle Blog Content Change
+  const handleBlogContentChange = (question_answer: any) => {
+    setBlogContent(question_answer);
 
     // Update the formData and save to local storage
     const updatedFormData = {
       ...formData,
-      content: content,
+      question_answer: question_answer,
     };
 
     // Save data to local storage
-    setFormData(updatedFormData);
     saveDataToLocalStorage(updatedFormData);
   };
   //* USE EFFECT SECTION
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        const response = await getDetailFaqAdmin(QuestionSlug);
+        const faqData = response.data[0];
+
+        // Update the component state with the fetched data
+        setFaqAdminNameValue(faqData.question_name);
+        setLeftActiveCheckbox(faqData.question_is_status === 1);
+        setBlogContent(faqData.question_answer);
+
+        // Update other fields accordingly
+        const newData = {
+          topic_id: faqData.topic_id,
+          question_name: faqData.question_name,
+          question_is_status: faqData.question_is_status,
+          question_answer: faqData.question_answer,
+        };
+
+        // Save data to local storage
+        setFormData(newData);
+        saveDataToLocalStorage(newData);
+      } catch (error) {
+        console.error('Error fetching faq details:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [QuestionSlug]);
+
   useEffect(() => {
     const savedData = localStorage.getItem('faqAdminEditData');
     if (savedData) {
       const parsedData = JSON.parse(savedData);
       // Update your component state with the loaded data
       setFormData(parsedData);
-      setFaqAdminNameValue(parsedData.faq_name);
+      setFaqAdminNameValue(parsedData.question_name);
 
-      setLeftActiveCheckbox(parsedData.is_active === 1);
+      setLeftActiveCheckbox(parsedData.question_is_status === 1);
     }
   }, []);
 
   useEffect(() => {
     featchTopic();
   }, []);
-
   return (
     <>
       {isLoading && (
@@ -270,7 +308,7 @@ const EditFaqAdmin = () => {
                     onChange={handleLeftActiveCheckboxChange}
                   />
                   <div
-                    className={`w-11 h-6 bg-red-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-white dark:peer-focus:ring-gray-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600`}
+                    className={`w-11 h-6 bg-red-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-white dark:peer-focus:ring-gray-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:question_answer-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600`}
                   ></div>
                 </label>
               </div>

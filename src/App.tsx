@@ -17,7 +17,7 @@ import AddFaqAdmin from './pages/admin/FAQ/AddFaqAdmin';
 import EditFaqAdmin from './pages/admin/FAQ/EditFaqAdmin';
 import DetailFaqAdmin from './pages/admin/FAQ/DetailFaqAdmin';
 
-import TopicAdmin from './pages/admin/TopicAdmin';
+import TopicAdmin from './pages/admin/Topic/TopicAdmin';
 
 import HomeUser from './pages/user/HomeUser';
 import Question from './pages/user/Question';
@@ -66,7 +66,10 @@ const App: React.FC = () => {
 
         <Route path="admin/faq/add" element={<AddFaqAdmin />} />
         <Route path="admin/faq/edit/:QuestionSlug" element={<EditFaqAdmin />} />
-        <Route path="admin/faq/detail" element={<DetailFaqAdmin />} />
+        <Route
+          path="admin/faq/detail/:QuestionSlug"
+          element={<DetailFaqAdmin />}
+        />
         {/* Admin Routes End */}
 
         {/* User Routes Start */}

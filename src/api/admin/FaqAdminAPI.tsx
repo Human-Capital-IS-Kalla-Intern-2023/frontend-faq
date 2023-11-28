@@ -29,17 +29,17 @@ const getFaqAdmin = async () => {
 // GET Detail FaqAdmin
 const getDetailFaqAdmin = async (slug: any) => {
   try {
-    const token = TokenHelper();
+    // const token = TokenHelper();
 
-    const headerToken = {
-      Authorization: `Bearer ${token}`,
-    };
+    // const headerToken = {
+    //   Authorization: `Bearer ${token}`,
+    // };
 
     const reponseGetDetailFaqAdmin = await RequestApi(
       'GET',
       `faq/questions/${slug}`,
       {},
-      headerToken,
+      {},
       'Mengambil detail FAQ admin'
     );
 
@@ -101,17 +101,17 @@ const updateFaqAdmin = async (slug: any, FaqAdminData: any) => {
 // DELETE FaqAdmin
 const deleteFaqAdmin = async (slug: any) => {
   try {
-    const token = TokenHelper();
+    // const token = TokenHelper();
 
-    const headerToken = {
-      Authorization: `Bearer ${token}`,
-    };
+    // const headerToken = {
+    //   Authorization: `Bearer ${token}`,
+    // };
 
     const reponseDeleteFaqAdmin = await RequestApi(
       'DELETE',
       `faq/questions/${slug}`,
       null,
-      headerToken,
+      {},
       'Menghapus FAQ admin'
     );
 

@@ -92,8 +92,8 @@ const FaqAdmin: React.FC = () => {
       const responseData = await getDetailFaqAdmin(id);
       setDetailedData(responseData.data);
     } catch (error: any) {
-      console.error('Error fetch detail faqAdmin:', error);
-      setErrorTitle(`Error fetch detail faqAdmin`);
+      console.error('Error fetch detail faq admin:', error);
+      setErrorTitle(`Error fetch detail faq admin`);
       navigate('/notfound');
       setErrorMessage(error.response.data.message);
     } finally {
@@ -116,8 +116,8 @@ const FaqAdmin: React.FC = () => {
 
       fetchFaqAdmin();
     } catch (error: any) {
-      console.error('Error adding faqAdmin:', error);
-      setErrorTitle(`Error adding faqAdmin`);
+      console.error('Error adding faq admin:', error);
+      setErrorTitle(`Error adding faq admin`);
 
       const errorMessages = Object.values(error.response.data.errors).flat();
       setErrorMessage(errorMessages.join('\n'));
@@ -139,8 +139,8 @@ const FaqAdmin: React.FC = () => {
       setSuccessMessage(`${responseData.message}`);
       fetchFaqAdmin();
     } catch (error: any) {
-      console.error('Error editing faqAdmin:', error);
-      setErrorTitle(`Error editing faqAdmin`);
+      console.error('Error editing faq admin:', error);
+      setErrorTitle(`Error editing faq admin`);
       const errorMessages = Object.values(error.response.data.errors).flat();
       setErrorMessage(errorMessages.join('\n'));
     }
@@ -160,13 +160,17 @@ const FaqAdmin: React.FC = () => {
       const responseData = await deleteFaqAdmin(id);
       setSuccessTitle(`${responseData.status}`);
       setSuccessMessage(`${responseData.message}`);
-      // fetchFaqAdmin();
+      fetchFaqAdmin();
     } catch (error: any) {
-      console.error('Error deleting faqAdmin:', error);
-      setErrorTitle(`Error deleting faqAdmin`);
+      console.error('Error deleting faq admin:', error);
+      setErrorTitle(`Error deleting faq admin`);
 
-      const errorMessages = Object.values(error.response.data.errors).flat();
-      setErrorMessage(errorMessages.join('\n'));
+      if (error.response.data.errors) {
+        const errorMessages = Object.values(error.response.data.errors);
+        setErrorMessage(errorMessages.join('\n'));
+      } else {
+        setErrorMessage(error.response.data.message);
+      }
     } finally {
       setIsLoading(false);
     }
@@ -262,7 +266,7 @@ const FaqAdmin: React.FC = () => {
         detailedData={detailedData}
         fetchDetailedData={fetchDetailFaqAdmin}
         changeIsActive={handleChangeIsActiveFaqAdmin}
-        onDetailNavigate="detail"
+        onDetailNavigate="detail/:QuestionSlug"
         onEditNavigate="edit/:QuestionSlug"
       />
       <TabelFooter
