@@ -5,8 +5,8 @@ function UserLayout({ children }: any) {
   const location = useLocation();
 
   const sidebarPaths = [
+    '/',
     '/topic',
-    // '/faq',
     '/faq/home',
     '/faq/topic',
     '/dashboard',

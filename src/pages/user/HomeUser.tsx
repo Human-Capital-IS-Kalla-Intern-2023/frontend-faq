@@ -1,4 +1,5 @@
 import HomeUserCard from '../../components/user/HomeUserCard';
+import logoKalla from '../../assets//img/logo/kalla-logo-full.webp';
 
 const data = [
   {
@@ -14,9 +15,12 @@ const data = [
 const HomeUser: React.FC = () => {
   return (
     <>
-      <h1 className="px-6 py-4 text-2xl font-sans font-semibold">
-        Populer Topic Asked
-      </h1>
+      <div className="flex py-1 shadow-lg">
+        <img src={logoKalla} height={130} width={145} alt="" />
+        <h1 className="px-2 py-3 text-2xl font-sans font-semibold">
+          Pusat Bantuan
+        </h1>
+      </div>
       <HomeUserCard
         addButtonText={''}
         title={''}

@@ -85,14 +85,14 @@ const Sidebar = () => {
 
   const subMenusList = [
     {
-      name: 'Topic',
+      name: 'Pertanyaan Umum',
       icon: <TopicIcon className="min-w-max" />,
-      menus: [
-        'Leave Management',
-        'Work Schedule',
-        'Dress Code',
-        'Employee Feedback',
-      ],
+      menus: ['Lupa Password', 'Tidak dapat membuat akun'],
+    },
+    {
+      name: 'ICT',
+      icon: <TopicIcon className="min-w-max" />,
+      menus: ['Lupa Password', 'Tidak dapat membuat akun'],
     },
   ];
 
@@ -152,24 +152,6 @@ const Sidebar = () => {
                   </motion.span>
                 </NavLink>
               </li>
-              {/* <li
-                className={`px-1 py-2 mb-1 rounded-md text-base  ${
-                  pathname.includes('/employee')
-                    ? 'bg-primary text-white '
-                    : 'hover:bg-slate-300 '
-                }`}
-              >
-                <NavLink to={'/employee'} className="flex items-center">
-                  <TopicIcon className="min-w-max" />
-                  <motion.span
-                    variants={textAnimation}
-                    animate={open ? 'open' : 'closed'}
-                    className="ml-2 link"
-                  >
-                    Topic
-                  </motion.span>
-                </NavLink>
-              </li> */}
 
               <li className=" border-slate-300">
                 {(open || isTabletMid) && (

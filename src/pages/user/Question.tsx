@@ -14,11 +14,6 @@ const data = [
 const Question: React.FC = () => {
   return (
     <>
-      <div className="shadow-md py-4">
-        <h1 className="px-6 py-2 text-2xl font-sans  font-semibold">
-          FAQ - Frequently Asked Questions
-        </h1>
-      </div>
       <QuestionCard
         addButtonText={''}
         title={''}

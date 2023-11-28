@@ -21,6 +21,7 @@ import TopicAdmin from './pages/admin/Topic/TopicAdmin';
 
 import HomeUser from './pages/user/HomeUser';
 import Question from './pages/user/Question';
+import DetailFaqUser from './pages/user/DetailFaqUser';
 
 import NotFound from './pages/auth/NotFound';
 import PermissionDenied from './pages/auth/PermissionDenied';
@@ -28,6 +29,7 @@ import Unauthorized from './pages/auth/Unauthorized';
 
 // Import CSS
 import './App.css';
+import PrivateRoute from './middleware/PrivateRoutes';
 
 const App: React.FC = () => {
   return (
@@ -71,20 +73,33 @@ const App: React.FC = () => {
           element={<DetailFaqAdmin />}
         />
         {/* Admin Routes End */}
-
         {/* User Routes Start */}
         <Route
           path="/*"
           element={
             <UserLayout>
               <Routes>
-                <Route path="/faq/home" element={<HomeUser />} />
                 <Route path="/faq/question" element={<Question />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </UserLayout>
           }
         />
+        <Route path="/" element={<HomeUser />} />
+
+        <Route
+          path="/pertanyaanumum/lupapassword"
+          element={
+            <PrivateRoute
+              path="/pertanyaanumum/lupapassword"
+              element={<DetailFaqUser />}
+            />
+          }
+        >
+          {/* <Route path="detail/:modalDetailId" element={<DetailModal />} /> */}
+        </Route>
+
+        {/* User Routes End */}
         {/* User Routes End */}
 
         {/* Error Route Start */}
