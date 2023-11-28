@@ -68,28 +68,27 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch }) => {
   }, [onSearch]);
 
   return (
-    <section className="py-2 antialiased overlay">
+    <section className="antialiased overlay">
       <div className="w-full ">
         <div className="flex justify-between bg-white shadow-md">
-          <h1 className="flex px-6 py-4 text-2xl font-sans font-semibold">
-            FAQ - Frequently Asked Questions
+          <h1 className="flex p-[14px] font-sans text-2xl font-semibold">
+            Pusat Bantuan
           </h1>
-          <div className="w-full flex flex-row px-4 py-4 md:w-1/2 justify-end">
+          <div className="flex flex-row justify-end w-full p-[14px] md:w-1/2">
             <form className="flex items-center" onSubmit={handleSearch}>
               <label htmlFor="simple-search" className="sr-only">
                 Search
               </label>
-              <div className="relative pr-12 w-full">
+              <div className="relative flex items-center w-full">
                 <input
                   type="text"
-                  className="block w-full pl-6 p-2 text-black border rounded-lg text-md"
-                  placeholder="Search"
+                  className="block w-full px-2 py-2 pr-4 text-black rounded-full cursor-pointer placeholder-gray focus:outline-none focus:placeholder-pureBlack bg-[#F0F2F5] pl-14 text-sm"
+                  placeholder="Cari artikel bantuan..."
                   value={searchInput}
                   onChange={handleSearchInputChange}
                 />
-
                 <button
-                  className="absolute inset-y-0 right-0 flex items-center px-4 duration-300 bg-white border rounded-none rounded-r-lg hover:bg-primary "
+                  className="absolute left-0 flex items-center px-4 text-black duration-300 rounded-none "
                   onClick={handleSearch}
                   type="submit"
                   aria-label="Search Data"
@@ -104,17 +103,17 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch }) => {
                       />
                     </div>
                   )}
-                  <SearchIcon className="w-[21px] h-[21px] cursor-pointer " />
+                  <SearchIcon className="w-[25px] h-[20px] text-gray cursor-pointer " />
                 </button>
               </div>
             </form>
           </div>
         </div>
-        <div className="pt-5 w-full overflow-x-auto shadow-md">
+        <div className="w-full pt-5 overflow-x-auto shadow-md">
           <div className="items-start content-start justify-start bg-white">
             <div className="grid mx-auto mt-2 divide-y divide-neutral-200">
-              <div className="px-6 pb-4">
-                <div className="py-5 border-b  border-slate-300">
+              <div className="px-6">
+                <div className="py-5 border-b border-slate-300">
                   <details className="group">
                     <summary
                       className={`flex items-center justify-between hover:text-green-700 font-medium list-none cursor-pointer ${

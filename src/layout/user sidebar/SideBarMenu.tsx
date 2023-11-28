@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { NavLink, useLocation } from 'react-router-dom';
 
 import { DropdownSidebarMenuIcon } from '../../assets/icons/icon';
-import { TruncateText } from '../../helpers/TruncateText';
 
 const SideBarMenu = ({ data }: any) => {
   const { pathname } = useLocation();
@@ -41,7 +40,7 @@ const SideBarMenu = ({ data }: any) => {
           <li key={menu} className="flex items-center text-[15px] ">
             <NavLink
               to={`/${data.name}/${menu}`}
-              className="w-full py-2 my-1 text-black capitalize duration-300 rounded-md link hover:bg-slate-300 hover:text-pureBlack "
+              className="w-full py-2 my-1 text-sm text-black capitalize duration-300 rounded-md link hover:bg-slate-300 hover:text-pureBlack "
             >
               {menu}
             </NavLink>

@@ -30,12 +30,14 @@ import Unauthorized from './pages/auth/Unauthorized';
 // Import CSS
 import './App.css';
 import PrivateRoute from './middleware/PrivateRoutes';
+import Login from './pages/auth/Login';
 
 const App: React.FC = () => {
   return (
     <Router>
       <Routes>
         {/* Admin Routes Start */}
+        <Route path="/admin" element={<Login />}></Route>
         <Route
           path="/admin/*"
           element={

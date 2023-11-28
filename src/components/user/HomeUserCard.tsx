@@ -1,33 +1,29 @@
-import { useEffect, useState } from 'react';
-import { SearchIcon, PlusIcon, TopicIcon } from '../../assets/icons/icon';
+import React from 'react';
+import { SearchIcon } from '../../assets/icons/icon';
 import { Link, useNavigate } from 'react-router-dom';
 import ReactLoading from 'react-loading';
 
-interface FilterOption {
-  id: string;
-  label: string;
+interface Topic {
+  topic_id: number;
+  topic_slug: string;
+  topic_name: string;
+  topic_description: string;
+  topic_image: string;
+  topic_icon: string | null;
 }
 
-interface InputField {
-  id: string;
-  label: string;
-  name: string;
-  type?: string;
-}
 interface HomeUserCardProps {
-  addButtonText: string;
-  title: string;
-  filterOptions: FilterOption[];
-  inputFields: InputField[];
-  onSubmit?: any;
   onSearch?: any;
-  onNavigate?: any;
-  data?: any[];
+  data?: Topic[];
 }
 
-const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch }) => {
-  const [searchInput, setSearchInput] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+export const TruncateText = (text: string, maxLength: number) => {
+  return text?.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+};
+
+const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch, data }) => {
+  const [searchInput, setSearchInput] = React.useState('');
+  const [isLoading, setIsLoading] = React.useState(false);
   const navigate = useNavigate();
 
   const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,7 +48,7 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch }) => {
     }
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const searchValue = searchParams.get('search');
     if (searchValue) {
@@ -62,23 +58,25 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch }) => {
   }, [onSearch]);
 
   return (
-    <section className="py-4 antialiased sm:py-2 overlay">
+    <section className="py-4 mx-16 antialiased sm:py-2 overlay">
       <div className="w-full px-6 pt-3 md:w-1/2">
+        <h1 className="text-2xl font-[600] mb-3 mt-10">
+          Apa yang bisa kami bantu?
+        </h1>
         <form className="flex items-center" onSubmit={handleSearch}>
           <label htmlFor="simple-search" className="sr-only">
             Search
           </label>
-          <div className="relative w-full">
+          <div className="relative flex items-center w-full">
             <input
               type="text"
-              className="block w-full p-2 text-black border rounded-lg text-md"
-              placeholder="Search"
+              className="block w-full px-3 py-4 pr-4 text-black cursor-pointer placeholder-gray focus:outline-none focus:placeholder-pureBlack bg-slate-100 rounded-xl pl-14 text-md"
+              placeholder="Cari artikel bantuan..."
               value={searchInput}
               onChange={handleSearchInputChange}
             />
-
             <button
-              className="absolute inset-y-0 right-0 flex items-center px-4 duration-300 bg-white border rounded-none rounded-r-lg hover:bg-primary "
+              className="absolute left-0 flex items-center px-4 text-black duration-300 rounded-none "
               onClick={handleSearch}
               type="submit"
               aria-label="Search Data"
@@ -93,146 +91,47 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch }) => {
                   />
                 </div>
               )}
-              <SearchIcon className="w-[21px] h-[21px] cursor-pointer " />
+              <SearchIcon className="w-[30px] h-[25px] text-gray cursor-pointer " />
             </button>
           </div>
         </form>
       </div>
-
-      {/* Grid 8 item dibagi menjadi 4 kolom */}
-      <div className="grid items-center justify-center w-full min-h-full grid-cols-4 gap-4 p-6 pt-4 gap-y-16">
-        <div className="flex flex-row flex-wrap items-center justify-center w-full py-3 pt-4 overflow-hidden bg-slate-200 rounded-md shadow-lg px-6 p-2 whitespace-nowrap">
-          <Link to="/faq/question" className="w-full">
-            <div className="flex justify-center w-full">
-              <div>
-                <div className="flex items-center justify-center p-3">
-                  <TopicIcon className="lg:w-10 lg:h-10 w-8 h-8" />
-                </div>
-                <div className="pb-2 text-sm font-bold break-all whitespace-normal lg:text-base">
-                  Pengaturan Akun
-                </div>
+      <h2 className="w-full px-6 pt-3 text-lg mt-9">Topik Populer</h2>
+      <div className="grid items-center justify-center w-full min-h-full grid-cols-4 gap-4 p-6 pt-4 gap-y-4">
+        {data?.map((topic) => (
+          <Link
+            to={`/faq/question/${topic.topic_id}`}
+            className="w-full"
+            key={topic.topic_id}
+          >
+            <div className="p-2 px-6 py-10 pt-4 overflow-hidden rounded-lg shadow-lg w-60 h-60 bg-slate-200">
+              <div className="flex items-center justify-center p-3">
+                {topic.topic_image && (
+                  <img
+                    src={topic.topic_image}
+                    alt={topic.topic_name}
+                    className="w-8 h-8 lg:w-10 lg:h-10"
+                  />
+                )}
+                {!topic.topic_image && topic.topic_icon && (
+                  <img
+                    src={topic.topic_icon}
+                    alt={topic.topic_name}
+                    className="w-8 h-8 lg:w-10 lg:h-10"
+                  />
+                )}
               </div>
-            </div>
-            <div className="w-11/12 overflow-hidden">
-              <div className="flex items-center justify-center font-bold break-all whitespace-normal text-md lg:text-lg">
-                fjghhgwhegowghwoehgowehgoweurwuehweehgwhewhf
+              <div className="flex flex-col items-start justify-center mt-3">
+                <div className="pb-2 text-sm font-bold break-all whitespace-normal lg:text-base">
+                  {topic.topic_name}
+                </div>
+                <div className="overflow-hidden text-xs lg:text-[13px]">
+                  {TruncateText(topic.topic_description, 60)}
+                </div>
               </div>
             </div>
           </Link>
-        </div>
-
-        <div className="flex flex-row flex-wrap items-center justify-center w-full py-3 pt-4 bg-white rounded-md shadow-lg px-9">
-          <div className="flex justify-center w-full">
-            <div>
-              <div className="flex items-center justify-center p-1">
-                <TopicIcon className="lg:w-10 lg:h-10 w-8 h-8" />
-              </div>
-              <div className="pb-2 text-sm font-bold lg:text-base">
-                Business Unit
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className="flex items-center justify-center pb-2 text-xs font-bold lg:text-sm">
-              Total
-            </div>
-          </div>
-        </div>
-
-        <div className="flex flex-row flex-wrap items-center justify-center w-full py-3 pt-4 bg-white rounded-md shadow-lg px-9 ">
-          <div className="flex justify-center w-full">
-            <div>
-              <div className="flex items-center justify-center p-1">
-                <TopicIcon className="lg:w-11 lg:h-11 w-9 h-9" />
-              </div>
-              <div className="pb-2 text-sm font-bold lg:text-base">
-                Directorate
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className="flex items-center justify-center text-xs font-bold lg:text-sm">
-              Total
-            </div>
-          </div>
-        </div>
-
-        <div className="flex flex-row flex-wrap items-center justify-center w-full py-3 pt-4 bg-white rounded-md shadow-lg px-9 lg:p-2">
-          <div className="flex justify-center w-full">
-            <div>
-              <div className="flex items-center justify-center p-1">
-                <TopicIcon className="lg:w-10 lg:h-10 w-8 h-8" />
-              </div>
-              <div className="p-2 text-xs font-bold lg:text-base">Division</div>
-            </div>
-          </div>
-          <div>
-            <div className="flex items-center justify-center text-xs font-bold lg:text-sm">
-              Total
-            </div>
-          </div>
-        </div>
-
-        <div className="flex flex-row flex-wrap items-center justify-center w-full p-2 bg-white rounded-md shadow-lg ">
-          <div className="flex justify-center w-full">
-            <div>
-              <div className="flex items-center justify-center p-2">
-                <TopicIcon className="lg:w-10 lg:h-10 w-8 h-8" />
-              </div>
-              <div className="pb-2 text-sm font-bold lg:text-base">Section</div>
-            </div>
-          </div>
-          <div>
-            <div className="flex items-center justify-center text-xs font-bold lg:text-sm">
-              Total
-            </div>
-          </div>
-        </div>
-        <div className="flex flex-row flex-wrap items-center justify-center w-full p-2 bg-white rounded-md shadow-lg">
-          <div className="flex justify-center w-full">
-            <div>
-              <div className="flex items-center justify-center p-2">
-                <TopicIcon className="lg:w-10 lg:h-10 w-8 h-8" />
-              </div>
-              <div className="pb-2 text-sm font-bold lg:text-base">Section</div>
-            </div>
-          </div>
-          <div>
-            <div className="flex items-center justify-center text-xs font-bold lg:text-sm">
-              Total
-            </div>
-          </div>
-        </div>
-        <div className="flex flex-row flex-wrap items-center justify-center w-full p-2 bg-white rounded-md shadow-lg">
-          <div className="flex justify-center w-full">
-            <div>
-              <div className="flex items-center justify-center p-2">
-                <TopicIcon className="lg:w-10 lg:h-10 w-8 h-8" />
-              </div>
-              <div className="pb-2 text-sm font-bold lg:text-base">Section</div>
-            </div>
-          </div>
-          <div>
-            <div className="flex items-center justify-center text-xs font-bold lg:text-sm">
-              Total
-            </div>
-          </div>
-        </div>
-        <div className="flex flex-row flex-wrap items-center justify-center w-full p-2 bg-white rounded-md shadow-lg ">
-          <div className="flex justify-center w-full">
-            <div>
-              <div className="flex items-center justify-center p-2">
-                <TopicIcon className="lg:w-10 lg:h-10 w-8 h-8" />
-              </div>
-              <div className="pb-2 text-sm font-bold lg:text-base">Section</div>
-            </div>
-          </div>
-          <div>
-            <div className="flex items-center justify-center text-xs font-bold lg:text-sm">
-              Total
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
     </section>
   );

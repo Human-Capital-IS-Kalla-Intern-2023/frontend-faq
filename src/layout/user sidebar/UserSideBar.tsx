@@ -6,7 +6,6 @@ import { NavLink, useLocation } from 'react-router-dom';
 
 // Components Import
 import SideBarMenu from './SideBarMenu';
-import ButtonLogout from '../../components/buttons/ButtonLogout';
 
 // Assets Import
 // import logoKalla from '../../assets/img/kalla-logo-full.webp';
@@ -18,11 +17,9 @@ import logo1280 from '../../assets/img/logo/logo-1280.webp';
 import logo3000 from '../../assets/img/logo/logo-3000.webp';
 
 import {
-  FAQIcon,
   TopicIcon,
   CloseSidebarIcon,
   ReponsiveSidebarIcon,
-  DashboardIcon,
 } from '../../assets/icons/icon';
 
 const Sidebar = () => {
@@ -30,11 +27,6 @@ const Sidebar = () => {
   const [open, setOpen] = useState(isTabletMid ? false : true);
   const { pathname } = useLocation();
   const sidebarRef = useRef<HTMLDivElement>(null);
-
-  const textAnimation = {
-    open: { opacity: 1 },
-    closed: { opacity: 0 },
-  };
 
   useEffect(() => {
     if (isTabletMid) {
@@ -54,7 +46,7 @@ const Sidebar = () => {
     ? {
         open: {
           x: 0,
-          width: '16rem',
+          width: '19rem',
           transition: {
             damping: 40,
           },
@@ -70,7 +62,7 @@ const Sidebar = () => {
       }
     : {
         open: {
-          width: '16rem',
+          width: '19rem',
           transition: {
             damping: 40,
           },
@@ -110,11 +102,11 @@ const Sidebar = () => {
           variants={Nav_animation}
           initial={{ x: isTabletMid ? -250 : 0 }}
           animate={open ? 'open' : 'closed'}
-          className=" bg-white text-gray  z-10 max-w-[16rem]  w-[16rem] 
+          className=" bg-white text-gray  z-10 max-w-[19rem]  w-[19rem] 
             overflow-hidden md:relative fixed
-         h-full  min-h-screen"
+         h-full min-h-screen max-h-screen"
         >
-          <div className="flex items-center gap-2.5 font-medium border-b py-3 border-slate-300 mx-3">
+          <div className="flex items-center gap-2.5 font-medium  py-3 mx-3">
             <img
               alt="Kalla Logo"
               src={logo232}
@@ -134,25 +126,6 @@ const Sidebar = () => {
 
           <div className="flex flex-col h-full">
             <ul className="whitespace-pre px-2.5 text-[0.9rem] py-5 flex flex-col gap-1 font-medium overflow-x-hidden scrollbar-thin scrollbar-track-white scrollbar-thumb-slate-100 md:h-[68%] h-[70%] rounded-md">
-              <li
-                className={`px-1 py-2 mb-1 rounded-md text-base   ${
-                  pathname.includes('/faq/home')
-                    ? 'bg-primary text-white '
-                    : 'hover:bg-primary hover:text-white'
-                }`}
-              >
-                <NavLink to={'/faq/home'} className="flex items-center">
-                  <DashboardIcon className="min-w-max" />
-                  <motion.span
-                    variants={textAnimation}
-                    animate={open ? 'open' : 'closed'}
-                    className="ml-2 link"
-                  >
-                    Dashboard
-                  </motion.span>
-                </NavLink>
-              </li>
-
               <li className=" border-slate-300">
                 {(open || isTabletMid) && (
                   <div className="py-5 border-y border-slate-300 ">
@@ -166,9 +139,6 @@ const Sidebar = () => {
                     ))}
                   </div>
                 )}
-              </li>
-              <li className="">
-                <ButtonLogout />
               </li>
             </ul>
           </div>
