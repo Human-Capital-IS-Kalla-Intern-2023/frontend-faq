@@ -30,6 +30,7 @@ import Unauthorized from './pages/auth/Unauthorized';
 // Import CSS
 import './App.css';
 import PrivateRoute from './middleware/PrivateRoutes';
+import Login from './pages/auth/Login';
 
 const App: React.FC = () => {
   return (
@@ -40,6 +41,7 @@ const App: React.FC = () => {
           path="/admin/*"
           element={
             <AdminLayout>
+              <Route path="" element={<Login />}></Route>
               <Routes>
                 <Route path="faq" element={<FaqAdmin />}>
                   <Route

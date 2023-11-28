@@ -66,6 +66,7 @@ const DetailFaqAdmin = () => {
       try {
         setIsLoading(true);
         const response = await getDetailFaqAdmin(QuestionSlug);
+        console.log(response);
         const faqData = response.data[0];
 
         // Update the component state with the fetched data

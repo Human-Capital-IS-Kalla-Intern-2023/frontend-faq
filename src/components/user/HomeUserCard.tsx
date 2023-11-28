@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { SearchIcon, PlusIcon, TopicIcon } from '../../assets/icons/icon';
+import { SearchIcon, TopicIcon } from '../../assets/icons/icon';
 import { Link, useNavigate } from 'react-router-dom';
 import ReactLoading from 'react-loading';
 
@@ -78,7 +78,7 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch }) => {
             />
 
             <button
-              className="absolute inset-y-0 right-0 flex items-center px-4 duration-300 bg-white border rounded-none rounded-r-lg hover:bg-primary "
+              className="absolute inset-y-0 right-0 flex items-center px-4 duration-300 bg-slate-200 border rounded-none rounded-r-lg hover:bg-primary "
               onClick={handleSearch}
               type="submit"
               aria-label="Search Data"
@@ -101,7 +101,7 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch }) => {
 
       {/* Grid 8 item dibagi menjadi 4 kolom */}
       <div className="grid items-center justify-center w-full min-h-full grid-cols-4 gap-4 p-6 pt-4 gap-y-16">
-        <div className="flex flex-row flex-wrap items-center justify-center w-full py-3 pt-4 overflow-hidden bg-slate-200 rounded-md shadow-lg px-6 p-2 whitespace-nowrap">
+        <div className="flex flex-row flex-wrap items-center justify-center w-full py-10  pt-4 overflow-hidden bg-slate-200 rounded-md shadow-lg px-6 p-2 whitespace-nowrap">
           <Link to="/faq/question" className="w-full">
             <div className="flex justify-center w-full">
               <div>
@@ -113,15 +113,13 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch }) => {
                 </div>
               </div>
             </div>
-            <div className="w-11/12 overflow-hidden">
-              <div className="flex items-center justify-center font-bold break-all whitespace-normal text-md lg:text-lg">
-                fjghhgwhegowghwoehgowehgoweurwuehweehgwhewhf
-              </div>
+            <div className="flex items-center justify-center text-xs font-bold lg:text-sm">
+              Place Description Here
             </div>
           </Link>
         </div>
 
-        <div className="flex flex-row flex-wrap items-center justify-center w-full py-3 pt-4 bg-white rounded-md shadow-lg px-9">
+        <div className="flex flex-row flex-wrap items-center justify-center w-full py-10  pt-4 bg-slate-200 rounded-md shadow-lg px-9">
           <div className="flex justify-center w-full">
             <div>
               <div className="flex items-center justify-center p-1">
@@ -134,12 +132,12 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch }) => {
           </div>
           <div>
             <div className="flex items-center justify-center pb-2 text-xs font-bold lg:text-sm">
-              Total
+              Place Description Here
             </div>
           </div>
         </div>
 
-        <div className="flex flex-row flex-wrap items-center justify-center w-full py-3 pt-4 bg-white rounded-md shadow-lg px-9 ">
+        <div className="flex flex-row flex-wrap items-center justify-center w-full py-10  pt-4 bg-slate-200 rounded-md shadow-lg px-9 ">
           <div className="flex justify-center w-full">
             <div>
               <div className="flex items-center justify-center p-1">
@@ -152,84 +150,97 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch }) => {
           </div>
           <div>
             <div className="flex items-center justify-center text-xs font-bold lg:text-sm">
-              Total
+              Place Description Here
             </div>
           </div>
         </div>
 
-        <div className="flex flex-row flex-wrap items-center justify-center w-full py-3 pt-4 bg-white rounded-md shadow-lg px-9 lg:p-2">
+        <div className="flex flex-row flex-wrap items-center justify-center w-full py-10  pt-4 bg-slate-200 rounded-md shadow-lg px-9 ">
           <div className="flex justify-center w-full">
             <div>
               <div className="flex items-center justify-center p-1">
-                <TopicIcon className="lg:w-10 lg:h-10 w-8 h-8" />
+                <TopicIcon className="lg:w-11 lg:h-11 w-9 h-9" />
               </div>
-              <div className="p-2 text-xs font-bold lg:text-base">Division</div>
+              <div className="pb-2 text-sm font-bold lg:text-base">
+                Directorate
+              </div>
             </div>
           </div>
           <div>
             <div className="flex items-center justify-center text-xs font-bold lg:text-sm">
-              Total
+              Place Description Here
             </div>
           </div>
         </div>
 
-        <div className="flex flex-row flex-wrap items-center justify-center w-full p-2 bg-white rounded-md shadow-lg ">
+        <div className="flex flex-row flex-wrap items-center justify-center w-full py-10  pt-4 bg-slate-200 rounded-md shadow-lg px-9 ">
           <div className="flex justify-center w-full">
             <div>
-              <div className="flex items-center justify-center p-2">
-                <TopicIcon className="lg:w-10 lg:h-10 w-8 h-8" />
+              <div className="flex items-center justify-center p-1">
+                <TopicIcon className="lg:w-11 lg:h-11 w-9 h-9" />
               </div>
-              <div className="pb-2 text-sm font-bold lg:text-base">Section</div>
+              <div className="pb-2 text-sm font-bold lg:text-base">
+                Directorate
+              </div>
             </div>
           </div>
           <div>
             <div className="flex items-center justify-center text-xs font-bold lg:text-sm">
-              Total
+              Place Description Here
             </div>
           </div>
         </div>
-        <div className="flex flex-row flex-wrap items-center justify-center w-full p-2 bg-white rounded-md shadow-lg">
+
+        <div className="flex flex-row flex-wrap items-center justify-center w-full py-10  pt-4 bg-slate-200 rounded-md shadow-lg px-9 ">
           <div className="flex justify-center w-full">
             <div>
-              <div className="flex items-center justify-center p-2">
-                <TopicIcon className="lg:w-10 lg:h-10 w-8 h-8" />
+              <div className="flex items-center justify-center p-1">
+                <TopicIcon className="lg:w-11 lg:h-11 w-9 h-9" />
               </div>
-              <div className="pb-2 text-sm font-bold lg:text-base">Section</div>
+              <div className="pb-2 text-sm font-bold lg:text-base">
+                Directorate
+              </div>
             </div>
           </div>
           <div>
             <div className="flex items-center justify-center text-xs font-bold lg:text-sm">
-              Total
+              Place Description Here
             </div>
           </div>
         </div>
-        <div className="flex flex-row flex-wrap items-center justify-center w-full p-2 bg-white rounded-md shadow-lg">
+
+        <div className="flex flex-row flex-wrap items-center justify-center w-full py-10  pt-4 bg-slate-200 rounded-md shadow-lg px-9 ">
           <div className="flex justify-center w-full">
             <div>
-              <div className="flex items-center justify-center p-2">
-                <TopicIcon className="lg:w-10 lg:h-10 w-8 h-8" />
+              <div className="flex items-center justify-center p-1">
+                <TopicIcon className="lg:w-11 lg:h-11 w-9 h-9" />
               </div>
-              <div className="pb-2 text-sm font-bold lg:text-base">Section</div>
+              <div className="pb-2 text-sm font-bold lg:text-base">
+                Directorate
+              </div>
             </div>
           </div>
           <div>
             <div className="flex items-center justify-center text-xs font-bold lg:text-sm">
-              Total
+              Place Description Here
             </div>
           </div>
         </div>
-        <div className="flex flex-row flex-wrap items-center justify-center w-full p-2 bg-white rounded-md shadow-lg ">
+
+        <div className="flex flex-row flex-wrap items-center justify-center w-full py-10  pt-4 bg-slate-200 rounded-md shadow-lg px-9 ">
           <div className="flex justify-center w-full">
             <div>
-              <div className="flex items-center justify-center p-2">
-                <TopicIcon className="lg:w-10 lg:h-10 w-8 h-8" />
+              <div className="flex items-center justify-center p-1">
+                <TopicIcon className="lg:w-11 lg:h-11 w-9 h-9" />
               </div>
-              <div className="pb-2 text-sm font-bold lg:text-base">Section</div>
+              <div className="pb-2 text-sm font-bold lg:text-base">
+                Directorate
+              </div>
             </div>
           </div>
           <div>
             <div className="flex items-center justify-center text-xs font-bold lg:text-sm">
-              Total
+              Place Description Here
             </div>
           </div>
         </div>
