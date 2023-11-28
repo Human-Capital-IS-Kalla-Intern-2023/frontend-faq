@@ -12,7 +12,7 @@ interface SelectOption {
 const colCells = [
   { key: topicEnum.TOPICNAME, text: 'topic name' },
   { key: topicEnum.TOPIC_AUTHOR, text: 'author' },
-  { key: topicEnum.ICONNAME, text: 'icon' },
+  { keys: [topicEnum.ICONNAME, topicEnum.TOPIC_IMAGE], text: 'icon' },
   { key: topicEnum.TOPIC_STATUS, text: 'active' },
 ];
 

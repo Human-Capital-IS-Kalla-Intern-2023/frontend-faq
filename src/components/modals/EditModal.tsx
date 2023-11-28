@@ -43,7 +43,14 @@ const EditModal = ({
     } else if (name === topicEnum.ICONNAME) {
       setFormData((prevData) => ({
         ...prevData,
+        [topicEnum.TOPIC_IMAGE]: null,
         [name]: value.value,
+      }));
+    } else if (name === topicEnum.TOPIC_IMAGE) {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+        [topicEnum.ICONNAME]: null,
       }));
     } else {
       setFormData((prevData) => ({
@@ -70,6 +77,8 @@ const EditModal = ({
   };
 
   useEffect(() => {
+    getIconList();
+
     if (isOpen) {
       const initialData: FormData = {};
       inputFields.forEach((field: any) => {
@@ -81,7 +90,15 @@ const EditModal = ({
           initialData[field.name] = initialFormData[field.name] || '';
         }
       });
-      getIconList();
+
+      if (topicEnum.ICONNAME in initialFormData) {
+        initialData[topicEnum.ICONNAME] = initialFormData[topicEnum.ICONNAME];
+      }
+
+      if (topicEnum.TOPIC_IMAGE in initialFormData) {
+        initialData[topicEnum.TOPIC_IMAGE] =
+          initialFormData[topicEnum.TOPIC_IMAGE];
+      }
 
       if (topicEnum.TOPIC_STATUS in initialFormData) {
         initialData[topicEnum.TOPIC_STATUS] =
@@ -100,6 +117,12 @@ const EditModal = ({
     if (isOpen && firstInputRef.current) {
       firstInputRef.current.focus();
     }
+
+    setFormData((prevData) => ({
+      ...prevData,
+      topic_user_id: 1,
+      user_id: 1,
+    }));
   }, [isOpen]);
 
   if (!isOpen) return null;
@@ -138,7 +161,7 @@ const EditModal = ({
                   {field.label}
                 </label>
 
-                {field.type === 'select' && (
+                {field.type === generalEnum.SELECT && (
                   <SelectField
                     id={field.id}
                     name={field.name}
@@ -146,11 +169,11 @@ const EditModal = ({
                     options={field.options}
                     onChange={handleChange}
                     showImageInputCheckbox={field.label === 'icon'}
-                    // value={formData[field.name] || ''}
+                    imageFieldName={topicEnum.TOPIC_IMAGE}
                   />
                 )}
 
-                {field.type === 'checkbox' && (
+                {field.type === generalEnum.CHECKBOX && (
                   <CheckboxField
                     id={field.id}
                     name={field.name}
@@ -159,7 +182,7 @@ const EditModal = ({
                   />
                 )}
 
-                {(field.type === 'textarea' || field.type === 'textarea') && (
+                {field.type === generalEnum.TEXTAREA && (
                   <TextAreaField
                     id={field.id}
                     name={field.name}
@@ -169,18 +192,16 @@ const EditModal = ({
                   />
                 )}
 
-                {field.type !== 'select' &&
-                  field.type !== 'checkbox' &&
-                  field.type !== 'textarea' && (
-                    <InputField
-                      id={field.id}
-                      name={field.name}
-                      type={field.type}
-                      value={formData[field.name] || ''}
-                      placeholder={`Input ${field.label}`}
-                      onChange={handleChange}
-                    />
-                  )}
+                {field.type === generalEnum.TEXT && (
+                  <InputField
+                    id={field.id}
+                    name={field.name}
+                    type={field.type}
+                    value={formData[field.name] || ''}
+                    placeholder={`Input ${field.label}`}
+                    onChange={handleChange}
+                  />
+                )}
               </div>
             ))}
             <button

@@ -1,5 +1,5 @@
 export enum topicEnum {
-  ICONNAME = 'icons_name',
+  ICONNAME = 'topic_icon',
   TOPICNAME = 'topic_name',
   TOPIC_DESCRIPTION = 'topic_description',
   TOPIC_AUTHOR = 'topic_author',

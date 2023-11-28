@@ -104,5 +104,3 @@ export const iconList = [
   { value: 'unlock', icon: faUnlock },
   { value: 'user', icon: faUser },
 ];
-
-export { faMusic };
