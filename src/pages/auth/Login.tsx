@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 //Import Components
 import LoginButton from '../../components/buttons/LoginButton';
+import InputField from '../../components/field/InputField';
 
 //Import Assets
 import LoginImg from '../../assets/img/logo/login-img.webp';
@@ -38,27 +39,30 @@ const Login = () => {
             <h2 className="text-2xl font-bold text-black">Login</h2>
 
             <form action="" className="flex flex-col gap-4">
-              <input
-                className="p-2 mt-8 text-sm border rounded-md"
-                name="Username"
-                placeholder="Username"
-                autoComplete="Username"
+              <InputField
+                id="username"
+                name="email"
+                placeholder="Email"
+                autoComplete="email"
                 value={email}
+                type="email"
                 onChange={handleEmailChange}
-                required
+                required={true}
+                className="p-2 mt-8 text-sm border rounded-md"
               />
+
               <div className="relative">
-                <input
+                <InputField
                   className="w-full p-2 text-sm border rounded-md"
                   type={isPasswordVisible ? 'text' : 'password'}
                   onChange={handlePasswordChange}
                   value={passwordInput}
                   name="password"
+                  id="password"
                   placeholder="Password"
                   autoComplete="current-password"
-                  required
+                  required={true}
                 />
-
                 {isPasswordVisible ? (
                   <CloseEyeIcon
                     onClick={togglePassword}

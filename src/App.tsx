@@ -37,11 +37,11 @@ const App: React.FC = () => {
     <Router>
       <Routes>
         {/* Admin Routes Start */}
+        <Route path="/admin" element={<Login />}></Route>
         <Route
           path="/admin/*"
           element={
             <AdminLayout>
-              <Route path="" element={<Login />}></Route>
               <Routes>
                 <Route path="faq" element={<FaqAdmin />}>
                   <Route
