@@ -53,17 +53,17 @@ const getDetailTopicAdmin = async (slug: any) => {
 // POST TopicAdmin
 const addTopicAdmin = async (formData: any) => {
   try {
-    const token = TokenHelper();
+    // const token = TokenHelper();
 
-    const headerToken = {
-      Authorization: `Bearer ${token}`,
-    };
+    // const headerToken = {
+    //   Authorization: `Bearer ${token}`,
+    // };
 
     const reponseAddTopicAdmin = await RequestApi(
       'POST',
       'faq/topics',
       formData,
-      headerToken,
+      {},
       'Membuat topic admin'
     );
 
