@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { SearchIcon, PlusIcon, TopicIcon } from '../../assets/icons/icon';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ReactLoading from 'react-loading';
 
 interface FilterOption {
@@ -62,67 +62,63 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch }) => {
   }, [onSearch]);
 
   return (
-    <section className="py-2 antialiased sm:py-2 overlay">
-      <div className="w-full pl-6">
-        <div className="relative bg-white shadow-lg">
-          <div className="w-full overflow-x-auto">
-            <div className="w-full md:w-1/2">
-              <form className="flex items-center" onSubmit={handleSearch}>
-                <label htmlFor="simple-search" className="sr-only">
-                  Search
-                </label>
-                <div className="relative w-full">
-                  <input
-                    type="text"
-                    className="block w-full p-2 text-black border rounded-lg text-md"
-                    placeholder="Search"
-                    value={searchInput}
-                    onChange={handleSearchInputChange}
-                  />
+    <section className="py-4 antialiased sm:py-2 overlay">
+      <div className="w-full px-6 pt-3 md:w-1/2">
+        <form className="flex items-center" onSubmit={handleSearch}>
+          <label htmlFor="simple-search" className="sr-only">
+            Search
+          </label>
+          <div className="relative w-full">
+            <input
+              type="text"
+              className="block w-full p-2 text-black border rounded-lg text-md"
+              placeholder="Search"
+              value={searchInput}
+              onChange={handleSearchInputChange}
+            />
 
-                  <button
-                    className="absolute inset-y-0 right-0 flex items-center px-4 duration-300 bg-white border rounded-none rounded-r-lg hover:bg-primary "
-                    onClick={handleSearch}
-                    type="submit"
-                    aria-label="Search Data"
-                  >
-                    {isLoading && (
-                      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-                        <ReactLoading
-                          type="spin"
-                          color="green"
-                          height={50}
-                          width={50}
-                        />
-                      </div>
-                    )}
-                    <SearchIcon className="w-[21px] h-[21px] cursor-pointer " />
-                  </button>
+            <button
+              className="absolute inset-y-0 right-0 flex items-center px-4 duration-300 bg-white border rounded-none rounded-r-lg hover:bg-primary "
+              onClick={handleSearch}
+              type="submit"
+              aria-label="Search Data"
+            >
+              {isLoading && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                  <ReactLoading
+                    type="spin"
+                    color="green"
+                    height={50}
+                    width={50}
+                  />
                 </div>
-              </form>
-            </div>
+              )}
+              <SearchIcon className="w-[21px] h-[21px] cursor-pointer " />
+            </button>
           </div>
-        </div>
+        </form>
       </div>
 
       {/* Grid 8 item dibagi menjadi 4 kolom */}
-      <div className="grid items-center justify-center w-full min-h-full grid-cols-4 gap-4 p-6 pt-2 gap-y-16">
-        <div className="flex flex-row flex-wrap items-center justify-center w-full py-3 pt-4 overflow-hidden bg-white rounded-md shadow-lg px-9 lg:p-2 whitespace-nowrap">
-          <div className="flex justify-center w-full">
-            <div>
-              <div className="flex items-center justify-center p-3">
-                <TopicIcon className="lg:w-10 lg:h-10 w-8 h-8" />
-              </div>
-              <div className="pb-2 text-sm font-bold break-all whitespace-normal lg:text-base">
-                Pengaturan Akun
+      <div className="grid items-center justify-center w-full min-h-full grid-cols-4 gap-4 p-6 pt-4 gap-y-16">
+        <div className="flex flex-row flex-wrap items-center justify-center w-full py-3 pt-4 overflow-hidden bg-slate-200 rounded-md shadow-lg px-6 p-2 whitespace-nowrap">
+          <Link to="/faq/question" className="w-full">
+            <div className="flex justify-center w-full">
+              <div>
+                <div className="flex items-center justify-center p-3">
+                  <TopicIcon className="lg:w-10 lg:h-10 w-8 h-8" />
+                </div>
+                <div className="pb-2 text-sm font-bold break-all whitespace-normal lg:text-base">
+                  Pengaturan Akun
+                </div>
               </div>
             </div>
-          </div>
-          <div className="w-11/12 overflow-hidden">
-            <div className="flex items-center justify-center font-bold break-all whitespace-normal text-md lg:text-lg">
-              fjghhgwhegowghwoehgowehgoweurwuehweehgwhewhf
+            <div className="w-11/12 overflow-hidden">
+              <div className="flex items-center justify-center font-bold break-all whitespace-normal text-md lg:text-lg">
+                fjghhgwhegowghwoehgowehgoweurwuehweehgwhewhf
+              </div>
             </div>
-          </div>
+          </Link>
         </div>
 
         <div className="flex flex-row flex-wrap items-center justify-center w-full py-3 pt-4 bg-white rounded-md shadow-lg px-9">
