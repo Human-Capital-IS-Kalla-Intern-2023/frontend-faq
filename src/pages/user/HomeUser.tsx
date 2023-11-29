@@ -1,7 +1,7 @@
 import ReactLoading from 'react-loading';
 import { useEffect, useState } from 'react';
 import HomeUserCard from '../../components/user/HomeUserCard';
-import logoKalla from '../../../public/logo-kalla.webp';
+import logoKalla from '../../assets/img/logo/singel-logo-kalla.webp';
 
 import { getTopicUser } from '../../api/user/TopicUserAPI';
 

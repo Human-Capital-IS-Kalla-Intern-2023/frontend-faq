@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { iconList } from '../icons/topicIcon';
-import { topicEnum } from '../../state/enum/topicEnum';
+import { apiEnum } from '../../state/enum/apiEnum';
 interface SelectOption {
   label: any;
   value: string;
@@ -10,37 +10,37 @@ interface SelectOption {
 // Import API
 
 const colCells = [
-  { key: topicEnum.TOPICNAME, text: 'topic name' },
-  { key: topicEnum.TOPIC_AUTHOR, text: 'author' },
-  { keys: [topicEnum.ICONNAME, topicEnum.TOPIC_IMAGE], text: 'icon' },
-  { key: topicEnum.TOPIC_STATUS, text: 'active' },
+  { key: apiEnum.NAME, text: 'topic name' },
+  { key: apiEnum.TOPIC_AUTHOR, text: 'author' },
+  { keys: [apiEnum.ICON, apiEnum.IMAGE], text: 'icon' },
+  { key: apiEnum.IS_STATUS, text: 'active' },
 ];
 
 const inputField = [
   {
-    id: topicEnum.TOPICNAME,
+    id: apiEnum.NAME,
     label: 'topic name',
-    name: topicEnum.TOPICNAME,
+    name: apiEnum.NAME,
     type: 'text',
   },
   {
-    id: topicEnum.TOPIC_DESCRIPTION,
+    id: apiEnum.DESCRIPTION,
     label: 'description ',
-    name: topicEnum.TOPIC_DESCRIPTION,
+    name: apiEnum.DESCRIPTION,
     type: 'textarea',
   },
   {
-    id: topicEnum.ICONNAME,
+    id: apiEnum.ICON,
     label: 'icon',
-    name: topicEnum.ICONNAME,
+    name: apiEnum.ICON,
     icons: true,
     type: 'select',
     options: [] as SelectOption[],
   },
   {
-    id: topicEnum.TOPIC_STATUS,
+    id: apiEnum.IS_STATUS,
     label: 'active',
-    name: topicEnum.TOPIC_STATUS,
+    name: apiEnum.IS_STATUS,
     type: 'checkbox',
     checked: 1,
   },

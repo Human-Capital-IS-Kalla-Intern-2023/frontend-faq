@@ -37,16 +37,16 @@ const AddFaqAdmin = () => {
 
   const [formData, setFormData] = useState<{
     user_id: number;
-    topic_id: number[];
-    question_name: string;
-    question_is_status: number;
-    question_answer: any;
+    id: number[];
+    question: string;
+    is_status: number;
+    answer: any;
   }>({
     user_id: 1,
-    topic_id: [],
-    question_name: '',
-    question_is_status: 1,
-    question_answer: '',
+    id: [],
+    question: '',
+    is_status: 1,
+    answer: '',
   });
 
   // Alert State
@@ -71,8 +71,8 @@ const AddFaqAdmin = () => {
     try {
       const responseData = await getTopicAdmin();
       const topicOptions = responseData.data.map((item: any) => ({
-        label: item.topic_name,
-        value: item.topic_id,
+        label: item.name,
+        value: item.id,
       }));
       setTopicOptions(topicOptions);
     } catch (error) {
@@ -127,23 +127,24 @@ const AddFaqAdmin = () => {
   // Handle handle Topic Select
   const handleTopicSelect = (e: any) => {
     const selectedOptions = e.target.value;
+    console.log(selectedOptions);
     const selectedValues = selectedOptions.map((option: any) => option.value);
 
     // Update formData with an array of topic IDs
-    setFormData({ ...formData, topic_id: selectedValues });
+    setFormData({ ...formData, id: selectedValues });
 
     // Save data to local storage
-    const newData = { ...formData, topic_id: selectedValues };
+    const newData = { ...formData, id: selectedValues };
     saveDataToLocalStorage(newData);
   };
 
   // Handle Faq Admin Name
   const handleFaqAdminNameInput = (e: any) => {
-    setFormData({ ...formData, question_name: e.target.value });
+    setFormData({ ...formData, question: e.target.value });
     setFaqAdminNameValue(e.target.value);
 
     // Save data to local storage
-    const newData = { ...formData, question_name: e.target.value };
+    const newData = { ...formData, question: e.target.value };
     saveDataToLocalStorage(newData);
   };
 
@@ -157,7 +158,7 @@ const AddFaqAdmin = () => {
     // Update the formData and save to local storage
     const updatedFormData = {
       ...formData,
-      question_is_status: isChecked ? 1 : 0,
+      is_status: isChecked ? 1 : 0,
     };
 
     // Save data to local storage
@@ -168,13 +169,13 @@ const AddFaqAdmin = () => {
   ///* RIGHT CARD SECTION
   const [blogContent, setBlogContent] = useState('');
 
-  const handleBlogContentChange = (question_answer: any) => {
-    setBlogContent(question_answer);
+  const handleBlogContentChange = (answer: any) => {
+    setBlogContent(answer);
 
     // Update the formData and save to local storage
     const updatedFormData = {
       ...formData,
-      question_answer: question_answer,
+      answer: answer,
     };
 
     // Save data to local storage
@@ -188,9 +189,9 @@ const AddFaqAdmin = () => {
       const parsedData = JSON.parse(savedData);
       // Update your component state with the loaded data
       setFormData(parsedData);
-      setFaqAdminNameValue(parsedData.question_name);
+      setFaqAdminNameValue(parsedData.question);
 
-      setLeftActiveCheckbox(parsedData.question_is_status === 1);
+      setLeftActiveCheckbox(parsedData.is_status === 1);
     }
   }, []);
 
@@ -270,7 +271,7 @@ const AddFaqAdmin = () => {
                     onChange={handleLeftActiveCheckboxChange}
                   />
                   <div
-                    className={`w-11 h-6 bg-red-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-white dark:peer-focus:ring-gray-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:question_answer-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600`}
+                    className={`w-11 h-6 bg-red-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-white dark:peer-focus:ring-gray-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:answer-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600`}
                   ></div>
                 </label>
               </div>

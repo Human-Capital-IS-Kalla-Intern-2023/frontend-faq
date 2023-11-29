@@ -12,9 +12,8 @@ import CloseButton from '../buttons/CloseButton';
 import { getIconList } from '../../assets/data/TopicAdminData';
 
 // Import Type
-import { generalEnum } from '../../state/enum/generalEnum';
-import { topicEnum } from '../../state/enum/topicEnum';
-import { questionEnum } from '../../state/enum/questionEnum';
+import { tagEnum } from '../../state/enum/tagEnum';
+import { apiEnum } from '../../state/enum/apiEnum';
 interface FormData {
   [key: string]: any;
 }
@@ -35,22 +34,22 @@ const EditModal = ({
   const handleChange = (e: any) => {
     const { name, value, type, checked } = e.target;
 
-    if (type === generalEnum.CHECKBOX) {
+    if (type === tagEnum.CHECKBOX) {
       setFormData((prevData) => ({
         ...prevData,
         [name]: checked,
       }));
-    } else if (name === topicEnum.ICONNAME) {
+    } else if (name === apiEnum.ICON) {
       setFormData((prevData) => ({
         ...prevData,
-        [topicEnum.TOPIC_IMAGE]: null,
+        [apiEnum.IMAGE]: null,
         [name]: value.value,
       }));
-    } else if (name === topicEnum.TOPIC_IMAGE) {
+    } else if (name === apiEnum.IMAGE) {
       setFormData((prevData) => ({
         ...prevData,
         [name]: value,
-        [topicEnum.ICONNAME]: null,
+        [apiEnum.ICON]: null,
       }));
     } else {
       setFormData((prevData) => ({
@@ -82,32 +81,31 @@ const EditModal = ({
     if (isOpen) {
       const initialData: FormData = {};
       inputFields.forEach((field: any) => {
-        if (field.type === generalEnum.SELECT && field.isMulti) {
+        if (field.type === tagEnum.SELECT && field.isMulti) {
           initialData[field.name] = initialFormData[field.name] || [];
-        } else if (field.type === generalEnum.CHECKBOX) {
+        } else if (field.type === tagEnum.CHECKBOX) {
           initialData[field.name] = initialFormData[field.name] === 1 ? 1 : 0;
         } else {
           initialData[field.name] = initialFormData[field.name] || '';
         }
       });
 
-      if (topicEnum.ICONNAME in initialFormData) {
-        initialData[topicEnum.ICONNAME] = initialFormData[topicEnum.ICONNAME];
+      if (apiEnum.ICON in initialFormData) {
+        initialData[apiEnum.ICON] = initialFormData[apiEnum.ICON];
       }
 
-      if (topicEnum.TOPIC_IMAGE in initialFormData) {
-        initialData[topicEnum.TOPIC_IMAGE] =
-          initialFormData[topicEnum.TOPIC_IMAGE];
+      if (apiEnum.IMAGE in initialFormData) {
+        initialData[apiEnum.IMAGE] = initialFormData[apiEnum.IMAGE];
       }
 
-      if (topicEnum.TOPIC_STATUS in initialFormData) {
-        initialData[topicEnum.TOPIC_STATUS] =
-          initialFormData[topicEnum.TOPIC_STATUS] === 1 ? 1 : 0;
+      if (apiEnum.IS_STATUS in initialFormData) {
+        initialData[apiEnum.IS_STATUS] =
+          initialFormData[apiEnum.IS_STATUS] === 1 ? 1 : 0;
       }
 
-      if (questionEnum.QUESTION_STATUS in initialFormData) {
-        initialData[questionEnum.QUESTION_STATUS] =
-          initialFormData[questionEnum.QUESTION_STATUS] === 1 ? 1 : 0;
+      if (apiEnum.IS_STATUS in initialFormData) {
+        initialData[apiEnum.IS_STATUS] =
+          initialFormData[apiEnum.IS_STATUS] === 1 ? 1 : 0;
       }
       setFormData(initialData);
     }
@@ -148,7 +146,7 @@ const EditModal = ({
                 className={`${
                   inputFields.length === 1 ||
                   inputFields.length === 2 ||
-                  field.id === topicEnum.TOPIC_DESCRIPTION ||
+                  field.id === apiEnum.DESCRIPTION ||
                   (index === 0 && inputFields.length >= 3)
                     ? 'col-span-2'
                     : ''
@@ -161,7 +159,7 @@ const EditModal = ({
                   {field.label}
                 </label>
 
-                {field.type === generalEnum.SELECT && (
+                {field.type === tagEnum.SELECT && (
                   <SelectField
                     id={field.id}
                     name={field.name}
@@ -169,11 +167,11 @@ const EditModal = ({
                     options={field.options}
                     onChange={handleChange}
                     showImageInputCheckbox={field.label === 'icon'}
-                    imageFieldName={topicEnum.TOPIC_IMAGE}
+                    imageFieldName={apiEnum.IMAGE}
                   />
                 )}
 
-                {field.type === generalEnum.CHECKBOX && (
+                {field.type === tagEnum.CHECKBOX && (
                   <CheckboxField
                     id={field.id}
                     name={field.name}
@@ -182,7 +180,7 @@ const EditModal = ({
                   />
                 )}
 
-                {field.type === generalEnum.TEXTAREA && (
+                {field.type === tagEnum.TEXTAREA && (
                   <TextAreaField
                     id={field.id}
                     name={field.name}
@@ -192,7 +190,7 @@ const EditModal = ({
                   />
                 )}
 
-                {field.type === generalEnum.TEXT && (
+                {field.type === tagEnum.TEXT && (
                   <InputField
                     id={field.id}
                     name={field.name}

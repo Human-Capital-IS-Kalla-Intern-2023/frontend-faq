@@ -5,11 +5,11 @@ import TokenHelper from '../../helpers/TokenHelpers';
 // GET TopicUser
 const getTopicUser = async () => {
   try {
-    // const token = TokenHelper();
+    const token = TokenHelper();
 
-    // const headerToken = {
-    //   Authorization: `Bearer ${token}`,
-    // };
+    const headerToken = {
+      Authorization: `Bearer ${token}`,
+    };
 
     const responseGetTopicUser = await RequestApi(
       'GET',
@@ -101,11 +101,11 @@ const updateTopicUser = async (slug: any, TopicUserData: any) => {
 // DELETE TopicUser
 const deleteTopicUser = async (slug: any) => {
   try {
-    // const token = TokenHelper();
+    const token = TokenHelper();
 
-    // const headerToken = {
-    //   Authorization: `Bearer ${token}`,
-    // };
+    const headerToken = {
+      Authorization: `Bearer ${token}`,
+    };
 
     const reponseDeleteTopicUser = await RequestApi(
       'DELETE',
@@ -125,11 +125,11 @@ const deleteTopicUser = async (slug: any) => {
 // Search TopicUser
 const searchTopicUser = async (searchInput: any) => {
   try {
-    // const token = TokenHelper();
+    const token = TokenHelper();
 
-    // const headerToken = {
-    //   Authorization: `Bearer ${token}`,
-    // };
+    const headerToken = {
+      Authorization: `Bearer ${token}`,
+    };
 
     const responseSearchTopicUser = await RequestApi(
       'GET',

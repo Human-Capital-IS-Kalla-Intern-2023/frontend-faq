@@ -5,17 +5,17 @@ import TokenHelper from '../../helpers/TokenHelpers';
 // GET TopicAdmin
 const getTopicAdmin = async () => {
   try {
-    // const token = TokenHelper();
+    const token = TokenHelper();
 
-    // const headerToken = {
-    //   Authorization: `Bearer ${token}`,
-    // };
+    const headerToken = {
+      Authorization: `Bearer ${token}`,
+    };
 
     const responseGetTopicAdmin = await RequestApi(
       'GET',
       'faq/topics',
       {},
-      {},
+      headerToken,
       'Mengambil topic admin'
     );
 
@@ -53,17 +53,17 @@ const getDetailTopicAdmin = async (slug: any) => {
 // POST TopicAdmin
 const addTopicAdmin = async (formData: any) => {
   try {
-    // const token = TokenHelper();
+    const token = TokenHelper();
 
-    // const headerToken = {
-    //   Authorization: `Bearer ${token}`,
-    // };
+    const headerToken = {
+      Authorization: `Bearer ${token}`,
+    };
 
     const reponseAddTopicAdmin = await RequestApi(
       'POST',
       'faq/topics',
       formData,
-      {},
+      headerToken,
       'Membuat topic admin'
     );
 
@@ -101,17 +101,17 @@ const updateTopicAdmin = async (slug: any, TopicAdminData: any) => {
 // DELETE TopicAdmin
 const deleteTopicAdmin = async (slug: any) => {
   try {
-    // const token = TokenHelper();
+    const token = TokenHelper();
 
-    // const headerToken = {
-    //   Authorization: `Bearer ${token}`,
-    // };
+    const headerToken = {
+      Authorization: `Bearer ${token}`,
+    };
 
     const reponseDeleteTopicAdmin = await RequestApi(
       'DELETE',
       `faq/topics/${slug}`,
       null,
-      {},
+      headerToken,
       'Menghapus topic admin'
     );
 
@@ -125,17 +125,17 @@ const deleteTopicAdmin = async (slug: any) => {
 // Search TopicAdmin
 const searchTopicAdmin = async (searchInput: any) => {
   try {
-    // const token = TokenHelper();
+    const token = TokenHelper();
 
-    // const headerToken = {
-    //   Authorization: `Bearer ${token}`,
-    // };
+    const headerToken = {
+      Authorization: `Bearer ${token}`,
+    };
 
     const responseSearchTopicAdmin = await RequestApi(
       'GET',
       `faq/topics?search=${searchInput}`,
       null,
-      {},
+      headerToken,
       'Mencari topicAdmin'
     );
 

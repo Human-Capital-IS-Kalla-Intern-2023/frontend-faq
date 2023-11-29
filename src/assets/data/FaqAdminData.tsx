@@ -1,33 +1,32 @@
 // Import Type
-import { questionEnum } from '../../state/enum/questionEnum';
-import { topicEnum } from '../../state/enum/topicEnum';
+import { apiEnum } from '../../state/enum/apiEnum';
 
 const colCells = [
-  { key: questionEnum.QUESTION_NAME, text: 'faq name' },
-  { key: topicEnum.TOPICNAME, text: 'topic' },
-  { key: questionEnum.QUESTION_LIKES, text: 'likes' },
-  { key: questionEnum.QUESTION_DISLIKES, text: 'dislike' },
-  { key: questionEnum.QUESTION_STATUS, text: 'active' },
+  { key: apiEnum.QUESTION, text: 'faq name' },
+  { key: apiEnum.NAME, text: 'topic' },
+  { key: apiEnum.LIKES, text: 'likes' },
+  { key: apiEnum.DISLIKES, text: 'dislike' },
+  { key: apiEnum.IS_STATUS, text: 'active' },
 ];
 
 const inputField = [
   {
-    id: questionEnum.QUESTION_NAME,
+    id: apiEnum.QUESTION,
     label: 'Faq Name',
-    name: questionEnum.QUESTION_NAME,
+    name: apiEnum.QUESTION,
     type: 'text',
   },
   {
-    id: topicEnum.TOPICNAME,
+    id: apiEnum.NAME,
     label: 'Topic Name',
-    name: topicEnum.TOPICNAME,
+    name: apiEnum.NAME,
     type: 'text',
   },
 
   {
-    id: questionEnum.QUESTION_STATUS,
+    id: apiEnum.IS_STATUS,
     label: 'active',
-    name: questionEnum.QUESTION_STATUS,
+    name: apiEnum.IS_STATUS,
     type: 'checkbox',
     checked: 1,
   },

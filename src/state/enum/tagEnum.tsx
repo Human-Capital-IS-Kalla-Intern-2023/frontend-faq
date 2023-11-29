@@ -1,4 +1,4 @@
-export enum generalEnum {
+export enum tagEnum {
   TEXT = 'text',
   TEXTAREA = 'textarea',
   SELECT = 'select',

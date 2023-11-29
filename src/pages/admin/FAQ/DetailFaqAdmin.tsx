@@ -66,24 +66,23 @@ const DetailFaqAdmin = () => {
       try {
         setIsLoading(true);
         const response = await getDetailFaqAdmin(QuestionSlug);
-        console.log(response);
-        const faqData = response.data[0];
+        const faqData = response.data;
 
         // Update the component state with the fetched data
-        setFaqAdminNameValue(faqData.question_name);
-        setLeftActiveCheckbox(faqData.question_is_status === 1);
-        setBlogContent(faqData.question_answer);
+        setFaqAdminNameValue(faqData.question);
+        setLeftActiveCheckbox(faqData.is_status === 1);
+        setBlogContent(faqData.answer);
 
         // Fetch topics only if the component is mounted
         const topicResponse = await getTopicAdmin();
         const topicOptions = topicResponse.data.map((item: any) => ({
-          label: item.topic_name,
-          value: item.topic_id,
+          label: item.name,
+          value: item.id,
         }));
 
-        // Find the topic name based on topic_id
+        // Find the topic name based on id
         const foundTopic = topicOptions.find(
-          (topic: any) => topic.value === faqData.topic_id
+          (topic: any) => topic.value === faqData.id
         );
 
         // Set the topic name to state
@@ -91,10 +90,10 @@ const DetailFaqAdmin = () => {
 
         // Update other fields accordingly
         const newData = {
-          topic_id: faqData.topic_id,
-          question_name: faqData.question_name,
-          question_is_status: faqData.question_is_status,
-          question_answer: faqData.question_answer,
+          id: faqData.id,
+          question: faqData.qustion,
+          is_status: faqData.is_status,
+          answer: faqData.answer,
         };
 
         saveDataToLocalStorage(newData);

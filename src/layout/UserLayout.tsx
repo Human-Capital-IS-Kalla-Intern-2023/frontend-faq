@@ -14,7 +14,7 @@ function UserLayout({ children }: any) {
     '/leavemanagement/faq',
   ];
 
-  const hiddenSidebarPaths = ['/admin'];
+  const hiddenSidebarPaths = ['/admin', '/'];
 
   const shouldShowSidebar =
     sidebarPaths.some((path) => location.pathname.startsWith(path)) &&

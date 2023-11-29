@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ReactLoading from 'react-loading';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 // Import API
 import { loginUser } from '../../api/AuthAPI';
@@ -18,6 +18,7 @@ const LoginButton: React.FC<LoginButtonProps> = ({ email, passwordInput }) => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLoginFormSubmit = async () => {
     setIsLoading(true);
@@ -32,7 +33,15 @@ const LoginButton: React.FC<LoginButtonProps> = ({ email, passwordInput }) => {
       const response = await loginUser(credentials);
 
       if (response) {
-        navigate(`/dashboard`);
+        const currentPath = location.pathname;
+
+        if (currentPath === '/admin/login') {
+          // Redirect to /admin/dashboard if on /admin/login
+          navigate(`/admin/dashboard`);
+        } else if (currentPath === '/login') {
+          // Redirect to / if on /login
+          navigate(`/`);
+        }
       }
     } catch (error: any) {
       console.error(error);
