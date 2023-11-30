@@ -70,8 +70,8 @@ const TopicAdmin: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const reponseData = await getTopicAdmin();
-      setTopicAdmin(reponseData.data);
+      const responseData = await getTopicAdmin();
+      setTopicAdmin(responseData.data);
     } catch (error: any) {
       console.error('Error fetch all topic admin:', error);
       setErrorTitle(`Error fetch all topic admin`);
