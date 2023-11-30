@@ -5,4 +5,5 @@ export enum tagEnum {
   CHECKBOX = 'checkbox',
   ISACTIVE = 'is_active',
   ESCAPE = 'Escape',
+  NUMBER = 'number',
 }

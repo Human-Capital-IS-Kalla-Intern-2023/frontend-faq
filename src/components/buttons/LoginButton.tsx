@@ -1,15 +1,16 @@
+// Import Library And Package
 import React, { useState } from 'react';
 import ReactLoading from 'react-loading';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-// Import API
-import { loginUser } from '../../api/AuthAPI';
+// Import Component
 import { ErrorAlert } from '../alerts/CustomAlert';
 
-interface LoginButtonProps {
-  email: string;
-  passwordInput: string;
-}
+// Import API
+import { loginUser } from '../../api/AuthAPI';
+
+// Import Type
+import { LoginButtonProps } from '../../state/types/ButtonType';
 
 const LoginButton: React.FC<LoginButtonProps> = ({ email, passwordInput }) => {
   const [isLoading, setIsLoading] = useState(false);

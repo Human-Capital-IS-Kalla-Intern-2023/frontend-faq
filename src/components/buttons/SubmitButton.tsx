@@ -1,13 +1,9 @@
+// Import Library And Package
 import React from 'react';
 import ReactLoading from 'react-loading';
 
-interface SubmitButtonProps {
-  title: string;
-  onClick?: () => void;
-  disabled?: boolean;
-  ariaLabel?: string;
-  isLoading?: boolean;
-}
+// Import Type
+import { SubmitButtonProps } from '../../state/types/ButtonType';
 
 const SubmitButton: React.FC<SubmitButtonProps> = ({
   title,

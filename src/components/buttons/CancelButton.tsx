@@ -1,9 +1,8 @@
+// Import Library And Package
 import React from 'react';
 
-interface CancelButtonProps {
-  title?: string;
-  onClick: () => void;
-}
+// Import Type
+import { CancelButtonProps } from '../../state/types/ButtonType';
 
 const CancelButton: React.FC<CancelButtonProps> = ({ title, onClick }) => {
   return (

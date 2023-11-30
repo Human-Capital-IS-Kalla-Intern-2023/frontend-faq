@@ -1,7 +1,15 @@
 // Import Component
 import CloseButton from '../buttons/CloseButton';
 
-const DetailModal = ({ isOpen, onClose, data, inputField }: any) => {
+// Import Type
+import { DetailModalProps } from '../../state/types/ModalType';
+
+const DetailModal: React.FC<DetailModalProps> = ({
+  isOpen,
+  onClose,
+  data,
+  inputField,
+}) => {
   const handleOverlayClick = (e: any) => {
     if (e.target.classList.contains('overlay')) {
       onClose();

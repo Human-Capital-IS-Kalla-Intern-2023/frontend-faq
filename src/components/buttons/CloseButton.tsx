@@ -1,10 +1,11 @@
+// Import Library And Package
 import React from 'react';
+
+// Import Asset
 import { CloseButtonIcon } from '../../assets/icons/Icon';
 
-interface CloseButtonProps {
-  onClick: () => void;
-}
-
+// Import Type
+import { CloseButtonProps } from '../../state/types/ButtonType';
 const CloseButton: React.FC<CloseButtonProps> = ({ onClick }) => {
   return (
     <div
