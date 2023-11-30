@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ReactLoading from 'react-loading';
-import { SearchIcon } from '../../assets/icons/Icon';
-// import { faMusic } from '../../assets/icons/categoriIcon';
-import { DropdownIcon } from '../../assets/icons/Icon';
+import { SearchIcon, DropdownIcon } from '../../assets/icons/Icon';
 
 import { TopicDataType } from '../../state/types/TopicType';
 
