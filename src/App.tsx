@@ -41,7 +41,15 @@ const AdminRoutes: React.FC = () => {
   return (
     <AdminLayout>
       <Routes>
-        <Route path="faq" element={<FaqAdmin />} />
+        {/* FAQ Admin Routes */}
+        <Route path="faq" element={<FaqAdmin />}>
+          <Route path="delete/:modalDeleteSlug" element={<DeleteModal />} />
+        </Route>
+        <Route path="faq/add" element={<AddFaqAdmin />} />
+        <Route path="faq/edit/:QuestionSlug" element={<EditFaqAdmin />} />
+        <Route path="faq/detail/:QuestionSlug" element={<DetailFaqAdmin />} />
+
+        {/* Topic Admin Routes */}
         <Route path="topic" element={<TopicAdmin />}>
           <Route path="add" element={<AddModal />} />
           <Route path="edit/:modalEditSlug" element={<EditModal />} />
@@ -58,8 +66,7 @@ const UserRoutes: React.FC = () => {
   return (
     <UserLayout>
       <Routes>
-        <Route path="" element={<HomeUser />} />
-        <Route path="/faq/question" element={<Question />} />
+        <Route path="faq/question" element={<Question />} />
         <Route path="/faq/question/detail" element={<DetailFaqUser />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
@@ -67,38 +74,26 @@ const UserRoutes: React.FC = () => {
   );
 };
 
-const AuthorizedRoutes: React.FC = () => {
-  return (
-    <Routes>
-      <Route path="/admin/*" element={<AdminRoutes />} />
-      <Route path="admin/faq/add" element={<AddFaqAdmin />} />
-      <Route path="admin/faq/edit/:QuestionSlug" element={<EditFaqAdmin />} />
-      <Route
-        path="admin/faq/detail/:QuestionSlug"
-        element={<DetailFaqAdmin />}
-      />
-      <Route path="/" element={<UserRoutes />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
-  );
-};
-
 const App: React.FC = () => {
   const [cookies] = useCookies(['access_token']);
   const isAuthenticated = !!cookies.access_token;
+
   return (
     <Router>
       <Routes>
         <Route
-          path="/*"
+          path="/admin/*"
           element={
-            isAuthenticated ? <AuthorizedRoutes /> : <Navigate to="/login" />
+            isAuthenticated ? <AdminRoutes /> : <Navigate to="/admin/login" />
           }
         />
-        <Route path="/login" element={<Login />} />
+
+        <Route path="" element={<HomeUser />} />
         <Route path="/admin/login" element={<Login />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="/permissiondenied" element={<PermissionDenied />} />
+
+        <Route path="/*" element={<UserRoutes />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

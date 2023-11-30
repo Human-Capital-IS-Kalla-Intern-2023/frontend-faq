@@ -6,15 +6,12 @@ function UserLayout({ children }: any) {
 
   const sidebarPaths = [
     '/',
-    '/topic',
-    '/faq/home',
-    '/faq/topic',
-    '/dashboard',
-    '/faq/question',
+    'faq/topic',
+    'faq/question',
     '/leavemanagement/faq',
   ];
 
-  const hiddenSidebarPaths = ['/admin', '/'];
+  const hiddenSidebarPaths = ['/admin'];
 
   const shouldShowSidebar =
     sidebarPaths.some((path) => location.pathname.startsWith(path)) &&
