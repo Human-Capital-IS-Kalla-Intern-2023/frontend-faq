@@ -77,7 +77,7 @@ const Sidebar = () => {
 
   const subMenusList = [
     {
-      name: 'Pertanyaan Umum',
+      name: 'Pengaturan Akun',
       icon: <TopicIcon className="min-w-max" />,
       menus: ['Lupa Password', 'Tidak dapat membuat akun'],
     },
