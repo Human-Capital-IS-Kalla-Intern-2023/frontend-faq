@@ -10,4 +10,5 @@ export enum apiEnum {
   IMAGE = 'image',
   ICON = 'icon',
   NAME = 'name',
+  AUTHOR = 'author',
 }

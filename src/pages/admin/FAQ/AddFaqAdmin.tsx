@@ -37,13 +37,13 @@ const AddFaqAdmin = () => {
 
   const [formData, setFormData] = useState<{
     user_id: number;
-    id: number[];
+    topic_id: number[];
     question: string;
     is_status: number;
     answer: any;
   }>({
     user_id: 1,
-    id: [],
+    topic_id: [],
     question: '',
     is_status: 1,
     answer: '',
@@ -127,14 +127,13 @@ const AddFaqAdmin = () => {
   // Handle handle Topic Select
   const handleTopicSelect = (e: any) => {
     const selectedOptions = e.target.value;
-    console.log(selectedOptions);
     const selectedValues = selectedOptions.map((option: any) => option.value);
 
     // Update formData with an array of topic IDs
-    setFormData({ ...formData, id: selectedValues });
+    setFormData({ ...formData, topic_id: selectedValues });
 
     // Save data to local storage
-    const newData = { ...formData, id: selectedValues };
+    const newData = { ...formData, topic_id: selectedValues };
     saveDataToLocalStorage(newData);
   };
 

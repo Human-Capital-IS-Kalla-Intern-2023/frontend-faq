@@ -204,7 +204,7 @@ const TabelBody: React.FC<TabelBodyProps> = ({
       return renderedValues;
     }
 
-    if (cell.key === 'topic_is_status' || cell.key === 'is_status') {
+    if (cell.key === 'is_status') {
       return (
         <label className="relative inline-flex items-center cursor-pointer">
           <input
@@ -219,7 +219,7 @@ const TabelBody: React.FC<TabelBodyProps> = ({
                   await changeIsActive(customCell.slug, newValue);
                 }
               } catch (error) {
-                console.error('Error changing topic_is_status:', error);
+                console.error('Error changing status:', error);
               }
             }}
           />
@@ -229,6 +229,34 @@ const TabelBody: React.FC<TabelBodyProps> = ({
           ></div>
         </label>
       );
+    }
+
+    if (cell.key === 'author') {
+      return customCell['user'].name;
+    }
+
+    if (cell.key === 'name') {
+      if (customCell['topics']) {
+        const topicNames = customCell['topics'].map((topic: any) => topic.name);
+
+        if (topicNames.length === 1) {
+          return (
+            <span className="p-2 bg-green-300 rounded-full ">
+              {topicNames[0]}
+            </span>
+          );
+        } else if (topicNames.length > 1) {
+          const additionalTopicsCount = topicNames.length - 1;
+          return (
+            <>
+              <span className="p-2 bg-green-300 rounded-full ">
+                {topicNames[0]}
+              </span>
+              <span> and {additionalTopicsCount} more</span>
+            </>
+          );
+        }
+      }
     }
 
     if ((apiEnum.NAME, apiEnum.QUESTION.includes(cell.key))) {

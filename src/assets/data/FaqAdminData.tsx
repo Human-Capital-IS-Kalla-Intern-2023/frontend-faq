@@ -3,7 +3,7 @@ import { apiEnum } from '../../state/enum/apiEnum';
 
 const colCells = [
   { key: apiEnum.QUESTION, text: 'faq name' },
-  { key: apiEnum.NAME, text: 'topic' },
+  { key: apiEnum.NAME, text: 'topic name' },
   { key: apiEnum.LIKES, text: 'likes' },
   { key: apiEnum.DISLIKES, text: 'dislike' },
   { key: apiEnum.IS_STATUS, text: 'active' },

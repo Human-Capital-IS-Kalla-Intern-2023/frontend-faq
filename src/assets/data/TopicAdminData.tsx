@@ -11,7 +11,7 @@ interface SelectOption {
 
 const colCells = [
   { key: apiEnum.NAME, text: 'topic name' },
-  { key: apiEnum.TOPIC_AUTHOR, text: 'author' },
+  { key: apiEnum.AUTHOR, text: 'author' },
   { keys: [apiEnum.ICON, apiEnum.IMAGE], text: 'icon' },
   { key: apiEnum.IS_STATUS, text: 'active' },
 ];

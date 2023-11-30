@@ -41,12 +41,12 @@ const EditFaqAdmin = () => {
   const [blogContent, setBlogContent] = useState('');
 
   const [formData, setFormData] = useState<{
-    id: number[];
+    topic_id: number[];
     question: string;
     is_status: number;
     answer: any;
   }>({
-    id: [],
+    topic_id: [],
     question: '',
     is_status: 1,
     answer: '',
@@ -135,10 +135,10 @@ const EditFaqAdmin = () => {
     const selectedValues = selectedOptions.map((option: any) => option.value);
 
     // Update formData with an array of topic IDs
-    setFormData({ ...formData, id: selectedValues });
+    setFormData({ ...formData, topic_id: selectedValues });
 
     // Save data to local storage
-    const newData = { ...formData, id: selectedValues };
+    const newData = { ...formData, topic_id: selectedValues };
     saveDataToLocalStorage(newData);
   };
 
@@ -202,7 +202,7 @@ const EditFaqAdmin = () => {
 
         // Update other fields accordingly
         const newData = {
-          id: faqData.id,
+          topic_id: faqData.topic_id,
           question: faqData.question,
           is_status: faqData.is_status,
           answer: faqData.answer,
