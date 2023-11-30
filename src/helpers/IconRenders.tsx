@@ -1,7 +1,7 @@
 // IconRenderer.tsx
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { iconList } from '../assets/icons/topicIcon';
+import { iconList } from '../assets/icons/TopicIcon';
 interface IconRendererProps {
   value: string;
 }

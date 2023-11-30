@@ -17,11 +17,11 @@ import {
   EditIcon,
   DetailIcon,
   TrashIcon,
-} from '../../assets/icons/icon.tsx';
+} from '../../assets/icons/Icon.tsx';
 
 // Import Type
-import { tagEnum } from '../../state/enum/tagEnum.tsx';
-import { apiEnum } from '../../state/enum/apiEnum.tsx';
+import { tagEnum } from '../../state/enum/TagEnum.tsx';
+import { apiEnum } from '../../state/enum/ApiEnum.tsx';
 
 interface InputField {
   id: any;

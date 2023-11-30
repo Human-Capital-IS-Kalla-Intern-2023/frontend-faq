@@ -8,7 +8,7 @@ import InputField from '../../components/field/InputField';
 
 //Import Assets
 import LoginImg from '../../assets/img/logo/login-img.webp';
-import { OpenEyeIcon, CloseEyeIcon } from '../../assets/icons/icon';
+import { OpenEyeIcon, CloseEyeIcon } from '../../assets/icons/Icon';
 
 const Login = () => {
   const [passwordInput, setPasswordInput] = useState('');

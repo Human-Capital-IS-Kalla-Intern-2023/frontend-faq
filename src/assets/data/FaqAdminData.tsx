@@ -1,5 +1,5 @@
 // Import Type
-import { apiEnum } from '../../state/enum/apiEnum';
+import { apiEnum } from '../../state/enum/ApiEnum';
 
 const colCells = [
   { key: apiEnum.QUESTION, text: 'faq name' },

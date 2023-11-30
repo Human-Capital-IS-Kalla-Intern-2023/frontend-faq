@@ -1,7 +1,7 @@
 // types.ts
-import { QuestionType } from './questionType';
+import { QuestionDataType } from './QuestionType';
 
-export interface TopicType {
+export interface TopicDataType {
   id: number;
   user_id: number;
   name: string;
@@ -12,7 +12,7 @@ export interface TopicType {
   is_status: number;
   created_at: string;
   updated_at: string;
-  questions: QuestionType[];
+  questions: QuestionDataType[];
 }
 
 export interface TopicTypeWithUser {
@@ -26,7 +26,7 @@ export interface TopicTypeWithUser {
   is_status: number;
   created_at: string;
   updated_at: string;
-  questions: QuestionType[];
+  questions: QuestionDataType[];
   user: {
     id: number;
     name: string;

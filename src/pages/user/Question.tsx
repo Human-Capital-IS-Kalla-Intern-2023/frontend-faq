@@ -3,14 +3,14 @@ import ReactLoading from 'react-loading';
 import { useEffect, useState } from 'react';
 import { getListQuestionByTopic } from '../../api/user/FaqUserAPI';
 import { useParams } from 'react-router-dom';
-import { TopicType } from '../../state/types/topicType';
+import { TopicDataType } from '../../state/types/TopicType';
 
 const Question: React.FC = () => {
   const { TopicSlug } = useParams();
 
   // Loading
   const [isLoading, setIsLoading] = useState(false);
-  const [listFaq, setListFaq] = useState<TopicType | undefined>(undefined);
+  const [listFaq, setListFaq] = useState<TopicDataType | undefined>(undefined);
 
   // GET all topic user data
   const fetchListFaqByTopic = async (TopicSlug: any) => {

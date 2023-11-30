@@ -12,7 +12,7 @@ import CancelButton from '../../../components/buttons/CancelButton';
 // Import API's
 import { getDetailFaqAdmin } from '../../../api/admin/FaqAdminAPI';
 
-import { DropdownIcon } from '../../../assets/icons/icon';
+import { DropdownIcon } from '../../../assets/icons/Icon';
 
 const DetailFaqAdmin = () => {
   const [faqAdminNameValue, setFaqAdminNameValue] = useState('');

@@ -12,8 +12,8 @@ import { SubmitButton2 } from '../buttons/SubmitButton';
 import CloseButton from '../buttons/CloseButton';
 
 // Import Type
-import { tagEnum } from '../../state/enum/tagEnum';
-import { apiEnum } from '../../state/enum/apiEnum';
+import { tagEnum } from '../../state/enum/TagEnum';
+import { apiEnum } from '../../state/enum/ApiEnum';
 
 // Interface
 interface FormData {

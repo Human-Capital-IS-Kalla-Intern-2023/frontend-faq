@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { NavLink, useLocation } from 'react-router-dom';
 
-import { DropdownSidebarMenuIcon } from '../../assets/icons/icon';
+import { DropdownSidebarMenuIcon } from '../../assets/icons/Icon';
 
 const SideBarMenu = ({ data }: any) => {
   const { pathname } = useLocation();

@@ -1,4 +1,4 @@
-import { WarningIcon } from '../../assets/icons/icon';
+import { WarningIcon } from '../../assets/icons/Icon';
 const DeleteModal = ({ isOpen, onClose, onDelete, deleteData }: any) => {
   const handleDelete = () => {
     onDelete();

@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { iconList } from '../icons/topicIcon';
-import { apiEnum } from '../../state/enum/apiEnum';
+import { iconList } from '../icons/TopicIcon';
+import { apiEnum } from '../../state/enum/ApiEnum';
 interface SelectOption {
   label: any;
   value: string;

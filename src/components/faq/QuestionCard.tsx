@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ReactLoading from 'react-loading';
-import { SearchIcon } from '../../assets/icons/icon';
+import { SearchIcon } from '../../assets/icons/Icon';
 // import { faMusic } from '../../assets/icons/categoriIcon';
-import { DropdownIcon } from '../../assets/icons/icon';
+import { DropdownIcon } from '../../assets/icons/Icon';
 
-import { TopicType } from '../../state/types/topicType';
+import { TopicDataType } from '../../state/types/TopicType';
 
 interface QuestionCardProps {
   onSearch?: any;
-  data?: TopicType;
+  data?: TopicDataType;
 }
 
 const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {

@@ -6,7 +6,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import ReactLoading from 'react-loading';
 
 // Import Assets
-import { SearchIcon, PlusIcon } from '../../assets/icons/icon';
+import { SearchIcon, PlusIcon } from '../../assets/icons/Icon';
 
 interface InputField {
   id: string;

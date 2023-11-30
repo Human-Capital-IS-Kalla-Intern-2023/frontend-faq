@@ -12,8 +12,8 @@ import CloseButton from '../buttons/CloseButton';
 import { getIconList } from '../../assets/data/TopicAdminData';
 
 // Import Type
-import { tagEnum } from '../../state/enum/tagEnum';
-import { apiEnum } from '../../state/enum/apiEnum';
+import { tagEnum } from '../../state/enum/TagEnum';
+import { apiEnum } from '../../state/enum/ApiEnum';
 interface FormData {
   [key: string]: any;
 }
