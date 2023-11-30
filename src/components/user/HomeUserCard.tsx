@@ -8,7 +8,7 @@ interface Topic {
   id: number;
   slug: string;
   name: string;
-  topic_description: string;
+  description: string;
   image: string;
   icon: string | null;
 }
@@ -123,7 +123,7 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch, data }) => {
                   {topic.name}
                 </div>
                 <div className="overflow-hidden text-xs lg:text-[13px] text-gray">
-                  {TruncateText(topic.topic_description, 60)}
+                  {TruncateText(topic.description, 60)}
                 </div>
               </div>
             </div>
