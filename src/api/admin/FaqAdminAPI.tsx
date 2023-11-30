@@ -5,17 +5,17 @@ import TokenHelper from '../../helpers/TokenHelpers';
 // GET FaqAdmin
 const getFaqAdmin = async () => {
   try {
-    // const token = TokenHelper();
+    const token = TokenHelper();
 
-    // const headerToken = {
-    //   Authorization: `Bearer ${token}`,
-    // };
+    const headerToken = {
+      Authorization: `Bearer ${token}`,
+    };
 
     const responseGetFaqAdmin = await RequestApi(
       'GET',
       'faq/questions',
       {},
-      {},
+      headerToken,
       'Mengambil FAQ admin'
     );
 
@@ -29,17 +29,17 @@ const getFaqAdmin = async () => {
 // GET Detail FaqAdmin
 const getDetailFaqAdmin = async (slug: any) => {
   try {
-    // const token = TokenHelper();
+    const token = TokenHelper();
 
-    // const headerToken = {
-    //   Authorization: `Bearer ${token}`,
-    // };
+    const headerToken = {
+      Authorization: `Bearer ${token}`,
+    };
 
     const reponseGetDetailFaqAdmin = await RequestApi(
       'GET',
       `faq/questions/${slug}`,
       {},
-      {},
+      headerToken,
       'Mengambil detail FAQ admin'
     );
 
@@ -77,17 +77,17 @@ const addFaqAdmin = async (formData: any) => {
 // PUT FaqAdmin
 const updateFaqAdmin = async (slug: any, FaqAdminData: any) => {
   try {
-    // const token = TokenHelper();
+    const token = TokenHelper();
 
-    // const headerToken = {
-    //   Authorization: `Bearer ${token}`,
-    // };
+    const headerToken = {
+      Authorization: `Bearer ${token}`,
+    };
 
     const reponseUpdateFaqAdmin = await RequestApi(
       'PUT',
       `faq/questions/${slug}`,
       FaqAdminData,
-      {},
+      headerToken,
       'Memperbarui FAQ admin'
     );
 
@@ -101,17 +101,17 @@ const updateFaqAdmin = async (slug: any, FaqAdminData: any) => {
 // DELETE FaqAdmin
 const deleteFaqAdmin = async (slug: any) => {
   try {
-    // const token = TokenHelper();
+    const token = TokenHelper();
 
-    // const headerToken = {
-    //   Authorization: `Bearer ${token}`,
-    // };
+    const headerToken = {
+      Authorization: `Bearer ${token}`,
+    };
 
     const reponseDeleteFaqAdmin = await RequestApi(
       'DELETE',
       `faq/questions/${slug}`,
       null,
-      {},
+      headerToken,
       'Menghapus FAQ admin'
     );
 
@@ -125,17 +125,17 @@ const deleteFaqAdmin = async (slug: any) => {
 // Search FaqAdmin
 const searchFaqAdmin = async (searchInput: any) => {
   try {
-    // const token = TokenHelper();
+    const token = TokenHelper();
 
-    // const headerToken = {
-    //   Authorization: `Bearer ${token}`,
-    // };
+    const headerToken = {
+      Authorization: `Bearer ${token}`,
+    };
 
     const responseSearchFaqAdmin = await RequestApi(
       'GET',
       `faq/questions?search=${searchInput}`,
       null,
-      {},
+      headerToken,
       'Mencari FAQ'
     );
 

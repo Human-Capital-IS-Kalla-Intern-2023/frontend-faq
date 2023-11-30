@@ -20,9 +20,8 @@ import {
 } from '../../assets/icons/icon.tsx';
 
 // Import Type
-import { generalEnum } from '../../state/enum/generalEnum.tsx';
-import { topicEnum } from '../../state/enum/topicEnum.tsx';
-import { questionEnum } from '../../state/enum/questionEnum.tsx';
+import { tagEnum } from '../../state/enum/tagEnum.tsx';
+import { apiEnum } from '../../state/enum/apiEnum.tsx';
 
 interface InputField {
   id: any;
@@ -39,9 +38,9 @@ interface TabelBodyProps {
   colCells: ColCells[];
   inputFields: InputField[];
   detailedData?: any | null;
-  fetchDetailedData?: (topic_slug: any) => void;
-  onSubmit: (formData: any, topic_slug: any) => void;
-  onDelete: (topic_slug: any) => void;
+  fetchDetailedData?: (slug: any) => void;
+  onSubmit: (formData: any, slug: any) => void;
+  onDelete: (slug: any) => void;
   onEditNavigate?: string;
   onDetailNavigate?: string;
   changeIsActive?: (idIsActive: any, newIsActive: any) => Promise<any>;
@@ -85,13 +84,11 @@ const TabelBody: React.FC<TabelBodyProps> = ({
   const locationPathname = location.pathname;
 
   const openEditModal = useCallback(
-    async (topic_slug: string) => {
+    async (slug: string) => {
       if (data) {
-        const dataToEdit = await data.find(
-          (item: any) => item.topic_slug === topic_slug
-        );
+        const dataToEdit = await data.find((item: any) => item.slug === slug);
         if (dataToEdit) {
-          setEditId(topic_slug);
+          setEditId(slug);
           setEditedData(dataToEdit);
           setEditModalOpen(true);
         }
@@ -114,10 +111,10 @@ const TabelBody: React.FC<TabelBodyProps> = ({
   }, [navigate, modalEditSlug, location.pathname]);
 
   const openDetailModal = useCallback(
-    async (topic_slug: any) => {
+    async (slug: any) => {
       if (fetchDetailedData) {
         try {
-          fetchDetailedData(topic_slug);
+          fetchDetailedData(slug);
 
           if (!onDetailNavigate) {
             setIsDetailModalOpen(true);
@@ -142,8 +139,8 @@ const TabelBody: React.FC<TabelBodyProps> = ({
     }
   }, [navigate, modalDetailSlug, location.pathname]);
 
-  const openDeleteModal = useCallback((topic_slug: string) => {
-    setDeleteId(topic_slug);
+  const openDeleteModal = useCallback((slug: string) => {
+    setDeleteId(slug);
     setDeleteModalOpen(true);
   }, []);
 
@@ -167,37 +164,37 @@ const TabelBody: React.FC<TabelBodyProps> = ({
 
   const renderTableCell = (cell: ColCells, customCell: Record<string, any>) => {
     if ('key' in cell) {
-      if (cell.key === topicEnum.TOPIC_IMAGE) {
+      if (cell.key === apiEnum.IMAGE) {
         return (
           <img
-            src={customCell.topic_image}
-            alt={`Image ${TruncateText(customCell.topic_name, 10)}`}
+            src={customCell.image}
+            alt={`Image ${TruncateText(customCell.name, 10)}`}
             className="object-cover w-full h-8 rounded"
           />
         );
       }
 
-      if (cell.key === topicEnum.ICONNAME) {
-        return <IconRenderer value={customCell.topic_icon} />;
+      if (cell.key === apiEnum.ICON) {
+        return <IconRenderer value={customCell.icon} />;
       }
     } else if ('keys' in cell) {
       // Multiple keys
       const renderedValues = cell.keys.map((key) => {
-        if (customCell.topic_image !== '') {
-          if (key === topicEnum.TOPIC_IMAGE) {
+        if (customCell.image !== '') {
+          if (key === apiEnum.IMAGE) {
             return (
               <img
                 key={key}
-                src={customCell.topic_image}
-                alt={`Image ${TruncateText(customCell.topic_name, 10)}`}
+                src={customCell.image}
+                alt={`Image ${TruncateText(customCell.name, 10)}`}
                 className="object-cover w-full h-8 rounded"
               />
             );
           }
         }
-        if (customCell.topic_icon !== '') {
-          if (key === topicEnum.ICONNAME) {
-            return <IconRenderer key={key} value={customCell.topic_icon} />;
+        if (customCell.icon !== '') {
+          if (key === apiEnum.ICON) {
+            return <IconRenderer key={key} value={customCell.icon} />;
           }
         }
 
@@ -207,7 +204,7 @@ const TabelBody: React.FC<TabelBodyProps> = ({
       return renderedValues;
     }
 
-    if (cell.key === 'topic_is_status' || cell.key === 'question_is_status') {
+    if (cell.key === 'is_status') {
       return (
         <label className="relative inline-flex items-center cursor-pointer">
           <input
@@ -219,10 +216,10 @@ const TabelBody: React.FC<TabelBodyProps> = ({
               const newValue = customCell[cell.key] === 1 ? 0 : 1;
               try {
                 if (changeIsActive) {
-                  await changeIsActive(customCell.topic_slug, newValue);
+                  await changeIsActive(customCell.slug, newValue);
                 }
               } catch (error) {
-                console.error('Error changing topic_is_status:', error);
+                console.error('Error changing status:', error);
               }
             }}
           />
@@ -234,7 +231,35 @@ const TabelBody: React.FC<TabelBodyProps> = ({
       );
     }
 
-    if ((topicEnum.TOPICNAME, questionEnum.QUESTION_NAME.includes(cell.key))) {
+    if (cell.key === 'author') {
+      return customCell['user'].name;
+    }
+
+    if (cell.key === 'name') {
+      if (customCell['topics']) {
+        const topicNames = customCell['topics'].map((topic: any) => topic.name);
+
+        if (topicNames.length === 1) {
+          return (
+            <span className="p-2 bg-green-300 rounded-full ">
+              {topicNames[0]}
+            </span>
+          );
+        } else if (topicNames.length > 1) {
+          const additionalTopicsCount = topicNames.length - 1;
+          return (
+            <>
+              <span className="p-2 bg-green-300 rounded-full ">
+                {topicNames[0]}
+              </span>
+              <span> and {additionalTopicsCount} more</span>
+            </>
+          );
+        }
+      }
+    }
+
+    if ((apiEnum.NAME, apiEnum.QUESTION.includes(cell.key))) {
       return TruncateText(customCell[cell.key], 25);
     } else {
       return customCell[cell.key];
@@ -250,7 +275,7 @@ const TabelBody: React.FC<TabelBodyProps> = ({
     };
 
     const handleEscapeKey = (event: any) => {
-      if (event.key === generalEnum.ESCAPE) {
+      if (event.key === tagEnum.ESCAPE) {
         closeEditModal();
         closeDeleteModal();
         closeDetailModal();
@@ -272,11 +297,11 @@ const TabelBody: React.FC<TabelBodyProps> = ({
     if (modalEditSlug !== undefined) {
       if (data && Array.isArray(data) && data.length > 0) {
         const dataToEdit = data.find(
-          (item: any) => item.topic_slug === modalEditSlug
+          (item: any) => item.slug === modalEditSlug
         );
 
         if (dataToEdit && !onEditNavigate) {
-          setActiveDropdown(dataToEdit.topic_slug);
+          setActiveDropdown(dataToEdit.slug);
           setEditId(modalEditSlug);
           setEditedData(dataToEdit);
           setEditModalOpen(true);
@@ -312,7 +337,7 @@ const TabelBody: React.FC<TabelBodyProps> = ({
 
       if (data && Array.isArray(data) && data.length > 0) {
         const dataToDelete = data.find(
-          (item: any) => item.topic_slug === modalDeleteSlug
+          (item: any) => item.slug === modalDeleteSlug
         );
 
         if (dataToDelete) {
@@ -352,9 +377,7 @@ const TabelBody: React.FC<TabelBodyProps> = ({
                       className={`border-b ${
                         index === data.length - 1 ? 'border-none' : ''
                       } ${
-                        activeDropdown === customCell.topic_slug
-                          ? 'bg-slate-200'
-                          : ''
+                        activeDropdown === customCell.slug ? 'bg-slate-200' : ''
                       } dropdown-wrapper`}
                       key={index}
                     >
@@ -364,17 +387,17 @@ const TabelBody: React.FC<TabelBodyProps> = ({
                           className="inline-flex items-center text-sm font-medium rounded-lg hover:text-center"
                           role="button"
                           aria-label="Dropdown button"
-                          onClick={() => toggleDropdown(customCell.topic_slug)}
+                          onClick={() => toggleDropdown(customCell.slug)}
                           aria-haspopup="menu"
                           aria-expanded={
-                            activeDropdown === customCell.topic_slug
+                            activeDropdown === customCell.slug
                               ? 'true'
                               : 'false'
                           }
                         >
                           <ThreeDotIcon className="w-5 h-5" />
                         </button>
-                        {activeDropdown === customCell.topic_slug && (
+                        {activeDropdown === customCell.slug && (
                           <div
                             className={`absolute left-0 z-10 ml-10 bg-white divide-y rounded shadow-2xl w-44 ${
                               index === data.length - 1 ? 'mb-20' : ''
@@ -389,13 +412,11 @@ const TabelBody: React.FC<TabelBodyProps> = ({
                                     onEditNavigate
                                       ? onEditNavigate.replace(
                                           ':QuestionSlug',
-                                          customCell.topic_slug
+                                          customCell.slug
                                         )
-                                      : `edit/${customCell.topic_slug}`
+                                      : `edit/${customCell.slug}`
                                   }
-                                  onClick={() =>
-                                    openEditModal(customCell.topic_slug)
-                                  }
+                                  onClick={() => openEditModal(customCell.slug)}
                                   type="button"
                                   aria-label="Edit"
                                   className="flex items-center w-full px-4 py-2 duration-200 hover:text-white hover:bg-primary"
@@ -422,12 +443,12 @@ const TabelBody: React.FC<TabelBodyProps> = ({
                                     onDetailNavigate
                                       ? onDetailNavigate.replace(
                                           ':QuestionSlug',
-                                          customCell.topic_slug
+                                          customCell.slug
                                         )
-                                      : `detail/${customCell.topic_slug}`
+                                      : `detail/${customCell.slug}`
                                   }
                                   onClick={() =>
-                                    openDetailModal(customCell.topic_slug)
+                                    openDetailModal(customCell.slug)
                                   }
                                   type="button"
                                   aria-label="Detail"
@@ -448,11 +469,11 @@ const TabelBody: React.FC<TabelBodyProps> = ({
 
                               <li>
                                 <Link
-                                  to={`delete/${customCell.topic_slug}`}
+                                  to={`delete/${customCell.slug}`}
                                   type="button"
                                   aria-label="Delete"
                                   onClick={() =>
-                                    openDeleteModal(customCell.topic_slug)
+                                    openDeleteModal(customCell.slug)
                                   }
                                   className="flex items-center w-full px-4 py-2 text-red-500 duration-200 hover: hover:text-white hover:bg-red-800"
                                 >

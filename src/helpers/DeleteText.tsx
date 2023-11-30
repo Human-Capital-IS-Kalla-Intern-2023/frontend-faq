@@ -3,11 +3,11 @@ export const DeleteText = (
   locationPathname: string
 ): string => {
   if (locationPathname.includes('/admin/faq')) {
-    return customCell.question_name;
+    return customCell.question;
   }
 
   if (locationPathname.includes('/admin/topic')) {
-    return customCell.topic_name;
+    return customCell.name;
   }
   return '';
 };

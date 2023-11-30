@@ -2,24 +2,21 @@ import React from 'react';
 import { SearchIcon } from '../../assets/icons/icon';
 import { Link, useNavigate } from 'react-router-dom';
 import ReactLoading from 'react-loading';
+import { TruncateText } from '../../helpers/TruncateText';
 
 interface Topic {
-  topic_id: number;
-  topic_slug: string;
-  topic_name: string;
-  topic_description: string;
-  topic_image: string;
-  topic_icon: string | null;
+  id: number;
+  slug: string;
+  name: string;
+  description: string;
+  image: string;
+  icon: string | null;
 }
 
 interface HomeUserCardProps {
   onSearch?: any;
   data?: Topic[];
 }
-
-export const TruncateText = (text: string, maxLength: number) => {
-  return text?.length > maxLength ? text.substring(0, maxLength) + '...' : text;
-};
 
 const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch, data }) => {
   const [searchInput, setSearchInput] = React.useState('');
@@ -100,33 +97,33 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch, data }) => {
       <div className="grid items-center justify-center w-full min-h-full grid-cols-4 gap-4 p-6 pt-4 gap-y-4">
         {data?.map((topic) => (
           <Link
-            to={`/faq/question/${topic.topic_id}`}
+            to={`/faq/question/${topic.slug}`}
             className="w-full"
-            key={topic.topic_id}
+            key={topic.slug}
           >
-            <div className="p-2 px-6 py-10 pt-4 overflow-hidden rounded-lg shadow-lg w-60 h-60 bg-slate-200">
+            <div className="p-2 px-6 py-10 pt-4 overflow-hidden rounded-lg shadow-lg w-60 h-60 bg-[#F0F2F5] hover:bg-[#E8EAED]">
               <div className="flex items-center justify-center p-3">
-                {topic.topic_image && (
+                {topic.image && (
                   <img
-                    src={topic.topic_image}
-                    alt={topic.topic_name}
+                    src={topic.image}
+                    alt={topic.name}
                     className="w-8 h-8 lg:w-10 lg:h-10"
                   />
                 )}
-                {!topic.topic_image && topic.topic_icon && (
+                {!topic.image && topic.icon && (
                   <img
-                    src={topic.topic_icon}
-                    alt={topic.topic_name}
+                    src={topic.icon}
+                    alt={topic.name}
                     className="w-8 h-8 lg:w-10 lg:h-10"
                   />
                 )}
               </div>
               <div className="flex flex-col items-start justify-center mt-3">
-                <div className="pb-2 text-sm font-bold break-all whitespace-normal lg:text-base">
-                  {topic.topic_name}
+                <div className="pb-2 text-sm font-medium break-all whitespace-normal text-pureBlack lg:text-base">
+                  {topic.name}
                 </div>
-                <div className="overflow-hidden text-xs lg:text-[13px]">
-                  {TruncateText(topic.topic_description, 60)}
+                <div className="overflow-hidden text-xs lg:text-[13px] text-gray">
+                  {TruncateText(topic.description, 60)}
                 </div>
               </div>
             </div>
