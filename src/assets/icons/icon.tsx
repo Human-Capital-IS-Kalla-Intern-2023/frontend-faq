@@ -306,13 +306,18 @@ const SettingIcon: React.FC<SvgIconProps> = ({ className }) => (
 
 const DropdownIcon: React.FC<SvgIconProps> = ({ className }) => (
   <svg
-    viewBox="0 0 866 1000"
-    fill="currentColor"
+    fill="none"
     height="24"
+    shape-rendering="geometricPrecision"
+    stroke="currentColor"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="1.5"
+    viewBox="0 0 24 24"
     width="24"
     className={className}
   >
-    <path d="M63 280l370 356 372-356c14.667-17.333 30.667-17.333 48 0 17.333 14.667 17.333 30.667 0 48L457 720c-14.667 14.667-30.667 14.667-48 0L13 328c-17.333-17.333-17.333-33.333 0-48 16-16 32.667-16 50 0" />
+    <path d="M6 9l6 6 6-6"></path>
   </svg>
 );
 const OpenEyeIcon: React.FC<SvgIconProps> = ({ className, onClick }) => (
