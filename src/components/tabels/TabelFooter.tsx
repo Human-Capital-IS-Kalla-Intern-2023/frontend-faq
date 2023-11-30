@@ -1,5 +1,5 @@
 // Import Assets
-import { LeftArrowIcon, RightArrowIcon } from '../../assets/icons/icon';
+import { LeftArrowIcon, RightArrowIcon } from '../../assets/icons/Icon';
 
 interface TabelFooterProps {
   currentPage: number;

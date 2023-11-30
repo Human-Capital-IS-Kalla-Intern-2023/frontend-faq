@@ -66,8 +66,8 @@ const FaqAdmin: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const reponseData = await getFaqAdmin();
-      setFaqAdmin(reponseData.data);
+      const responseData = await getFaqAdmin();
+      setFaqAdmin(responseData.data);
     } catch (error: any) {
       console.error('Error fetch all topic admin:', error);
       setErrorTitle(`Error fetch all topic admin`);

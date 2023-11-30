@@ -2,7 +2,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useMediaQuery } from 'react-responsive';
-import { NavLink, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 // Components Import
 import SideBarMenu from './SideBarMenu';
@@ -20,7 +20,7 @@ import {
   TopicIcon,
   CloseSidebarIcon,
   ReponsiveSidebarIcon,
-} from '../../assets/icons/icon';
+} from '../../assets/icons/Icon';
 
 const Sidebar = () => {
   const isTabletMid = useMediaQuery({ query: '(max-width: 768px)' });

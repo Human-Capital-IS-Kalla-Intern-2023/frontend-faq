@@ -11,14 +11,13 @@ import CancelButton from '../../../components/buttons/CancelButton';
 
 // Import API's
 import { getDetailFaqAdmin } from '../../../api/admin/FaqAdminAPI';
-import { getTopicAdmin } from '../../../api/admin/TopicAdminAPI';
 
-import { DropdownIcon } from '../../../assets/icons/icon';
+import { DropdownIcon } from '../../../assets/icons/Icon';
 
 const DetailFaqAdmin = () => {
   const [faqAdminNameValue, setFaqAdminNameValue] = useState('');
 
-  const [topicName, setTopicName] = useState('');
+  const [topicNames, setTopicNames] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   // State variables for dropdown visibility
@@ -68,34 +67,26 @@ const DetailFaqAdmin = () => {
         const response = await getDetailFaqAdmin(QuestionSlug);
         const faqData = response.data;
 
-        // Update the component state with the fetched data
+        // Get the names of topics from faqData
+        // const topicNames = faqData.topics
+        //   .map((topic: any) => topic.name)
+        //   .join(', ');
+
+        // Set the topic name to state
+        setTopicNames(faqData.topics);
+
+        // Update other fields accordingly
         setFaqAdminNameValue(faqData.question);
         setLeftActiveCheckbox(faqData.is_status === 1);
         setBlogContent(faqData.answer);
 
-        // Fetch topics only if the component is mounted
-        const topicResponse = await getTopicAdmin();
-        const topicOptions = topicResponse.data.map((item: any) => ({
-          label: item.name,
-          value: item.id,
-        }));
-
-        // Find the topic name based on id
-        const foundTopic = topicOptions.find(
-          (topic: any) => topic.value === faqData.id
-        );
-
-        // Set the topic name to state
-        setTopicName(foundTopic ? foundTopic.label : '');
-
-        // Update other fields accordingly
+        // Set the localStorage data
         const newData = {
           id: faqData.id,
-          question: faqData.qustion,
+          question: faqData.question,
           is_status: faqData.is_status,
           answer: faqData.answer,
         };
-
         saveDataToLocalStorage(newData);
       } catch (error) {
         console.error('Error fetching faq details:', error);
@@ -164,18 +155,23 @@ const DetailFaqAdmin = () => {
             {showInformation && (
               <div className="p-4">
                 <div className="">
-                  <div className="block w-full py-2 mt-1 text-2xl bg-transparent ">
+                  <div className="block w-full py-2 mt-1 text-[22px] bg-transparent ">
                     {faqAdminNameValue}
                   </div>
                 </div>
-                <div className="block mt-3 text-lg font-medium">
+                <div className="block mt-3 text-base font-medium">
                   Topic:
-                  <span className="px-3 py-[5px] ml-3 text-base text-white capitalize rounded-full bg-primary">
-                    {topicName}
-                  </span>
+                  {topicNames.map((topic) => (
+                    <span
+                      key={topic.id}
+                      className="px-3 py-[5px] ml-2 text-sm text-white capitalize rounded-full bg-primary"
+                    >
+                      {topic.name}
+                    </span>
+                  ))}
                 </div>
 
-                <p className="mt-5 text-lg">
+                <p className="mt-5 text-base">
                   {' '}
                   Active:{' '}
                   <span className="ml-3 text-base">

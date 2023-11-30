@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import HomeUserCard from '../../components/user/HomeUserCard';
 import logoKalla from '../../assets/img/logo/singel-logo-kalla.webp';
 
-import { getTopicUser } from '../../api/user/TopicUserAPI';
+import { getTopicUser } from '../../api/user/FaqUserAPI';
 
 const HomeUser: React.FC = () => {
   // Loading
@@ -15,8 +15,8 @@ const HomeUser: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const reponseData = await getTopicUser();
-      setTopicUser(reponseData.data);
+      const responseData = await getTopicUser();
+      setTopicUser(responseData.data);
     } catch (error: any) {
       console.error('Error fetch all topic user:', error);
     } finally {

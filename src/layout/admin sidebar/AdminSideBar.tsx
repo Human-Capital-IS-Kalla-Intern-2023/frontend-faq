@@ -25,7 +25,7 @@ import {
   SettingIcon,
   CloseSidebarIcon,
   ReponsiveSidebarIcon,
-} from '../../assets/icons/icon';
+} from '../../assets/icons/Icon';
 
 const Sidebar = () => {
   const isTabletMid = useMediaQuery({ query: '(max-width: 768px)' });

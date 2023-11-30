@@ -1,32 +1,18 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ReactLoading from 'react-loading';
-import { SearchIcon } from '../../assets/icons/icon';
+import { SearchIcon } from '../../assets/icons/Icon';
 // import { faMusic } from '../../assets/icons/categoriIcon';
+import { DropdownIcon } from '../../assets/icons/Icon';
 
-interface FilterOption {
-  id: string;
-  label: string;
-}
+import { TopicDataType } from '../../state/types/TopicType';
 
-interface InputField {
-  id: string;
-  label: string;
-  name: string;
-  type?: string;
-}
 interface QuestionCardProps {
-  addButtonText: string;
-  title: string;
-  filterOptions: FilterOption[];
-  inputFields: InputField[];
-  onSubmit?: any;
   onSearch?: any;
-  onNavigate?: any;
-  data?: any[];
+  data?: TopicDataType;
 }
 
-const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch }) => {
+const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
   const [isSelected, setIsSelected] = useState(false);
 
   const handleClick = () => {
@@ -109,11 +95,16 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch }) => {
             </form>
           </div>
         </div>
-        <div className="w-full pt-5 overflow-x-auto shadow-md">
-          <div className="items-start content-start justify-start bg-white">
-            <div className="grid mx-auto mt-2 divide-y divide-neutral-200">
-              <div className="px-6">
-                <div className="py-5 border-b border-slate-300">
+      </div>
+      <div className="w-full pt-5 overflow-x-auto shadow-md">
+        <div className="items-start content-start justify-start bg-white">
+          <div className="grid mx-auto mt-2 divide-y divide-neutral-200">
+            <div className="px-6">
+              {data?.questions.map((question) => (
+                <div
+                  key={question.id}
+                  className="py-5 border-b border-slate-300"
+                >
                   <details className="group">
                     <summary
                       className={`flex items-center justify-between hover:text-green-700 font-medium list-none cursor-pointer ${
@@ -121,95 +112,22 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch }) => {
                       }`}
                       onClick={handleClick}
                     >
-                      <span> What is a SAAS platform?</span>
+                      <span>{question.question}</span>
                       <span className="transition group-open:rotate-180">
-                        <svg
-                          fill="none"
-                          height="24"
-                          shape-rendering="geometricPrecision"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="1.5"
-                          viewBox="0 0 24 24"
-                          width="24"
-                        >
-                          <path d="M6 9l6 6 6-6"></path>
-                        </svg>
+                        <DropdownIcon />
                       </span>
                     </summary>
                     <p className="mt-3 text-neutral-600 group-open:animate-fadeIn">
-                      SAAS platform is a cloud-based software service that
-                      allows users to access and use a variety of tools and
-                      functionality.
+                      {question.answer}
                     </p>
                     <div className="flex justify-end">
-                      <button className="px-2 py-1 mt-3 text-white rounded bg-primary group-open:animate-fadeIn">
+                      <button className="px-2 py-1 mt-3 text-white rounded-full bg-primary group-open:animate-fadeIn">
                         Lihat Penuh
                       </button>
                     </div>
                   </details>
                 </div>
-                <div className="py-5 border-b border-slate-300">
-                  <details className="group">
-                    <summary className="flex items-center justify-between font-medium list-none cursor-pointer">
-                      <span> How does billing work?</span>
-                      <span className="transition group-open:rotate-180">
-                        <svg
-                          fill="none"
-                          height="24"
-                          shape-rendering="geometricPrecision"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="1.5"
-                          viewBox="0 0 24 24"
-                          width="24"
-                        >
-                          <path d="M6 9l6 6 6-6"></path>
-                        </svg>
-                      </span>
-                    </summary>
-                    <p className="mt-3 text-neutral-600 group-open:animate-fadeIn">
-                      We offers a variety of billing options, including monthly
-                      and annual subscription plans, as well as pay-as-you-go
-                      pricing for certain services. Payment is typically made
-                      through a credit card or other secure online payment
-                      method.
-                    </p>
-                  </details>
-                </div>
-                <div className="py-5 border-b border-slate-300">
-                  <details className="group">
-                    <summary className="flex items-center justify-between font-medium list-none cursor-pointer">
-                      <span> Can I get a refund for my subscription?</span>
-                      <span className="transition group-open:rotate-180">
-                        <svg
-                          fill="none"
-                          height="24"
-                          shape-rendering="geometricPrecision"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="1.5"
-                          viewBox="0 0 24 24"
-                          width="24"
-                        >
-                          <path d="M6 9l6 6 6-6"></path>
-                        </svg>
-                      </span>
-                    </summary>
-                    <p className="mt-3 text-neutral-600 group-open:animate-fadeIn">
-                      We offers a 30-day money-back guarantee for most of its
-                      subscription plans. If you are not satisfied with your
-                      subscription within the first 30 days, you can request a
-                      full refund. Refunds for subscriptions that have been
-                      active for longer than 30 days may be considered on a
-                      case-by-case basis.
-                    </p>
-                  </details>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>

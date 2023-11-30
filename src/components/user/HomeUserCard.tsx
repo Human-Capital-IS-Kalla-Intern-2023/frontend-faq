@@ -1,5 +1,5 @@
 import React from 'react';
-import { SearchIcon } from '../../assets/icons/icon';
+import { SearchIcon } from '../../assets/icons/Icon';
 import { Link, useNavigate } from 'react-router-dom';
 import ReactLoading from 'react-loading';
 import { TruncateText } from '../../helpers/TruncateText';
