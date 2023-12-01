@@ -6,9 +6,11 @@ import Swal from 'sweetalert2';
 import Cookies from 'js-cookie';
 import ReactLoading from 'react-loading';
 
+// Import Asset
+import { LogoutIcon } from '../../assets/icons/Icon';
+
 // Import API
 import { logoutUser } from '../../api/admin/AuthAdminAPI';
-import { LogoutIcon } from '../../assets/icons/Icon';
 
 const ButtonLogout = () => {
   const [isLoading, setIsLoading] = useState(false);

@@ -1,4 +1,4 @@
-export interface QuestionDataType {
+export interface QuestionProps {
   id: number;
   user_id: number;
   question: string;

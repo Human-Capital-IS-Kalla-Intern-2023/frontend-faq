@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import ReactLoading from 'react-loading';
-import { SearchIcon } from '../../assets/icons/icon';
+import { SearchIcon } from '../../assets/icons/Icon';
 // import { faMusic } from '../../assets/icons/categoriIcon';
 
 interface FilterOption {
@@ -70,7 +70,7 @@ const DetailFaqCard: React.FC<DetailFaqCardProps> = ({ onSearch }) => {
   return (
     <section className="antialiased overlay">
       <div className="w-full ">
-        <div className="flex justify-between bg-white shadow-md">
+        <div className="flex justify-between bg-white">
           <h1 className="flex p-[14px] font-sans text-2xl font-semibold">
             Pusat Bantuan
           </h1>
@@ -114,14 +114,14 @@ const DetailFaqCard: React.FC<DetailFaqCardProps> = ({ onSearch }) => {
             <div className="flex items-center">
               <Link
                 to="/pengaturan-akun"
-                className="text-sm text-blue-600 hover:underline"
+                className="text-sm text-black hover:underline"
               >
                 Pengaturan Akun
               </Link>
               <span className="text-slate-600 mx-2">{' > '}</span>
               <Link
                 to="/lupa-password"
-                className="text-sm text-blue-600 hover:underline"
+                className="text-sm text-black hover:underline"
               >
                 Lupa Password
               </Link>

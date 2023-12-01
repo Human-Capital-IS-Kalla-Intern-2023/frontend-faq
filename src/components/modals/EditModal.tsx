@@ -14,11 +14,13 @@ import { getIconList } from '../../assets/data/TopicAdminData';
 // Import Type
 import { tagEnum } from '../../state/enum/TagEnum';
 import { apiEnum } from '../../state/enum/ApiEnum';
-interface FormData {
-  [key: string]: any;
-}
 
-const EditModal = ({
+// Import Type:
+import { FormData } from '../../state/types/ModalType';
+import { EditModalProps } from '../../state/types/ModalType';
+import { InputFieldProps } from '../../state/types/FieldType';
+
+const EditModal: React.FC<EditModalProps> = ({
   isOpen,
   onClose,
   title,
@@ -26,7 +28,7 @@ const EditModal = ({
   onSubmit,
   idToEdit,
   initialFormData,
-}: any) => {
+}) => {
   const [formData, setFormData] = useState<FormData>({});
   const [isLoading, setIsLoading] = useState(false);
   const firstInputRef = useRef<HTMLInputElement | null>(null);
@@ -37,7 +39,12 @@ const EditModal = ({
     if (type === tagEnum.CHECKBOX) {
       setFormData((prevData) => ({
         ...prevData,
-        [name]: checked,
+        [name]: checked ? 1 : 0,
+      }));
+    } else if (type === tagEnum.NUMBER) {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value !== '' ? parseFloat(value) : undefined,
       }));
     } else if (name === apiEnum.ICON) {
       setFormData((prevData) => ({
@@ -50,6 +57,11 @@ const EditModal = ({
         ...prevData,
         [name]: value,
         [apiEnum.ICON]: null,
+      }));
+    } else if (type === tagEnum.TEXT) {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
       }));
     } else {
       setFormData((prevData) => ({
@@ -80,7 +92,7 @@ const EditModal = ({
 
     if (isOpen) {
       const initialData: FormData = {};
-      inputFields.forEach((field: any) => {
+      inputFields.forEach((field: InputFieldProps) => {
         if (field.type === tagEnum.SELECT && field.isMulti) {
           initialData[field.name] = initialFormData[field.name] || [];
         } else if (field.type === tagEnum.CHECKBOX) {
@@ -195,7 +207,7 @@ const EditModal = ({
                     id={field.id}
                     name={field.name}
                     type={field.type}
-                    value={formData[field.name] || ''}
+                    value={String(formData[field.name]) || ''}
                     placeholder={`Input ${field.label}`}
                     onChange={handleChange}
                   />

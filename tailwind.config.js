@@ -11,7 +11,7 @@ export default {
         third: '#fee6bc',
         yellow: '#dcca3f',
         white: '#fff',
-        black: '#0e1111',
+        black: '#050505',
         pureBlack: '#000',
         link: '#0751C5',
         gray: '#374151',

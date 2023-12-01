@@ -1,14 +1,32 @@
+import React from 'react';
+
+// Import Asset
 import { WarningIcon } from '../../assets/icons/Icon';
-const DeleteModal = ({ isOpen, onClose, onDelete, deleteData }: any) => {
+
+// Import Type
+import { DeleteModalProps } from '../../state/types/ModalType';
+
+const DeleteModal: React.FC<DeleteModalProps> = ({
+  isOpen,
+  onClose,
+  onDelete,
+  deleteData,
+}) => {
   const handleDelete = () => {
-    onDelete();
-    onClose();
-  };
-  const handleOverlayClick = (e: any) => {
-    if (e.target.classList.contains('overlay')) {
+    if (onDelete && onClose) {
+      onDelete();
       onClose();
     }
   };
+  const handleOverlayClick = (e: any) => {
+    if (e.target.classList.contains('overlay')) {
+      if (onClose) {
+        onClose();
+      }
+    }
+  };
+
+  console.log(deleteData);
 
   if (!isOpen) return null;
 

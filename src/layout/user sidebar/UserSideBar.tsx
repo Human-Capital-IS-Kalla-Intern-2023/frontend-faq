@@ -132,7 +132,7 @@ const Sidebar = () => {
                     {subMenusList?.map((menu: any) => (
                       <div
                         key={menu.name}
-                        className="flex flex-col gap-1 px-1 py-2 mb-1 scrollbar-thin scrollbar-track-white scrollbar-thumb-slate-100 md:h-[68%] h-[70%] text-base rounded-md hover:bg-primary hover:text-white"
+                        className="flex flex-col text-black gap-1 px-3 py-2 mb-1 scrollbar-thin scrollbar-track-white scrollbar-thumb-slate-100 md:h-[68%] h-[70%] text-[18px] rounded-md hover:bg-primary hover:text-white"
                       >
                         <SideBarMenu data={menu} />
                       </div>

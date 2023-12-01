@@ -11,14 +11,12 @@ import TextAreaField from '../field/TextAreaField';
 import { SubmitButton2 } from '../buttons/SubmitButton';
 import CloseButton from '../buttons/CloseButton';
 
-// Import Type
+// Import Enum
 import { tagEnum } from '../../state/enum/TagEnum';
 import { apiEnum } from '../../state/enum/ApiEnum';
 
-// Interface
-interface FormData {
-  [key: string]: string | number | boolean | null | undefined;
-}
+// Import Type
+import { FormData } from '../../state/types/ModalType';
 
 const AddModal = ({ isOpen, onClose, title, inputFields, onSubmit }: any) => {
   const initialFormData: FormData = {};
