@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ReactLoading from 'react-loading';
 import { SearchIcon, DropdownIcon } from '../../assets/icons/Icon';
+import ReactHtmlParser from 'react-html-parser';
 
 import { TopicDataType } from '../../state/types/TopicType';
 
@@ -11,6 +12,7 @@ interface QuestionCardProps {
 }
 
 const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
+  console.log(data);
   const [isSelected, setIsSelected] = useState(false);
 
   const handleClick = () => {
@@ -54,7 +56,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
   return (
     <section className="antialiased overlay">
       <div className="w-full ">
-        <div className="flex justify-between bg-white shadow-md">
+        <div className="flex justify-between bg-white shadow-[0_3px_10px_-3px_rgb(0,0,0,0.1)]">
           <h1 className="flex p-[14px] font-sans text-2xl font-semibold">
             Pusat Bantuan
           </h1>
@@ -94,9 +96,10 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
           </div>
         </div>
       </div>
-      <div className="w-full pt-5 overflow-x-auto shadow-md">
-        <div className="items-start content-start justify-start bg-white">
-          <div className="grid mx-auto mt-2 divide-y divide-neutral-200">
+      <div className="w-[95%] pt-10 pl-16 overflow-x-auto ">
+        <h1 className="px-6 text-2xl font-bold mb-5">{data?.name}</h1>
+        <div className="items-start content-start justify-start ">
+          <div className="grid mx-auto divide-y divide-neutral-200">
             <div className="px-6">
               {data?.questions.map((question) => (
                 <div
@@ -110,14 +113,15 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
                       }`}
                       onClick={handleClick}
                     >
-                      <span>{question.question}</span>
+                      <span className="text-[17px]">{question.question}</span>
                       <span className="transition group-open:rotate-180">
                         <DropdownIcon />
                       </span>
                     </summary>
-                    <p className="mt-3 text-neutral-600 group-open:animate-fadeIn">
-                      {question.answer}
-                    </p>
+                    <p
+                      className="mt-3 text-neutral-600 group-open:animate-fadeIn"
+                      dangerouslySetInnerHTML={{ __html: question.answer }}
+                    ></p>
                     <div className="flex justify-end">
                       <button className="px-2 py-1 mt-3 text-white rounded-full bg-primary group-open:animate-fadeIn">
                         Lihat Penuh

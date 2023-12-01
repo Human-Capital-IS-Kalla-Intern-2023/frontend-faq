@@ -40,7 +40,7 @@ const SideBarMenu = ({ data }: any) => {
           <li key={menu} className="flex items-center text-[15px] ">
             <NavLink
               to={`/${data.name}/${menu}`}
-              className="w-full py-2 my-1 text-sm text-black capitalize duration-300 rounded-md link hover:bg-slate-300 hover:text-pureBlack "
+              className="w-full py-2 my-1 text-[15px] text-black capitalize duration-300 rounded-md link hover:bg-slate-300 hover:text-pureBlack "
             >
               {menu}
             </NavLink>
