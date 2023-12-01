@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import ReactLoading from 'react-loading';
+import FooterCard from '../../components/detail/FooterCard';
 import { SearchIcon } from '../../assets/icons/Icon';
 // import { faMusic } from '../../assets/icons/categoriIcon';
 
@@ -135,10 +136,39 @@ const DetailFaqCard: React.FC<DetailFaqCardProps> = ({ onSearch }) => {
                 Lupa Password
               </div>
             </div>
-            <div className="text-base py-6">ghdgkhsdkhskd</div>
+            <div className="text-base py-6 leading-10">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+              consequat, ex vel lacinia facilisis, libero tortor ultricies dui,
+              vel scelerisque ligula sapien vel elit. Integer rhoncus
+              ullamcorper enim, nec dictum nunc congue et. Aenean nec lacus sit
+              amet metus fringilla congue. Nulla facilisi. Morbi id justo sit
+              amet arcu scelerisque malesuada. Duis ac volutpat arcu. Nullam eu
+              elit erat. Vestibulum in dui odio. Quisque fringilla nibh eu
+              aliquam malesuada. Vestibulum id euismod tortor, non tristique
+              odio. Integer lacinia justo quis luctus ultrices. Curabitur dictum
+              urna et mauris fringilla, a varius justo sodales. Nulla facilisi.
+              Ut consectetur augue nec tincidunt accumsan. Etiam consequat eros
+              vel quam tempus, eu sagittis libero sodales. Vestibulum ac sapien
+              semper, iaculis justo eu, scelerisque justo. Pellentesque habitant
+              morbi tristique senectus et netus et malesuada fames ac turpis
+              egestas. Duis vehicula, ligula eget aliquam semper, ipsum velit
+              lobortis metus, non varius lacus velit nec justo. Sed cursus
+              auctor urna, vitae consequat ligula feugiat ut. Nunc rhoncus felis
+              vitae tellus ultrices, sit amet ullamcorper nisl ultrices. Sed ac
+              augue auctor, blandit nisl vel, scelerisque metus. Quisque
+              ullamcorper erat nec tristique pharetra. Duis vel enim nec neque
+              fringilla scelerisque in nec elit. Vestibulum nec felis ac purus
+              gravida venenatis. Nunc euismod lacus quis neque dignissim
+              efficitur. Vestibulum tincidunt mi et ex ultricies, eget ultrices
+              lacus facilisis. Vivamus a arcu eu nunc tincidunt congue. Fusce ut
+              libero in ligula accumsan cursus. Nulla facilisi. Ut id odio ut
+              nunc aliquet blandit. Curabitur scelerisque est vel sapien
+              consequat, at efficitur nunc scelerisque.
+            </div>
           </div>
         </div>
       </div>
+      <FooterCard></FooterCard>
     </section>
   );
 };
