@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ReactLoading from 'react-loading';
 import { SearchIcon, DropdownIcon } from '../../assets/icons/Icon';
-import ReactHtmlParser from 'react-html-parser';
+// import ReactHtmlParser from 'react-html-parser';
 
 import { TopicDataType } from '../../state/types/TopicType';
 
@@ -25,6 +25,17 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
   const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value);
   };
+
+  const [likes, setLikes] = useState(0);
+  const [dislikes, setDislikes] = useState(0);
+
+  // const handleLike = () => {
+  //   setLikes(likes + 1);
+  // };
+
+  // const handleDislike = () => {
+  //   setDislikes(dislikes + 1);
+  // };
 
   const handleSearch = async (e: any) => {
     e.preventDefault();
@@ -122,10 +133,31 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
                       className="mt-3 text-neutral-600 group-open:animate-fadeIn"
                       dangerouslySetInnerHTML={{ __html: question.answer }}
                     ></p>
-                    <div className="flex justify-end">
-                      <button className="px-2 py-1 mt-3 text-white rounded-full bg-primary group-open:animate-fadeIn">
-                        Lihat Penuh
-                      </button>
+                    <div className="py-3">
+                      <div className="flex justify-between rounded-md bg-slate-200 pt-2 py-2 px-3">
+                        <div className="flex py-4 bg-white shadow-lg px-3 rounded-md">
+                          <div className="">
+                            <p className="px-2 text-sm pb-4">
+                              Apakah Artikel Ini Membantu Anda?
+                            </p>
+                            <div className="flex px-8 gap-4">
+                              <button className="text-sm px-5 py-2 rounded-md bg-slate-200">
+                                Like 👍
+                              </button>
+                              <button className="text-sm px-5 py-2 rounded-md bg-slate-200">
+                                Dislike 👎
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        <div className=" px-1 py-8">
+                          <div className="flex">
+                            <button className="px-3 py-2 text-white rounded-full bg-primary group-open:animate-fadeIn">
+                              Lihat Penuh
+                            </button>{' '}
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </details>
                 </div>
