@@ -1,26 +1,81 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import ReactLoading from 'react-loading';
-import { SearchIcon, DropdownIcon } from '../../assets/icons/Icon';
-import ReactHtmlParser from 'react-html-parser';
-
-import { TopicDataType } from '../../state/types/TopicType';
+import {
+  SearchIcon,
+  DropdownIcon,
+  CloseButtonIcon,
+} from '../../assets/icons/Icon';
+import { TopicProps } from '../../state/types/TopicType';
+import { faqLike, faqDislike } from '../../api/user/FaqUserAPI';
 
 interface QuestionCardProps {
   onSearch?: any;
-  data?: TopicDataType;
+  data?: TopicProps;
+}
+
+// ... (existing imports)
+
+interface QuestionCardProps {
+  onSearch?: any;
+  data?: TopicProps;
 }
 
 const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
-  console.log(data);
-  const [isSelected, setIsSelected] = useState(false);
-
-  const handleClick = () => {
-    setIsSelected(!isSelected);
-  };
+  const [selectedQuestionIds, setSelectedQuestionIds] = useState<number[]>([]);
   const [searchInput, setSearchInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [feedbackGiven, setFeedbackGiven] = useState<string[]>([]);
+  const [closedQuestions, setClosedQuestions] = useState<string[]>([]);
   const navigate = useNavigate();
+
+  const handleClick = (questionId: number) => {
+    setSelectedQuestionIds((prevIds) => {
+      if (prevIds.includes(questionId)) {
+        return prevIds.filter((id) => id !== questionId);
+      } else {
+        return [...prevIds, questionId];
+      }
+    });
+  };
+
+  const handleCloseButtonClick = (questionSlug: string) => {
+    console.log(questionSlug);
+    setClosedQuestions((prevClosedQuestions) => [
+      ...prevClosedQuestions,
+      questionSlug,
+    ]);
+  };
+
+  const handlerLike = async (TopicSlug: any, QuestionSlug: any) => {
+    try {
+      const responseData = await faqLike(TopicSlug, QuestionSlug);
+      if (responseData) {
+        setFeedbackGiven((prevFeedback) => [...prevFeedback, QuestionSlug]);
+
+        setTimeout(() => {
+          handleCloseButtonClick(QuestionSlug);
+        }, 2500);
+      }
+    } catch (error: any) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  const handleDislike = async (TopicSlug: any, QuestionSlug: any) => {
+    try {
+      const responseData = await faqDislike(TopicSlug, QuestionSlug);
+      if (responseData) {
+        setFeedbackGiven((prevFeedback) => [...prevFeedback, QuestionSlug]);
+
+        setTimeout(() => {
+          handleCloseButtonClick(QuestionSlug);
+        }, 2500);
+      }
+    } catch (error: any) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
   const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value);
@@ -32,7 +87,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
     try {
       await onSearch(searchInput);
     } catch (error) {
-      throw false;
+      console.error('Error searching:', error);
     } finally {
       setIsLoading(false);
 
@@ -57,7 +112,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
     <section className="antialiased overlay">
       <div className="w-full ">
         <div className="flex justify-between bg-white shadow-[0_3px_10px_-3px_rgb(0,0,0,0.1)]">
-          <h1 className="flex p-[14px] font-sans text-2xl font-semibold">
+          <h1 className="flex p-[14px] justify-center items-center text-xl">
             Pusat Bantuan
           </h1>
           <div className="flex flex-row justify-end w-full p-[14px] md:w-1/2">
@@ -68,7 +123,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
               <div className="relative flex items-center w-full">
                 <input
                   type="text"
-                  className="block w-full px-2 py-2 pr-4 text-black rounded-full cursor-pointer placeholder-gray focus:outline-none focus:placeholder-pureBlack bg-[#F0F2F5] pl-14 text-sm"
+                  className="block w-full px-2 py-2 pr-4 text-black rounded-full cursor-pointer placeholder-gray focus:outline-none focus:placeholder-black bg-[#F0F2F5] pl-14 text-sm"
                   placeholder="Cari artikel bantuan..."
                   value={searchInput}
                   onChange={handleSearchInputChange}
@@ -96,22 +151,27 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
           </div>
         </div>
       </div>
-      <div className="w-[95%] pt-10 pl-16 overflow-x-auto ">
-        <h1 className="px-6 text-2xl font-bold mb-5">{data?.name}</h1>
+      <div className="w-[95%] pt-10 pl-16 min-h-[101vh]">
         <div className="items-start content-start justify-start ">
-          <div className="grid mx-auto divide-y divide-neutral-200">
-            <div className="px-6">
+          <div className="grid mx-auto ">
+            <div className="px-7">
+              <h1 className="text-2xl mx-2 font-bold pb-3  border-b border-[#d1d5db] ">
+                {data?.name}
+              </h1>
+              <p className="mx-2 mt-3 mb-8">{data?.description}</p>
               {data?.questions.map((question) => (
                 <div
                   key={question.id}
-                  className="py-5 border-b border-slate-300"
+                  className={`py-2 shadow-[0_1px_0px_0px_rgba(0,0,0,0.1)] bg-transparent`}
                 >
-                  <details className="group">
+                  <details className="group ">
                     <summary
-                      className={`flex items-center justify-between hover:text-green-700 font-medium list-none cursor-pointer ${
-                        isSelected ? 'text-green-700 font-semibold' : ''
+                      className={`flex items-center justify-between  hover:bg-[#E4E6E9] px-2 font-medium list-none cursor-pointer py-3 rounded-md  ${
+                        selectedQuestionIds.includes(question.id)
+                          ? 'bg-slate-200 '
+                          : ''
                       }`}
-                      onClick={handleClick}
+                      onClick={() => handleClick(question.id)}
                     >
                       <span className="text-[17px]">{question.question}</span>
                       <span className="transition group-open:rotate-180">
@@ -119,13 +179,82 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
                       </span>
                     </summary>
                     <p
-                      className="mt-3 text-neutral-600 group-open:animate-fadeIn"
+                      className="mt-8 group-open:animate-fadeIn px-2"
                       dangerouslySetInnerHTML={{ __html: question.answer }}
                     ></p>
-                    <div className="flex justify-end">
-                      <button className="px-2 py-1 mt-3 text-white rounded-full bg-primary group-open:animate-fadeIn">
-                        Lihat Penuh
-                      </button>
+
+                    <div className="py-3">
+                      <div className="flex justify-between rounded-md bg-[#F0F2F5] pt-2 py-2 px-3">
+                        <div
+                          className={`flex py-4  px-3 rounded-md ${
+                            closedQuestions.includes(question.slug)
+                              ? 'bg-transparent '
+                              : 'bg-white shadow-lg'
+                          }`}
+                        >
+                          {closedQuestions.includes(question.slug) ? null : (
+                            <div className="">
+                              {feedbackGiven.includes(question.slug) ? (
+                                <div className="flex justify-center items-center text-center ">
+                                  <div className="pr-2 pl-1 text-sm ">
+                                    Terima kasih atas feedback Anda!
+                                  </div>
+                                  <button
+                                    className="pl-4 flex justify-end "
+                                    onClick={() =>
+                                      handleCloseButtonClick(question.slug)
+                                    }
+                                  >
+                                    <CloseButtonIcon className="w-8 h-[18px] hover:bg-slate-200 rounded-full cursor-pointer" />
+                                  </button>
+                                </div>
+                              ) : (
+                                <div className="flex justify-center items-center text-center pb-3">
+                                  <div className="pr-2 pl-1 text-sm ">
+                                    Apakah Ini Membantu?
+                                  </div>
+                                  <button
+                                    className="pl-4 flex justify-end "
+                                    onClick={() =>
+                                      handleCloseButtonClick(question.slug)
+                                    }
+                                  >
+                                    <CloseButtonIcon className="w-8 h-[18px] hover:bg-slate-200 rounded-full cursor-pointer" />
+                                  </button>
+                                </div>
+                              )}
+                              {!feedbackGiven.includes(question.slug) && (
+                                <div className="w-full flex justify-between space-x-2 mt-2">
+                                  <button
+                                    onClick={() =>
+                                      handlerLike(data?.slug, question?.slug)
+                                    }
+                                    className="w-full text-sm px-5 py-2 rounded-md bg-[#E4E6EB] hover:bg-[#D8DADF]"
+                                  >
+                                    Like 👍
+                                  </button>
+                                  <button
+                                    onClick={() =>
+                                      handleDislike(data?.slug, question?.slug)
+                                    }
+                                    className="text-sm w-full px-5 py-2 rounded-md bg-[#E4E6EB] hover:bg-[#D8DADF]"
+                                  >
+                                    Dislike 👎
+                                  </button>
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                        <Link
+                          to={`/faq/question/${data.slug}/${question.slug}`}
+                          className="flex justify-center items-end pb-1"
+                        >
+                          <div className="hover:bg-gray duration-200 py-[7px] mt-3 text-white rounded-full px-3 bg-primary group-open:animate-fadeIn">
+                            Lihat Penuh
+                          </div>
+                        </Link>
+                      </div>
                     </div>
                   </details>
                 </div>
