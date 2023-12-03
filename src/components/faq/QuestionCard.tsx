@@ -14,13 +14,6 @@ interface QuestionCardProps {
   data?: TopicProps;
 }
 
-// ... (existing imports)
-
-interface QuestionCardProps {
-  onSearch?: any;
-  data?: TopicProps;
-}
-
 const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
   const [selectedQuestionIds, setSelectedQuestionIds] = useState<number[]>([]);
   const [searchInput, setSearchInput] = useState('');
