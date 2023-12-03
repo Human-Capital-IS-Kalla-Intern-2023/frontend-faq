@@ -1,7 +1,7 @@
 import ReactLoading from 'react-loading';
 import { useEffect, useState } from 'react';
 import HomeUserCard from '../../components/user/HomeUserCard';
-import logoKalla from '../../assets/img/logo/singel-logo-kalla.webp';
+import logoKalla from '../../assets/img/logo/singel-logo-kalla_52x48.webp';
 
 import { getTopicUser } from '../../api/user/FaqUserAPI';
 
@@ -37,9 +37,16 @@ const HomeUser: React.FC = () => {
       )}
       <div className="flex py-3 shadow-lg">
         <div className="flex items-center justify-center text-center">
-          <img src={logoKalla} className="h-12 ml-5 rounded-full w-25" alt="" />
+          <img
+            src={logoKalla}
+            className="h-12 ml-5 rounded-full w-[52px]"
+            width={52}
+            height={48}
+            alt="logo kalla"
+            loading="lazy"
+          />
         </div>
-        <h1 className="px-2 py-3 font-sans text-2xl font-semibold">
+        <h1 className="flex p-[14px] justify-center items-center text-xl">
           Pusat Bantuan
         </h1>
       </div>
