@@ -12,18 +12,18 @@ export interface FormData {
 }
 
 export interface EditModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  title: string;
-  inputFields: InputFieldProps[];
-  onSubmit: (formData: FormData, idToEdit: any) => Promise<void>;
-  idToEdit: any;
-  initialFormData: FormData;
+  isOpen?: boolean;
+  onClose?: any;
+  title?: string;
+  inputFields?: any[];
+  onSubmit?: (formData: any, idToEdit: any) => void;
+  idToEdit?: any;
+  initialFormData?: FormData;
 }
 
 export interface DetailModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  data: Record<string, any> | null;
-  inputField: InputFieldProps[];
+  isOpen?: boolean;
+  onClose?: any;
+  data?: Record<string, any> | null;
+  inputField?: InputFieldProps[];
 }

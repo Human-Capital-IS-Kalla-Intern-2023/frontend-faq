@@ -12,7 +12,9 @@ const DetailModal: React.FC<DetailModalProps> = ({
 }) => {
   const handleOverlayClick = (e: any) => {
     if (e.target.classList.contains('overlay')) {
-      onClose();
+      if (onClose) {
+        onClose();
+      }
     }
   };
 
