@@ -5,7 +5,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 
 import { DropdownSidebarMenuIcon } from '../../assets/icons/Icon';
 
-const SideBarMenu = ({ data }: any) => {
+const AdminSidebarMenu = ({ data }: any) => {
   const { pathname } = useLocation();
   const [subMenuOpen, setSubMenuOpen] = useState(false);
 
@@ -51,4 +51,4 @@ const SideBarMenu = ({ data }: any) => {
   );
 };
 
-export default SideBarMenu;
+export default AdminSidebarMenu;

@@ -27,7 +27,7 @@ import {
   ReponsiveSidebarIcon,
 } from '../../assets/icons/Icon';
 
-const Sidebar = () => {
+const AdminSideBar = () => {
   const isTabletMid = useMediaQuery({ query: '(max-width: 768px)' });
   const [open, setOpen] = useState(isTabletMid ? false : true);
   const { pathname } = useLocation();
@@ -99,9 +99,7 @@ const Sidebar = () => {
           variants={Nav_animation}
           initial={{ x: isTabletMid ? -250 : 0 }}
           animate={open ? 'open' : 'closed'}
-          className=" bg-white text-gray  z-10 max-w-[16rem]  w-[16rem] 
-            overflow-hidden md:relative fixed
-         h-full  min-h-screen"
+          className="bg-white text-gray z-10 w-[22rem]  fixed h-full min-h-screen shadow-allSideLow max-h-screen "
         >
           <div className="flex items-center gap-2.5 font-medium border-b py-3 border-slate-300 mx-3">
             <img
@@ -118,6 +116,7 @@ const Sidebar = () => {
               sizes="(min-width: 1060px) 223px, (min-width: 940px) calc(113vw - 957px), (min-width: 880px) calc(110vw - 933px), (min-width: 840px) calc(70vw - 584px), (min-width: 680px) 232px, (min-width: 640px) calc(995vw - 6335px), (min-width: 600px) calc(-135vw + 914px), (min-width: 500px) calc(-95vw + 682px), calc(-7.78vw + 255px)"
               width={232}
               height={96}
+              loading="lazy"
             />
           </div>
 
@@ -278,4 +277,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default AdminSideBar;
