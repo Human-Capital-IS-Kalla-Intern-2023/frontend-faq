@@ -26,8 +26,6 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
     }
   };
 
-  console.log(deleteData);
-
   if (!isOpen) return null;
 
   return (

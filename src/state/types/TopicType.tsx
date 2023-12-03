@@ -1,7 +1,7 @@
 // types.ts
 import { QuestionProps } from './QuestionType';
 
-export interface TopicDataType {
+export interface TopicProps {
   id: number;
   user_id: number;
   name: string;
@@ -15,7 +15,7 @@ export interface TopicDataType {
   questions: QuestionProps[];
 }
 
-export interface TopicTypeWithUser {
+export interface TopicWithUserProps {
   id: number;
   user_id: number;
   name: string;

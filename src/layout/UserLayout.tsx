@@ -1,5 +1,5 @@
 import { useLocation } from 'react-router-dom';
-import Sidebar from './user sidebar/UserSideBar';
+import UserSidebar from './user sidebar/UserSideBar';
 
 function UserLayout({ children }: any) {
   const location = useLocation();
@@ -19,10 +19,12 @@ function UserLayout({ children }: any) {
 
   return (
     <div className="flex flex-col md:flex-row ">
-      {shouldShowSidebar && <Sidebar />}
+      {shouldShowSidebar && <UserSidebar />}
       <main
         className={
-          shouldShowSidebar ? 'flex-1 mx-auto max-w-sm md:max-w-none' : 'w-full'
+          shouldShowSidebar
+            ? 'flex-1 mx-auto max-w-sm md:max-w-none lg:pl-[22rem]  '
+            : 'w-full'
         }
       >
         {children}

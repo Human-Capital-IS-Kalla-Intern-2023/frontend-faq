@@ -78,8 +78,10 @@ const EditModal: React.FC<EditModalProps> = ({
 
     try {
       setIsLoading(true);
-      await onSubmit(formData, idToEdit);
-      onClose();
+      if (onSubmit && onClose) {
+        await onSubmit(formData, idToEdit);
+        onClose();
+      }
     } catch (error) {
       console.error('Error:', error);
     } finally {
@@ -90,7 +92,7 @@ const EditModal: React.FC<EditModalProps> = ({
   useEffect(() => {
     getIconList();
 
-    if (isOpen) {
+    if (isOpen && initialFormData && inputFields) {
       const initialData: FormData = {};
       inputFields.forEach((field: InputFieldProps) => {
         if (field.type === tagEnum.SELECT && field.isMulti) {
@@ -152,7 +154,7 @@ const EditModal: React.FC<EditModalProps> = ({
             onSubmit={handleSubmit}
             className="grid grid-cols-2 gap-4 mt-8 text-base text-left"
           >
-            {inputFields.map((field: any, index: number) => (
+            {inputFields?.map((field: any, index: number) => (
               <div
                 key={field.id}
                 className={`${
@@ -217,7 +219,7 @@ const EditModal: React.FC<EditModalProps> = ({
             <button
               aria-label="Update"
               type="submit"
-              className={`col-span-2 px-4 py-2 text-lg text-white duration-200 border rounded hover:bg-secondary hover:text-pureBlack hover:border-pureBlack ${
+              className={`col-span-2 px-4 py-2 text-lg text-white duration-200 border rounded hover:bg-secondary hover:text-black hover:border-black ${
                 isLoading ? 'bg-gray-400 cursor-not-allowed' : 'bg-green-800'
               }`}
               disabled={isLoading}

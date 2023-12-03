@@ -14,6 +14,7 @@ const NotFound = () => {
             alt="Image 404 Not Found"
             width={300}
             height={200}
+            loading="lazy"
           />
         </div>
         <p className="mt-2 text-3xl font-bold tracking-wider text-black text-gray-300 md:text-lg lg:text-3xl">

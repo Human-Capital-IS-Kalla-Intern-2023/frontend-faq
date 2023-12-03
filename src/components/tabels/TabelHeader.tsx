@@ -165,7 +165,7 @@ const TabelHeader: React.FC<TabelHeaderProps> = ({
               <Link
                 to={onNavigate}
                 onClick={openModal}
-                className="flex items-center justify-center px-6 py-2 text-base font-medium uppercase duration-300 rounded-lg text-pureBlack bg-secondary focus:ring-4 bg-primary-600 hover:bg-yellow lg:hover:scale-[1.03]"
+                className="flex items-center justify-center px-6 py-2 text-base font-medium uppercase duration-300 rounded-lg text-black bg-secondary focus:ring-4 bg-primary-600 hover:bg-yellow lg:hover:scale-[1.03]"
               >
                 <PlusIcon className="h-3.5 w-3.5 mr-2" />
                 {addButtonText}

@@ -39,3 +39,10 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+#scrollarea-invalid {
+  overflow-y: scroll;
+}
+#scrollarea-content {
+  min-height: 101%;
+}

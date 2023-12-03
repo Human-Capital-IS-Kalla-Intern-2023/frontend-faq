@@ -7,7 +7,7 @@ const FooterCard = () => {
         <div className="flex py-4 bg-white shadow-xl border border-slate-300 px-3 rounded-md">
           <div className="">
             <p className="px-2 flex text-sm pb-4">
-              Apakah Artikel Ini Membantu Anda?
+              Apakah Ini Membantu?
               <div className="px-2">
                 <CloseButtonIcon className=""></CloseButtonIcon>
               </div>

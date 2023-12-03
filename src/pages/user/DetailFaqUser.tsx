@@ -1,26 +1,48 @@
-import DetailFaqCard from '../../components/detail/DetailFaqCard';
+import { useState, useEffect } from 'react';
+// import ReactLoading from 'react-loading';
 
-const data = [
-  {
-    kategori: 'John Doe',
-    deskripsi: '1234567890123456',
-  },
-  {
-    kategori: 'John Doe',
-    deskripsi: '123456789012',
-  },
-];
+import DetailFaqCard from '../../components/detail/DetailFaqCard';
+import { useParams } from 'react-router-dom';
+import { getDetailQuestion } from '../../api/user/FaqUserAPI';
 
 const DetailFaqUser: React.FC = () => {
+  const { TopicSlug, QuestionDetailSlug } = useParams();
+  // const [isLoading, setIsLoading] = useState(false);
+
+  const [detailFaq, setDetailFaq] = useState<any | undefined>(undefined);
+
+  // GET all topic user data
+  const fetchListFaqByTopic = async (
+    TopicSlug: any,
+    QuestionDetailSlug: any
+  ) => {
+    // setIsLoading(true);
+
+    try {
+      const responseData = await getDetailQuestion(
+        TopicSlug,
+        QuestionDetailSlug
+      );
+      setDetailFaq(responseData.data[0]);
+    } catch (error: any) {
+      console.error('Error fetch all topic user:', error);
+    } finally {
+      // setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchListFaqByTopic(TopicSlug, QuestionDetailSlug);
+  }, [QuestionDetailSlug, TopicSlug]);
+
   return (
     <>
-      <DetailFaqCard
-        addButtonText={''}
-        title={''}
-        filterOptions={[]}
-        inputFields={[]}
-        data={data}
-      />
+      {/* {isLoading && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <ReactLoading type="spin" color="green" height={50} width={50} />
+        </div>
+      )} */}
+      <DetailFaqCard data={detailFaq} />
     </>
   );
 };

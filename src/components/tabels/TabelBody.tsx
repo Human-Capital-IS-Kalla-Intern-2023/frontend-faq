@@ -170,6 +170,7 @@ const TabelBody: React.FC<TabelBodyProps> = ({
             src={customCell.image}
             alt={`Image ${TruncateText(customCell.name, 10)}`}
             className="object-cover w-full h-8 rounded"
+            loading="eager"
           />
         );
       }
@@ -188,6 +189,7 @@ const TabelBody: React.FC<TabelBodyProps> = ({
                 src={customCell.image}
                 alt={`Image ${TruncateText(customCell.name, 10)}`}
                 className="object-cover w-full h-8 rounded"
+                loading="eager"
               />
             );
           }
