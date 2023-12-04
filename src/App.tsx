@@ -28,6 +28,7 @@ import TopicAdmin from './pages/admin/Topic/TopicAdmin';
 import HomeUser from './pages/user/HomeUser';
 import Question from './pages/user/Question';
 import DetailFaqUser from './pages/user/DetailFaqUser';
+import SearchResult from './pages/user/SearchResult';
 
 // Auth Pages
 import NotFound from './pages/auth/NotFound';
@@ -67,6 +68,10 @@ const UserRoutes: React.FC = () => {
     <UserLayout>
       <Routes>
         <Route path="faq/question/:TopicSlug" element={<Question />} />
+        <Route
+          path="(/help/list?search={inputSearch}"
+          element={<SearchResult />}
+        />
         <Route
           path="/faq/question/:TopicSlug/:QuestionDetailSlug"
           element={<DetailFaqUser />}
