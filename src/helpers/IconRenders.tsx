@@ -4,13 +4,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { iconList } from '../assets/icons/TopicIcon';
 interface IconRendererProps {
   value: string;
+  className?: string;
 }
 
-const IconRenderer: React.FC<IconRendererProps> = ({ value }) => {
+const IconRenderer: React.FC<IconRendererProps> = ({ value, className }) => {
   const selectedIcon = iconList.find((item: any) => item.value === value);
 
   if (selectedIcon) {
-    return <FontAwesomeIcon icon={selectedIcon.icon} className="w-7 h-7" />;
+    return <FontAwesomeIcon icon={selectedIcon.icon} className={className} />;
   }
 };
 

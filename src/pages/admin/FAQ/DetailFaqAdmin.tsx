@@ -198,12 +198,15 @@ const DetailFaqAdmin = () => {
           </div>
           {showAnswer && (
             <>
-              <ReactQuill
-                theme="snow"
-                readOnly={true}
-                value={blogContent}
-                modules={{ toolbar: false }}
-              />
+              <div className="font-poppins">
+                <ReactQuill
+                  theme="snow"
+                  readOnly={true}
+                  value={blogContent}
+                  modules={{ toolbar: false }}
+                  className="font-poppins"
+                />
+              </div>
             </>
           )}
         </div>
