@@ -163,22 +163,26 @@ const TabelBody: React.FC<TabelBodyProps> = ({
   };
 
   const renderTableCell = (cell: ColCells, customCell: Record<string, any>) => {
-    if ('key' in cell) {
-      if (cell.key === apiEnum.IMAGE) {
-        return (
-          <img
-            src={customCell.image}
-            alt={`Image ${TruncateText(customCell.name, 10)}`}
-            className="object-cover w-full h-8 rounded"
-            loading="eager"
-          />
-        );
-      }
+    // if ('key' in cell) {
+    //   if (cell.key === apiEnum.IMAGE) {
+    //     return (
+    //       <img
+    //         src={customCell.image}
+    //         alt={`Image ${TruncateText(customCell.name, 10)}`}
+    //         className="object-cover w-full h-8 rounded"
+    //         loading="eager"
+    //       />
+    //     );
+    //   }
 
-      if (cell.key === apiEnum.ICON) {
-        return <IconRenderer value={customCell.icon} className="w-7 h-7" />;
-      }
-    } else if ('keys' in cell) {
+    //   if (cell.key === apiEnum.ICON && !customCell.image) {
+    //     console.log('nah 2');
+
+    //     return <IconRenderer value={customCell.icon} className="w-7 h-7" />;
+    //   }
+    // } else
+
+    if ('keys' in cell) {
       // Multiple keys
       const renderedValues = cell.keys.map((key) => {
         if (customCell.image !== '') {
@@ -187,26 +191,27 @@ const TabelBody: React.FC<TabelBodyProps> = ({
               <img
                 key={key}
                 src={customCell.image}
-                alt={`Image ${TruncateText(customCell.name, 10)}`}
+                alt={`Image For ${TruncateText(customCell.name, 10)}`}
                 className="object-cover w-full h-8 rounded"
                 loading="eager"
               />
             );
           }
         }
-        if (customCell.icon !== '') {
+        if (customCell.icon !== '' && !customCell.image) {
+          console.log(!customCell.image);
           if (key === apiEnum.ICON) {
             return (
-              <IconRenderer
-                key={key}
-                value={customCell.icon}
-                className="w-7 h-7"
-              />
+              <>
+                <IconRenderer
+                  key={key}
+                  value={customCell.icon}
+                  className="w-7 h-7"
+                />
+              </>
             );
           }
         }
-
-        return customCell[key];
       });
 
       return renderedValues;
@@ -267,7 +272,10 @@ const TabelBody: React.FC<TabelBodyProps> = ({
       }
     }
 
-    if ((apiEnum.NAME, apiEnum.QUESTION.includes(cell.key))) {
+    if (
+      apiEnum.NAME.includes(cell.key) ||
+      apiEnum.QUESTION.includes(cell.key)
+    ) {
       return TruncateText(customCell[cell.key], 25);
     } else {
       return customCell[cell.key];
