@@ -3,6 +3,8 @@ import { SearchIcon } from '../../assets/icons/Icon';
 import { Link, useNavigate } from 'react-router-dom';
 import ReactLoading from 'react-loading';
 import { TruncateText } from '../../helpers/TruncateText';
+import IconRenderer from '../../helpers/IconRenders';
+import logoKalla from '../../assets/img/logo/singel-logo-kalla.webp';
 
 interface Topic {
   id: number;
@@ -101,27 +103,30 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch, data }) => {
             className="w-full"
             key={topic.slug}
           >
-            <div className="p-2 px-6 py-10 pt-4 overflow-hidden rounded-lg shadow-lg w-60 h-60 bg-[#F0F2F5] hover:bg-[#E8EAED]">
+            <div className="p-2 px-6 py-10 pt-6 overflow-hidden rounded-lg shadow-lg w-60 h-60 bg-[#F0F2F5] hover:bg-[#E8EAED]">
               <div className="flex items-center justify-center p-3">
                 {topic.image && (
                   <img
-                    src={topic.image}
+                    src={logoKalla}
                     alt={topic.name}
-                    className="w-8 h-8 lg:w-10 lg:h-10"
+                    className="w-16 h-10"
                     loading="eager"
                   />
                 )}
                 {!topic.image && topic.icon && (
-                  <img
-                    src={topic.icon}
-                    alt={topic.name}
-                    className="w-8 h-8 lg:w-10 lg:h-10"
-                    loading="eager"
-                  />
+                  <>
+                    <IconRenderer value={topic.icon} className="w-16 h-10" />
+                  </>
+                  // <img
+                  //   src={topic.icon}
+                  //   alt={topic.name}
+                  //   className="w-8 h-8 lg:w-10 lg:h-10"
+                  //   loading="eager"
+                  // />
                 )}
               </div>
               <div className="flex flex-col items-start justify-center mt-3">
-                <div className="pb-2 text-sm font-medium break-all whitespace-normal text-black lg:text-base">
+                <div className="pb-2 text-sm font-medium text-black break-all whitespace-normal lg:text-base">
                   {topic.name}
                 </div>
                 <div className="overflow-hidden text-xs lg:text-[13px] text-gray">

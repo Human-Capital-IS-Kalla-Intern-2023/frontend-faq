@@ -1,7 +1,7 @@
 export enum apiEnum {
   QUESTION = 'question',
   LIKES = 'likes',
-  DISLIKES = 'dislike',
+  DISLIKES = 'dislikes',
   IS_STATUS = 'is_status',
   ANSWER = 'answer',
   SLUG = 'slug',

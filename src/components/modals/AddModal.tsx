@@ -43,14 +43,7 @@ const AddModal = ({ isOpen, onClose, title, inputFields, onSubmit }: any) => {
     } else if (name === apiEnum.ICON) {
       setFormData((prevData) => ({
         ...prevData,
-        [apiEnum.IMAGE]: null,
         [name]: value.value,
-      }));
-    } else if (name === apiEnum.IMAGE) {
-      setFormData((prevData) => ({
-        ...prevData,
-        [name]: value,
-        [apiEnum.ICON]: null,
       }));
     } else {
       setFormData((prevData) => ({
@@ -89,12 +82,6 @@ const AddModal = ({ isOpen, onClose, title, inputFields, onSubmit }: any) => {
       if (focusTarget) {
         focusTarget.focus();
       }
-
-      setFormData((prevData) => ({
-        ...prevData,
-        topic_user_id: 1,
-        user_id: 1,
-      }));
     }
   }, [isOpen]);
 
