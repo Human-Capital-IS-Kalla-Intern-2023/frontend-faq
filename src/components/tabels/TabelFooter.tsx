@@ -50,7 +50,7 @@ const TabelFooter: React.FC<TabelFooterProps> = ({
                 <button
                   onClick={onPreviousPage}
                   aria-label="Previous"
-                  className={`flex items-center border justify-center h-full py-1.5 px-3 ml-0  bg-white rounded-l-lg   hover:bg-primary    border-pureBlack hover:text-white ${
+                  className={`flex items-center border justify-center h-full py-1.5 px-3 ml-0  bg-white rounded-l-lg   hover:bg-primary    border-black hover:text-white ${
                     currentPage === 1 ? 'cursor-not-allowed text-gray-400' : ''
                   }`}
                   disabled={currentPage === 1}
@@ -66,8 +66,8 @@ const TabelFooter: React.FC<TabelFooterProps> = ({
                     aria-label={`Go to page ${pageNumber}`}
                     className={`flex items-center justify-center px-3 py-2 text-sm leading-tight ${
                       pageNumber === currentPage
-                        ? 'bg-primary-50 border-primary-300 bg-primary border-pureBlack border text-white'
-                        : 'bg-white border hover:bg-primary border-pureBlack hover:text-white'
+                        ? 'bg-primary-50 border-primary-300 bg-primary border-black border text-white'
+                        : 'bg-white border hover:bg-primary border-black hover:text-white'
                     }`}
                   >
                     {pageNumber}
@@ -78,7 +78,7 @@ const TabelFooter: React.FC<TabelFooterProps> = ({
                 <button
                   onClick={onNextPage}
                   aria-label="Next"
-                  className={`flex items-center justify-center h-full py-1.5 px-3 leading-tight  bg-white rounded-r-lg border hover:bg-primary border-pureBlack hover:text-white ${
+                  className={`flex items-center justify-center h-full py-1.5 px-3 leading-tight  bg-white rounded-r-lg border hover:bg-primary border-black hover:text-white ${
                     currentPage === totalPages
                       ? 'cursor-not-allowed text-gray-400'
                       : ''

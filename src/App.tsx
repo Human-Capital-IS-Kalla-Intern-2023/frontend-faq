@@ -67,7 +67,10 @@ const UserRoutes: React.FC = () => {
     <UserLayout>
       <Routes>
         <Route path="faq/question/:TopicSlug" element={<Question />} />
-        <Route path="/faq/question/detail" element={<DetailFaqUser />} />
+        <Route
+          path="/faq/question/:TopicSlug/:QuestionDetailSlug"
+          element={<DetailFaqUser />}
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </UserLayout>

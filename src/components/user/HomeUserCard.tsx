@@ -67,7 +67,7 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch, data }) => {
           <div className="relative flex items-center w-full">
             <input
               type="text"
-              className="block w-full px-3 py-4 pr-4 text-black cursor-pointer placeholder-gray focus:outline-none focus:placeholder-pureBlack bg-slate-100 rounded-xl pl-14 text-md"
+              className="block w-full px-3 py-4 pr-4 text-black cursor-pointer placeholder-gray focus:outline-none focus:placeholder-black bg-slate-100 rounded-xl pl-14 text-md"
               placeholder="Cari artikel bantuan..."
               value={searchInput}
               onChange={handleSearchInputChange}
@@ -108,6 +108,7 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch, data }) => {
                     src={topic.image}
                     alt={topic.name}
                     className="w-8 h-8 lg:w-10 lg:h-10"
+                    loading="eager"
                   />
                 )}
                 {!topic.image && topic.icon && (
@@ -115,11 +116,12 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch, data }) => {
                     src={topic.icon}
                     alt={topic.name}
                     className="w-8 h-8 lg:w-10 lg:h-10"
+                    loading="eager"
                   />
                 )}
               </div>
               <div className="flex flex-col items-start justify-center mt-3">
-                <div className="pb-2 text-sm font-medium break-all whitespace-normal text-pureBlack lg:text-base">
+                <div className="pb-2 text-sm font-medium break-all whitespace-normal text-black lg:text-base">
                   {topic.name}
                 </div>
                 <div className="overflow-hidden text-xs lg:text-[13px] text-gray">

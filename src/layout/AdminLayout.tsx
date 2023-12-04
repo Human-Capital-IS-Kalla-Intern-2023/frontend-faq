@@ -4,7 +4,7 @@ import AdminSidebar from './admin sidebar/AdminSideBar';
 function AdminLayout({ children }: any) {
   const location = useLocation();
 
-  const sidebarPaths = ['/admin/faq', '/admin/topic', '/admin'];
+  const sidebarPaths = ['/admin/faq', '/admin/topic'];
 
   const hiddenSidebarPaths = [
     '/admin/faq/add',
@@ -21,7 +21,9 @@ function AdminLayout({ children }: any) {
       {shouldShowSidebar && <AdminSidebar />}
       <main
         className={
-          shouldShowSidebar ? 'flex-1 mx-auto max-w-sm md:max-w-none' : 'w-full'
+          shouldShowSidebar
+            ? 'flex-1 mx-auto max-w-sm md:max-w-none lg:pl-[18rem]  '
+            : 'w-full'
         }
       >
         {children}

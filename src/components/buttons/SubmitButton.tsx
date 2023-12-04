@@ -1,13 +1,9 @@
+// Import Library And Package
 import React from 'react';
 import ReactLoading from 'react-loading';
 
-interface SubmitButtonProps {
-  title: string;
-  onClick?: () => void;
-  disabled?: boolean;
-  ariaLabel?: string;
-  isLoading?: boolean;
-}
+// Import Type
+import { SubmitButtonProps } from '../../state/types/ButtonType';
 
 const SubmitButton: React.FC<SubmitButtonProps> = ({
   title,
@@ -36,7 +32,7 @@ const SubmitButton2: React.FC<SubmitButtonProps> = ({
     <button
       aria-label={ariaLabel}
       type="submit"
-      className={`col-span-2 px-4 py-2 text-lg text-white duration-200 border rounded hover:bg-secondary hover:text-pureBlack hover:border-pureBlack ${
+      className={`col-span-2 px-4 py-2 text-lg text-white duration-200 border rounded hover:bg-secondary hover:text-black hover:border-black ${
         isLoading ? 'bg-gray-400 cursor-not-allowed' : 'bg-green-800'
       }`}
       disabled={isLoading}

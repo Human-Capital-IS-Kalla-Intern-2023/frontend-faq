@@ -76,6 +76,52 @@ const getDetailQuestion = async (slug_topic: any, slug_question: string) => {
   }
 };
 
+const faqLike = async (slug_topic: any, slug_question: string) => {
+  try {
+    // const token = TokenHelper();
+
+    // const headerToken = {
+    //   Authorization: `Bearer ${token}`,
+    // };
+
+    const responseLikeFaq = await RequestApi(
+      'POST',
+      `faq/${slug_topic}/${slug_question}/like`,
+      {},
+      {},
+      'melakukan like faq'
+    );
+
+    return responseLikeFaq;
+  } catch (error) {
+    console.error('Terjadi kesalahan saat melakukan like faq:', error);
+    throw error;
+  }
+};
+
+const faqDislike = async (slug_topic: any, slug_question: string) => {
+  try {
+    // const token = TokenHelper();
+
+    // const headerToken = {
+    //   Authorization: `Bearer ${token}`,
+    // };
+
+    const responseDisklikeFaq = await RequestApi(
+      'POST',
+      `faq/${slug_topic}/${slug_question}/dislike`,
+      {},
+      {},
+      'melakukan dislike faq'
+    );
+
+    return responseDisklikeFaq;
+  } catch (error) {
+    console.error('Terjadi kesalahan saat melakukan dislike faq:', error);
+    throw error;
+  }
+};
+
 // Search TopicUser
 const searchTopicUser = async (searchInput: any) => {
   try {
@@ -105,4 +151,6 @@ export {
   getListQuestionByTopic,
   getDetailQuestion,
   searchTopicUser,
+  faqLike,
+  faqDislike,
 };

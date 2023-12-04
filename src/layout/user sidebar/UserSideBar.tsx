@@ -3,9 +3,10 @@ import { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useMediaQuery } from 'react-responsive';
 import { useLocation } from 'react-router-dom';
+// import ReactLoading from 'react-loading';
 
 // Components Import
-import SideBarMenu from './SideBarMenu';
+import SideBarMenu from './UserSidebarMenu';
 
 // Assets Import
 // import logoKalla from '../../assets/img/kalla-logo-full.webp';
@@ -17,16 +18,21 @@ import logo1280 from '../../assets/img/logo/logo-1280.webp';
 import logo3000 from '../../assets/img/logo/logo-3000.webp';
 
 import {
-  TopicIcon,
   CloseSidebarIcon,
   ReponsiveSidebarIcon,
 } from '../../assets/icons/Icon';
 
-const Sidebar = () => {
+// Import API
+import { getUserSidebar } from '../../api/user/UserSidebarAPI';
+
+const UserSidebar = () => {
   const isTabletMid = useMediaQuery({ query: '(max-width: 768px)' });
   const [open, setOpen] = useState(isTabletMid ? false : true);
   const { pathname } = useLocation();
   const sidebarRef = useRef<HTMLDivElement>(null);
+
+  // const [isLoading, setIsLoading] = useState(false);
+  const [listMenus, setListMenus] = useState<any | undefined>(undefined);
 
   useEffect(() => {
     if (isTabletMid) {
@@ -46,7 +52,8 @@ const Sidebar = () => {
     ? {
         open: {
           x: 0,
-          width: '19rem',
+          width: '22rem',
+
           transition: {
             damping: 40,
           },
@@ -62,7 +69,7 @@ const Sidebar = () => {
       }
     : {
         open: {
-          width: '19rem',
+          width: '22rem',
           transition: {
             damping: 40,
           },
@@ -75,21 +82,43 @@ const Sidebar = () => {
         },
       };
 
-  const subMenusList = [
-    {
-      name: 'Pengaturan Akun',
-      icon: <TopicIcon className="min-w-max" />,
-      menus: ['Lupa Password', 'Tidak dapat membuat akun'],
-    },
-    {
-      name: 'ICT',
-      icon: <TopicIcon className="min-w-max" />,
-      menus: ['Lupa Password', 'Tidak dapat membuat akun'],
-    },
-  ];
+  const fetchListFaqByTopic = async () => {
+    // setIsLoading(true);
+
+    try {
+      const responseData = await getUserSidebar();
+      setListMenus(responseData.data);
+    } catch (error: any) {
+      console.error('Error fetch all topic user:', error);
+    } finally {
+      // setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchListFaqByTopic();
+  }, []);
+
+  // const listMenus = [
+  //   {
+  //     name: 'Pengaturan Akun',
+  //     icon: <TopicIcon className="min-w-max" />,
+  //     menus: ['Lupa Password', 'Tidak dapat membuat akun'],
+  //   },
+  //   {
+  //     name: 'ICT',
+  //     icon: <TopicIcon className="min-w-max" />,
+  //     menus: ['Lupa Password', 'Tidak dapat membuat akun'],
+  //   },
+  // ];
 
   return (
     <>
+      {/* {isLoading && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <ReactLoading type="spin" color="green" height={50} width={50} />
+        </div>
+      )} */}
       <div className="shadow-xl">
         <div
           onClick={() => setOpen(false)}
@@ -102,11 +131,9 @@ const Sidebar = () => {
           variants={Nav_animation}
           initial={{ x: isTabletMid ? -250 : 0 }}
           animate={open ? 'open' : 'closed'}
-          className=" bg-white text-gray  z-10 max-w-[19rem]  w-[19rem] 
-            overflow-hidden md:relative fixed
-         h-full min-h-screen max-h-screen"
+          className="bg-white text-gray z-10 w-[22rem]  fixed h-full min-h-screen overflow-y-auto shadow-allSideLow max-h-screen "
         >
-          <div className="flex items-center gap-2.5 font-medium  py-3 mx-3">
+          <div className="flex items-center gap-2.5 font-medium justify-center  pt-3 mx-3">
             <img
               alt="Kalla Logo"
               src={logo232}
@@ -121,18 +148,19 @@ const Sidebar = () => {
               sizes="(min-width: 1060px) 223px, (min-width: 940px) calc(113vw - 957px), (min-width: 880px) calc(110vw - 933px), (min-width: 840px) calc(70vw - 584px), (min-width: 680px) 232px, (min-width: 640px) calc(995vw - 6335px), (min-width: 600px) calc(-135vw + 914px), (min-width: 500px) calc(-95vw + 682px), calc(-7.78vw + 255px)"
               width={232}
               height={96}
+              loading="lazy"
             />
           </div>
 
-          <div className="flex flex-col h-full">
-            <ul className="whitespace-pre px-2.5 text-[0.9rem] py-5 flex flex-col gap-1 font-medium overflow-x-hidden scrollbar-thin scrollbar-track-white scrollbar-thumb-slate-100 md:h-[68%] h-[70%] rounded-md">
+          <div className="flex flex-col min-h-screen overflow-y-auto max-h-auto">
+            <ul className="px-2.5 text-[0.9rem] py-5 flex flex-col gap-1 font-medium overflow-x-hidden  md:h-[68%] h-[70%] rounded-md">
               <li className=" border-slate-300">
                 {(open || isTabletMid) && (
                   <div className="py-5 border-y border-slate-300 ">
-                    {subMenusList?.map((menu: any) => (
+                    {listMenus?.map((menu: any) => (
                       <div
                         key={menu.name}
-                        className="flex flex-col gap-1 px-1 py-2 mb-1 scrollbar-thin scrollbar-track-white scrollbar-thumb-slate-100 md:h-[68%] h-[70%] text-base rounded-md hover:bg-primary hover:text-white"
+                        className="flex flex-col text-black gap-1  mb-1  md:h-[68%] h-[70%] text-[17px] rounded-md "
                       >
                         <SideBarMenu data={menu} />
                       </div>
@@ -160,7 +188,7 @@ const Sidebar = () => {
                   }
             }
             transition={{ duration: 0 }}
-            className="absolute z-50 hidden cursor-pointer w-fit h-fit md:block right-2 bottom-3"
+            className="z-50 hidden my-3 ml-auto mr-3 cursor-pointer w-fit h-fit md:block"
           >
             <CloseSidebarIcon />
           </motion.div>
@@ -173,4 +201,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default UserSidebar;
