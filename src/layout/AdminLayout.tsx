@@ -4,7 +4,12 @@ import AdminSidebar from './admin sidebar/AdminSideBar';
 function AdminLayout({ children }: any) {
   const location = useLocation();
 
-  const sidebarPaths = ['/admin/faq', '/admin/topic'];
+  const sidebarPaths = [
+    '/admin/faq',
+    '/admin/topic',
+    '/admin/dashboard',
+    '/admin/reports',
+  ];
 
   const hiddenSidebarPaths = [
     '/admin/faq/add',
