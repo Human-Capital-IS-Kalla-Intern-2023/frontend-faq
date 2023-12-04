@@ -176,7 +176,7 @@ const TabelBody: React.FC<TabelBodyProps> = ({
       }
 
       if (cell.key === apiEnum.ICON) {
-        return <IconRenderer value={customCell.icon} />;
+        return <IconRenderer value={customCell.icon} className="w-7 h-7" />;
       }
     } else if ('keys' in cell) {
       // Multiple keys
@@ -196,7 +196,13 @@ const TabelBody: React.FC<TabelBodyProps> = ({
         }
         if (customCell.icon !== '') {
           if (key === apiEnum.ICON) {
-            return <IconRenderer key={key} value={customCell.icon} />;
+            return (
+              <IconRenderer
+                key={key}
+                value={customCell.icon}
+                className="w-7 h-7"
+              />
+            );
           }
         }
 
