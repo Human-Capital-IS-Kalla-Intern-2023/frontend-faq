@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { SearchIcon } from '../../assets/icons/Icon';
 import { Link, useNavigate } from 'react-router-dom';
 import ReactLoading from 'react-loading';
 import { TruncateText } from '../../helpers/TruncateText';
+
+import Question from '../../pages/user/Question';
+import { TopicProps } from '../../state/types/TopicType';
 import IconRenderer from '../../helpers/IconRenders';
 import logoKalla from '../../assets/img/logo/singel-logo-kalla.webp';
 
@@ -13,6 +16,7 @@ interface Topic {
   description: string;
   image: string;
   icon: string | null;
+  questions: string;
 }
 
 interface HomeUserCardProps {
@@ -24,9 +28,20 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch, data }) => {
   const [searchInput, setSearchInput] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(false);
   const navigate = useNavigate();
+  const [showDropdown, setShowDropdown] = useState(false);
+  const searchInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value);
+    setShowDropdown(true);
+  };
+  const handleDropdownItemClick = (slug: string) => {
+    navigate(`/faq/question/detail/${slug}`);
+    setShowDropdown(false);
+  };
+
+  const handleClickInput = () => {
+    setShowDropdown(true);
   };
 
   const handleSearch = async (e: any) => {
@@ -40,7 +55,7 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch, data }) => {
       setIsLoading(false);
 
       if (searchInput) {
-        navigate(`?search=${searchInput}`);
+        navigate('/help/list?search={searchInput}');
       } else {
         navigate('');
       }
@@ -54,6 +69,26 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch, data }) => {
       onSearch(searchValue);
       setSearchInput(searchValue);
     }
+    const handleClickOutside = (e: MouseEvent) => {
+      if (searchInputRef.current && e.target instanceof Node) {
+        if (!searchInputRef.current.contains(e.target)) {
+          setShowDropdown(true);
+        }
+      }
+    };
+    const handleEscKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setShowDropdown(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleEscKey);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscKey);
+    };
   }, [onSearch]);
 
   return (
@@ -73,6 +108,7 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch, data }) => {
               placeholder="Cari artikel bantuan..."
               value={searchInput}
               onChange={handleSearchInputChange}
+              onClick={handleClickInput}
             />
             <button
               className="absolute left-0 flex items-center px-4 text-black duration-300 rounded-none "
@@ -92,6 +128,21 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch, data }) => {
               )}
               <SearchIcon className="w-[30px] h-[25px] text-gray cursor-pointer " />
             </button>
+            {showDropdown && (
+              <div className="absolute top-14 w-full h-[425px]  overflow-y-auto bg-white border rounded-md shadow-lg cursor-pointer">
+                {data?.map((topic) => (
+                  <div
+                    key={topic.id}
+                    className="p-4 flex items-center"
+                    onClick={() => handleDropdownItemClick(topic.slug)}
+                  >
+                    {/* Adjust the rendering based on your result structure */}
+                    <img className="w-8 h-8 lg:w-10 lg:h-10 ">{topic.icon}</img>
+                    <div className="pl-3">{topic.name}</div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </form>
       </div>
