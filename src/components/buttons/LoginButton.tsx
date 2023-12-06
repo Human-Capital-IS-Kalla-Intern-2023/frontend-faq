@@ -36,12 +36,8 @@ const LoginButton: React.FC<LoginButtonProps> = ({ email, passwordInput }) => {
       if (response) {
         const currentPath = location.pathname;
 
-        if (currentPath === '/admin/login') {
-          // Redirect to /admin/dashboard if on /admin/login
+        if (currentPath === '/') {
           navigate(`/admin/dashboard`);
-        } else if (currentPath === '/login') {
-          // Redirect to / if on /login
-          navigate(`/`);
         }
       }
     } catch (error: any) {
