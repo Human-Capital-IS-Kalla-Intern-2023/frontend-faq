@@ -91,13 +91,11 @@ const App: React.FC = () => {
       <Routes>
         <Route
           path="/admin/*"
-          element={
-            isAuthenticated ? <AdminRoutes /> : <Navigate to="/admin/login" />
-          }
+          element={isAuthenticated ? <AdminRoutes /> : <Navigate to="/" />}
         />
 
-        <Route path="" element={<HomeUser />} />
-        <Route path="/admin/login" element={<Login />} />
+        <Route path="/home" element={<HomeUser />} />
+        <Route path="/" element={<Login />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="/permissiondenied" element={<PermissionDenied />} />
 
