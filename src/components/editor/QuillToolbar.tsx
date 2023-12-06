@@ -57,72 +57,16 @@ const registerFormats = async () => {
     '100px',
   ];
   Quill.register(Size, true);
-
-  // Register custom font formats
-  const Font = Quill.import('attributors/style/font');
-  Font.whitelist = [
-    'poppins',
-    'arial',
-    'comic-sans',
-    'courier-new',
-    'georgia',
-    'helvetica',
-    'lucida',
-    'times-new-roman',
-    'verdana',
-    'calibri',
-    'palatino',
-    'garamond',
-    'bookman',
-    'impact',
-    'cursive',
-    'monospace',
-    'fantasy',
-    'serif',
-    'sans-serif',
-    'cambria',
-    'arial-black',
-    'roboto',
-  ];
-  Quill.register(Font, true);
 };
+
 export const QuillToolbar = ({ quill }: any) => {
   useEffect(() => {
     registerFormats();
   }, []);
 
-  const renderFontOptions = () => (
-    <>
-      <select className="ql-font" defaultValue="helvetica">
-        <option value="poppins">Poppins</option>
-        <option value="arial">Arial</option>
-        <option value="comic-sans">Comic Sans</option>
-        <option value="courier-new">Courier New</option>
-        <option value="georgia">Georgia</option>
-        <option value="helvetica">Helvetica</option>
-        <option value="lucida">Lucida</option>
-        <option value="times-new-roman">Times New Roman</option>
-        <option value="verdana">Verdana</option>
-        <option value="calibri">Calibri</option>
-        <option value="palatino">Palatino</option>
-        <option value="garamond">Garamond</option>
-        <option value="bookman">Bookman</option>
-        <option value="impact">Impact</option>
-        <option value="cursive">Cursive</option>
-        <option value="monospace">Monospace</option>
-        <option value="fantasy">Fantasy</option>
-        <option value="serif">Serif</option>
-        <option value="sans-serif">Sans-serif</option>
-        <option value="cambria">Cambria</option>
-        <option value="arial-black">Arial Black</option>
-        <option value="roboto">Roboto</option>
-      </select>
-    </>
-  );
-
   const renderSizeOptions = () => (
     <>
-      <select className="ql-size" defaultValue="10px">
+      <select className="ql-size" defaultValue="14px">
         <option value="10px">10px</option>
         <option value="12px">12px</option>
         <option value="14px">14px</option>
@@ -243,7 +187,6 @@ export const QuillToolbar = ({ quill }: any) => {
 
   return (
     <div id="toolbar">
-      {renderFontOptions()}
       {renderSizeOptions()}
       {renderHeaderOptions()}
       {renderStyleOptions()}

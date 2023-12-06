@@ -23,7 +23,6 @@ export const modules = {
 
 export const formats = [
   'header',
-  'font',
   'size',
   'bold',
   'italic',
