@@ -105,7 +105,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
     <section className="antialiased overlay">
       <div className="w-full ">
         <div className="flex justify-between bg-white shadow-[0_3px_10px_-3px_rgb(0,0,0,0.1)]">
-          <h1 className="flex p-[14px] justify-center items-center text-xl">
+          <h1 className="flex p-[14px] justify-center items-center text-lg lg:text-xl">
             Pusat Bantuan
           </h1>
           <div className="flex flex-row justify-end w-full p-[14px] md:w-1/2">
@@ -113,7 +113,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
               <label htmlFor="simple-search" className="sr-only">
                 Search
               </label>
-              <div className="relative flex items-center w-full">
+              <div className="relative flex items-center lg:w-full">
                 <input
                   type="text"
                   className="block w-full px-2 py-2 pr-4 text-black rounded-full cursor-pointer placeholder-gray focus:outline-none focus:placeholder-black bg-[#F0F2F5] pl-14 text-sm"
@@ -144,14 +144,16 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
           </div>
         </div>
       </div>
-      <div className="w-[95%] pt-10 pl-16 min-h-[101vh]">
-        <div className="items-start content-start justify-start ">
+      <div className="w-[95%] pt-5 lg:pt-10 lg:pl-16 min-h-[101vh]">
+        <div className="items-start content-start justify-start">
           <div className="grid mx-auto ">
             <div className="px-7">
-              <h1 className="text-2xl mx-2 font-bold pb-3  border-b border-[#d1d5db] ">
+              <h1 className="text-lg lg:text-2xl mx-2 font-bold pb-3 border-b border-[#d1d5db] ">
                 {data?.name}
               </h1>
-              <p className="mx-2 mt-3 mb-8">{data?.description}</p>
+              <p className="text-sm lg:text-base mx-2 mt-3 mb-8">
+                {data?.description}
+              </p>
               {data?.questions.map((question) => (
                 <div
                   key={question.id}

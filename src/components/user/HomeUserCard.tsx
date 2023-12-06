@@ -92,9 +92,9 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch, data }) => {
   }, [onSearch]);
 
   return (
-    <section className="py-4 mx-16 antialiased sm:py-2 overlay">
-      <div className="w-full px-6 pt-3 md:w-1/2">
-        <h1 className="text-2xl font-[600] mb-3 mt-10">
+    <section className="lg:py-4 lg:mx-16 antialiased sm:py-1 overlay overflow-y-auto">
+      <div className="w-full px-4 lg:px-6 pt-2 lg:pt-3 md:w-1/2 ">
+        <h1 className="lg:text-2xl font-[600] mb-3 mt-3 lg:mt-10">
           Apa yang bisa kami bantu?
         </h1>
         <form className="flex items-center" onSubmit={handleSearch}>
@@ -104,7 +104,7 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch, data }) => {
           <div className="relative flex items-center w-full">
             <input
               type="text"
-              className="block w-full px-3 py-4 pr-4 text-black cursor-pointer placeholder-gray focus:outline-none focus:placeholder-black bg-slate-100 rounded-xl pl-14 text-md"
+              className="block w-full px-3 py-3 lg:py-4 pr-4 text-black cursor-pointer placeholder-gray focus:outline-none focus:placeholder-black bg-slate-100 rounded-xl pl-14 text-sm lg:text-md"
               placeholder="Cari artikel bantuan..."
               value={searchInput}
               onChange={handleSearchInputChange}
@@ -126,7 +126,7 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch, data }) => {
                   />
                 </div>
               )}
-              <SearchIcon className="w-[30px] h-[25px] text-gray cursor-pointer " />
+              <SearchIcon className="w-[28px] h-[23px] lg:w-[30px] lg:h-[25px] text-gray cursor-pointer " />
             </button>
             {showDropdown && (
               <div className="absolute top-14 w-full h-[425px]  overflow-y-auto bg-white border rounded-md shadow-lg cursor-pointer">
@@ -136,7 +136,6 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch, data }) => {
                     className="p-4 flex items-center"
                     onClick={() => handleDropdownItemClick(topic.slug)}
                   >
-                    {/* Adjust the rendering based on your result structure */}
                     <img className="w-8 h-8 lg:w-10 lg:h-10 ">{topic.icon}</img>
                     <div className="pl-3">{topic.name}</div>
                   </div>
@@ -146,27 +145,32 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch, data }) => {
           </div>
         </form>
       </div>
-      <h2 className="w-full px-6 pt-3 text-lg mt-9">Topik Populer</h2>
-      <div className="grid items-center justify-center w-full min-h-full grid-cols-4 gap-4 p-6 pt-4 gap-y-4">
+      <h2 className=" w-full px-4 lg:px-6 lg:pt-3 text-md lg:text-lg mt-6 lg:mt-9">
+        Topik Populer
+      </h2>
+      <div className="grid items-center justify-center w-full min-h-full grid-cols-2 lg:grid-cols-4 gap-4 p-4 pt-3 lg:pt-4 gap-y-4">
         {data?.map((topic) => (
           <Link
             to={`/faq/question/${topic.slug}`}
             className="w-full"
             key={topic.slug}
           >
-            <div className="p-2 px-6 py-10 pt-6 overflow-hidden rounded-lg shadow-lg w-60 h-60 bg-[#F0F2F5] hover:bg-[#E8EAED]">
+            <div className="p-2 px-4 lg:px-6 py-4 lg:py-10 pt-6 overflow-hidden rounded-lg shadow-lg w-40 h-40 lg:w-64 lg:h-60 bg-[#F0F2F5] hover:bg-[#E8EAED]">
               <div className="flex items-center justify-center p-3">
                 {topic.image && (
                   <img
                     src={logoKalla}
                     alt={topic.name}
-                    className="w-16 h-10"
+                    className="lg:w-16 lg:h-10 w-12 h-8"
                     loading="eager"
                   />
                 )}
                 {!topic.image && topic.icon && (
                   <>
-                    <IconRenderer value={topic.icon} className="w-16 h-10" />
+                    <IconRenderer
+                      value={topic.icon}
+                      className="lg:w-16 lg:h-10 w-12 h-8"
+                    />
                   </>
                   // <img
                   //   src={topic.icon}
@@ -180,7 +184,7 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch, data }) => {
                 <div className="pb-2 text-sm font-medium text-black break-all whitespace-normal lg:text-base">
                   {topic.name}
                 </div>
-                <div className="overflow-hidden text-xs lg:text-[13px] text-gray">
+                <div className="overflow-hidden text-xs lg:text-[13px] hidden lg:block text-gray">
                   {TruncateText(topic.description, 60)}
                 </div>
               </div>
