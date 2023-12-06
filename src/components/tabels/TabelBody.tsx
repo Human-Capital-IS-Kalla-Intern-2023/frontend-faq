@@ -43,7 +43,7 @@ interface TabelBodyProps {
   onDelete: (slug: any) => void;
   onEditNavigate?: string;
   onDetailNavigate?: string;
-  changeIsActive?: (idIsActive: any, newIsActive: any) => Promise<any>;
+  changeIsActive?: (slugIsActive: any, newIsActive: any) => Promise<any>;
 }
 
 const TabelBody: React.FC<TabelBodyProps> = ({
@@ -82,6 +82,8 @@ const TabelBody: React.FC<TabelBodyProps> = ({
   const location = useLocation();
 
   const locationPathname = location.pathname;
+
+  const TOPIC_STORAGE_URL = import.meta.env.VITE_TOPIC_STORAGE_URL;
 
   const openEditModal = useCallback(
     async (slug: string) => {
@@ -163,25 +165,6 @@ const TabelBody: React.FC<TabelBodyProps> = ({
   };
 
   const renderTableCell = (cell: ColCells, customCell: Record<string, any>) => {
-    // if ('key' in cell) {
-    //   if (cell.key === apiEnum.IMAGE) {
-    //     return (
-    //       <img
-    //         src={customCell.image}
-    //         alt={`Image ${TruncateText(customCell.name, 10)}`}
-    //         className="object-cover w-full h-8 rounded"
-    //         loading="eager"
-    //       />
-    //     );
-    //   }
-
-    //   if (cell.key === apiEnum.ICON && !customCell.image) {
-    //     console.log('nah 2');
-
-    //     return <IconRenderer value={customCell.icon} className="w-7 h-7" />;
-    //   }
-    // } else
-
     if ('keys' in cell) {
       // Multiple keys
       const renderedValues = cell.keys.map((key) => {
@@ -190,16 +173,15 @@ const TabelBody: React.FC<TabelBodyProps> = ({
             return (
               <img
                 key={key}
-                src={customCell.image}
+                src={`${TOPIC_STORAGE_URL}/${customCell.image}`}
                 alt={`Image For ${TruncateText(customCell.name, 10)}`}
-                className="object-cover w-full h-8 rounded"
+                className="w-8 h-8 rounded-full"
                 loading="eager"
               />
             );
           }
         }
         if (customCell.icon !== '' && !customCell.image) {
-          console.log(!customCell.image);
           if (key === apiEnum.ICON) {
             return (
               <>
