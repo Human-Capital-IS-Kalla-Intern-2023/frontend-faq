@@ -211,16 +211,20 @@ const FaqAdmin: React.FC = () => {
   };
 
   const handleChangeIsActiveFaqAdmin = async (
-    idIsActive: any,
+    slugIsActive: any,
     newIsActive: any
   ) => {
     try {
-      await changeIsActiveFaqAdmin(idIsActive, newIsActive);
-      // fetchFaqAdmin();
+      setIsLoading(true);
+
+      await changeIsActiveFaqAdmin(slugIsActive, newIsActive);
+      fetchFaqAdmin();
     } catch (error: any) {
       console.error('Error change is active topic admin:', error);
       const errorMessages = Object.values(error.response.data.errors).flat();
       setErrorMessage(errorMessages.join('\n'));
+    } finally {
+      setIsLoading(false);
     }
     ResetAlert(
       setSuccessTitle,
