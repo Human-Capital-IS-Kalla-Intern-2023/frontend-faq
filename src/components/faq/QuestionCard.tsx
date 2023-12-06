@@ -144,10 +144,10 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
           </div>
         </div>
       </div>
-      <div className="w-[95%] pt-5 lg:pt-10 lg:pl-16 min-h-[101vh]">
+      <div className="w-full lg:w-[95%] pt-6 lg:pt-10 lg:pl-16 min-h-[101vh]">
         <div className="items-start content-start justify-start">
           <div className="grid mx-auto ">
-            <div className="px-7">
+            <div className="px-5 lg:px-7">
               <h1 className="text-lg lg:text-2xl mx-2 font-bold pb-3 border-b border-[#d1d5db] ">
                 {data?.name}
               </h1>
@@ -161,27 +161,29 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
                 >
                   <details className="group ">
                     <summary
-                      className={`flex items-center justify-between  hover:bg-[#E4E6E9] px-2 font-medium list-none cursor-pointer py-3 rounded-md  ${
+                      className={`flex items-center justify-between  hover:bg-[#E4E6E9] px-2 font-medium list-none cursor-pointer py-3 rounded-md ${
                         selectedQuestionIds.includes(question.id)
                           ? 'bg-slate-200 '
                           : ''
                       }`}
                       onClick={() => handleClick(question.id)}
                     >
-                      <span className="text-[17px]">{question.question}</span>
+                      <span className="text-[16px] lg:text-[17px]">
+                        {question.question}
+                      </span>
                       <span className="transition group-open:rotate-180">
                         <DropdownIcon />
                       </span>
                     </summary>
                     <p
-                      className="mt-8 group-open:animate-fadeIn px-2"
+                      className="text-sm lg:text-base mt-5 lg:mt-8 group-open:animate-fadeIn px-2"
                       dangerouslySetInnerHTML={{ __html: question.answer }}
                     ></p>
 
                     <div className="py-3">
-                      <div className="flex justify-between rounded-md bg-[#F0F2F5] pt-2 py-2 px-3">
+                      <div className="flex justify-between rounded-md bg-[#F0F2F5] pt-2 py-2 px-2 lg:px-3">
                         <div
-                          className={`flex py-4  px-3 rounded-md ${
+                          className={`flex py-4 px-2 rounded-md ${
                             closedQuestions.includes(question.slug)
                               ? 'bg-transparent '
                               : 'bg-white shadow-lg'
@@ -204,27 +206,27 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
                                   </button>
                                 </div>
                               ) : (
-                                <div className="flex justify-center items-center text-center pb-3">
-                                  <div className="pr-2 pl-1 text-sm ">
+                                <div className="flex justify-center items-center lg:text-center pb-2 lg:pb-3">
+                                  <div className="pr-2 pl-1 text-xs lg:text-sm ">
                                     Apakah Ini Membantu?
                                   </div>
                                   <button
-                                    className="pl-4 flex justify-end "
+                                    className="pl-2 lg:pl-4 flex justify-end "
                                     onClick={() =>
                                       handleCloseButtonClick(question.slug)
                                     }
                                   >
-                                    <CloseButtonIcon className="w-8 h-[18px] hover:bg-slate-200 rounded-full cursor-pointer" />
+                                    <CloseButtonIcon className="w-6 h-[16] lg:w-8 lg:h-[18px] hover:bg-slate-200 rounded-full cursor-pointer" />
                                   </button>
                                 </div>
                               )}
                               {!feedbackGiven.includes(question.slug) && (
-                                <div className="w-full flex justify-between space-x-2 mt-2">
+                                <div className="w-full flex justify-between space-x-2 mt-1 lg:mt-2">
                                   <button
                                     onClick={() =>
                                       handlerLike(data?.slug, question?.slug)
                                     }
-                                    className="w-full text-sm px-5 py-2 rounded-md bg-[#E4E6EB] hover:bg-[#D8DADF]"
+                                    className="w-full text-xs lg:text-sm px-3 lg:px-5 lg:py-2 rounded-md bg-[#E4E6EB] hover:bg-[#D8DADF]"
                                   >
                                     Like 👍
                                   </button>
@@ -232,7 +234,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
                                     onClick={() =>
                                       handleDislike(data?.slug, question?.slug)
                                     }
-                                    className="text-sm w-full px-5 py-2 rounded-md bg-[#E4E6EB] hover:bg-[#D8DADF]"
+                                    className="text-xs lg:text-sm w-full px-1 lg:px-5 py-2 rounded-md bg-[#E4E6EB] hover:bg-[#D8DADF]"
                                   >
                                     Dislike 👎
                                   </button>
@@ -243,9 +245,9 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
                         </div>
                         <Link
                           to={`/faq/question/${data.slug}/${question.slug}`}
-                          className="flex justify-center items-end pb-1"
+                          className="flex justify-center items-center pb-2 lg:pb-4"
                         >
-                          <div className="hover:bg-gray duration-200 py-[7px] mt-3 text-white rounded-full px-3 bg-primary group-open:animate-fadeIn">
+                          <div className="text-[12px] lg:text-base hover:bg-gray duration-200 py-[7px] mt-3 text-white rounded-full px-3 bg-primary group-open:animate-fadeIn">
                             Lihat Penuh
                           </div>
                         </Link>
