@@ -128,7 +128,7 @@ const DetailFaqCard: React.FC<DetailFaqCardProps> = ({ onSearch, data }) => {
         </div>
       ) : data ? (
         <>
-          <div className="w-[95%] pt-10 pl-16 ">
+          <div className="w-[95%] pt-6 lg:pt-10 pl-6 pr-2 lg:pl-16 ">
             <div className="items-start content-start justify-start">
               <div className="flex items-center">
                 <Link
@@ -148,21 +148,21 @@ const DetailFaqCard: React.FC<DetailFaqCardProps> = ({ onSearch, data }) => {
               <div className="w-full pt-2  overflow-x-auto">
                 <div className="items-start content-start justify-start">
                   <div className="border-b border-slate-300">
-                    <div className="pt-5 text-2xl py-3 font-semibold">
+                    <div className="pt-3 lg:pt-5 text-lg lg:text-2xl py-2 lg:py-3 font-semibold">
                       {data.question}
                     </div>
                   </div>
-                  <div className="text-[16px]  py-6 leading-10">
+                  <div className="text-[14px] lg:text-[16px] py-4 lg:py-6 leading-10">
                     {data?.answer}
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div className="fixed bottom-1 right-0 p-2">
+          <div className="fixed bottom-1 right-0 p-1">
             {closedQuestions ? null : (
-              <div className="flex rounded-md bg-[#F0F2F5] pt-2 py-2 px-3">
-                <div className={`flex py-4  px-3 rounded-md `}>
+              <div className="flex rounded-md bg-[#F0F2F5] pt-2 py-1 lg:py-2 px-1 lg:px-3">
+                <div className={`flex py-2 lg:py-4 px-2 lg:px-3 rounded-md`}>
                   <div className="">
                     {feedbackGiven ? (
                       <div className="flex justify-center items-center text-center ">
@@ -177,8 +177,8 @@ const DetailFaqCard: React.FC<DetailFaqCardProps> = ({ onSearch, data }) => {
                         </button>
                       </div>
                     ) : (
-                      <div className="flex justify-center items-center text-center pb-3">
-                        <div className="pr-2 pl-1 text-sm ">
+                      <div className="flex justify-center items-center text-center pb-1 lg:pb-3">
+                        <div className="pr-2 pl-1 text-xs lg:text-sm ">
                           Apakah Ini Membantu?
                         </div>
                         <button
@@ -195,7 +195,7 @@ const DetailFaqCard: React.FC<DetailFaqCardProps> = ({ onSearch, data }) => {
                           onClick={() =>
                             handlerLike(data.topics[0].slug, data.slug)
                           }
-                          className="w-full text-sm px-5 py-2 rounded-md bg-[#E4E6EB] hover:bg-[#D8DADF]"
+                          className="w-full text-xs lg:text-sm px-1 lg:px-5 py-2 rounded-md bg-[#E4E6EB] hover:bg-[#D8DADF]"
                         >
                           Like 👍
                         </button>
@@ -203,7 +203,7 @@ const DetailFaqCard: React.FC<DetailFaqCardProps> = ({ onSearch, data }) => {
                           onClick={() =>
                             handleDislike(data.topics[0].slug, data.slug)
                           }
-                          className="text-sm w-full px-5 py-2 rounded-md bg-[#E4E6EB] hover:bg-[#D8DADF]"
+                          className="w-full text-xs lg:text-sm px-1 lg:px-5 py-2 rounded-md bg-[#E4E6EB] hover:bg-[#D8DADF]"
                         >
                           Dislike 👎
                         </button>
