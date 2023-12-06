@@ -4,10 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import ReactLoading from 'react-loading';
 import { TruncateText } from '../../helpers/TruncateText';
 
-import Question from '../../pages/user/Question';
-import { TopicProps } from '../../state/types/TopicType';
 import IconRenderer from '../../helpers/IconRenders';
-import logoKalla from '../../assets/img/logo/singel-logo-kalla.webp';
 
 interface Topic {
   id: number;
@@ -31,12 +28,14 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch, data }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const searchInputRef = useRef<HTMLInputElement | null>(null);
 
+  const TOPIC_STORAGE_URL = import.meta.env.VITE_TOPIC_STORAGE_URL;
+
   const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value);
     setShowDropdown(true);
   };
   const handleDropdownItemClick = (slug: string) => {
-    navigate(`/faq/question/detail/${slug}`);
+    navigate(`/faq/question/${slug}`);
     setShowDropdown(false);
   };
 
@@ -129,14 +128,15 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch, data }) => {
               <SearchIcon className="w-[28px] h-[23px] lg:w-[30px] lg:h-[25px] text-gray cursor-pointer " />
             </button>
             {showDropdown && (
-              <div className="absolute top-14 w-full h-[425px]  overflow-y-auto bg-white border rounded-md shadow-lg cursor-pointer">
-                {data?.map((topic) => (
+              <div className="absolute top-14 w-full h-[425px]  overflow-y-auto bg-white  rounded-md shadow-lg cursor-pointer">
+                {data?.map((topic: any) => (
                   <div
                     key={topic.id}
-                    className="p-4 flex items-center"
+                    className="flex items-center p-4"
                     onClick={() => handleDropdownItemClick(topic.slug)}
                   >
-                    <img className="w-8 h-8 lg:w-10 lg:h-10 ">{topic.icon}</img>
+                    <IconRenderer value={topic.icon} className="w-7 h-7" />
+
                     <div className="pl-3">{topic.name}</div>
                   </div>
                 ))}
@@ -159,29 +159,20 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ onSearch, data }) => {
               <div className="flex items-center justify-center p-3">
                 {topic.image && (
                   <img
-                    src={logoKalla}
+                    src={`${TOPIC_STORAGE_URL}/${topic.image}`}
                     alt={topic.name}
-                    className="lg:w-16 lg:h-10 w-12 h-8"
                     loading="eager"
+                    className="w-20 h-20"
                   />
                 )}
                 {!topic.image && topic.icon && (
                   <>
-                    <IconRenderer
-                      value={topic.icon}
-                      className="lg:w-16 lg:h-10 w-12 h-8"
-                    />
+                    <IconRenderer value={topic.icon} className="w-20 h-20" />
                   </>
-                  // <img
-                  //   src={topic.icon}
-                  //   alt={topic.name}
-                  //   className="w-8 h-8 lg:w-10 lg:h-10"
-                  //   loading="eager"
-                  // />
                 )}
               </div>
               <div className="flex flex-col items-start justify-center mt-3">
-                <div className="pb-2 text-sm font-medium text-black break-all whitespace-normal lg:text-base">
+                <div className="pb-2 text-sm font-medium text-black break-all whitespace-normal lg:text-[17px]">
                   {topic.name}
                 </div>
                 <div className="overflow-hidden text-xs lg:text-[13px] hidden lg:block text-gray">

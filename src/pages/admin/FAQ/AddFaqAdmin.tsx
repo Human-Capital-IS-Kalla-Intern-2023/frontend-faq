@@ -36,13 +36,11 @@ const AddFaqAdmin = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const [formData, setFormData] = useState<{
-    user_id: number;
     topic_id: number[];
     question: string;
     is_status: number;
     answer: any;
   }>({
-    user_id: 1,
     topic_id: [],
     question: '',
     is_status: 1,
@@ -235,6 +233,7 @@ const AddFaqAdmin = () => {
                 id="dropdown topic"
                 name="dropdown topic"
                 isMulti
+                ariaLabel="select topic"
                 options={topicOptions}
                 onChange={(selectedOption: any) =>
                   handleTopicSelect(selectedOption)
@@ -297,7 +296,11 @@ const AddFaqAdmin = () => {
 
       <div className="flex justify-end mx-4 my-3 text-xs font-medium md:hidden lg:text-sm">
         <CancelButton onClick={cancelHandler} />
-        <SubmitButton onClick={handleSaveAndClose} title="SAVE & ClOSE" />
+        <SubmitButton
+          onClick={handleSaveAndClose}
+          title="SAVE & ClOSE"
+          ariaLabel="submit"
+        />
       </div>
 
       {successMessage && successTitle && (

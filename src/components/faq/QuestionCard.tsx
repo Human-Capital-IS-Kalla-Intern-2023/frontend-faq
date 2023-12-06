@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import ReactLoading from 'react-loading';
+import 'react-quill/dist/quill.snow.css';
+
+import ReactQuill from 'react-quill';
 import {
   SearchIcon,
   DropdownIcon,
@@ -33,7 +36,6 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
   };
 
   const handleCloseButtonClick = (questionSlug: string) => {
-    console.log(questionSlug);
     setClosedQuestions((prevClosedQuestions) => [
       ...prevClosedQuestions,
       questionSlug,
@@ -168,17 +170,21 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
                       }`}
                       onClick={() => handleClick(question.id)}
                     >
-                      <span className="text-[16px] lg:text-[17px]">
-                        {question.question}
-                      </span>
+                      <span className="text-base">{question.question}</span>
                       <span className="transition group-open:rotate-180">
                         <DropdownIcon />
                       </span>
                     </summary>
-                    <p
-                      className="text-sm lg:text-base mt-5 lg:mt-8 group-open:animate-fadeIn px-2"
-                      dangerouslySetInnerHTML={{ __html: question.answer }}
-                    ></p>
+                    <div className="">
+                      <ReactQuill
+                        theme="snow"
+                        readOnly={true}
+                        value={question.answer}
+                        modules={{ toolbar: false }}
+                        className=""
+                        style={{ fontSize: '14px', border: 'none' }}
+                      />
+                    </div>
 
                     <div className="py-3">
                       <div className="flex justify-between rounded-md bg-[#F0F2F5] pt-2 py-2 px-2 lg:px-3">
@@ -192,12 +198,12 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
                           {closedQuestions.includes(question.slug) ? null : (
                             <div className="">
                               {feedbackGiven.includes(question.slug) ? (
-                                <div className="flex justify-center items-center text-center ">
-                                  <div className="pr-2 pl-1 text-sm ">
+                                <div className="flex items-center justify-center text-center ">
+                                  <div className="pl-1 pr-2 text-sm ">
                                     Terima kasih atas feedback Anda!
                                   </div>
                                   <button
-                                    className="pl-4 flex justify-end "
+                                    className="flex justify-end pl-4 "
                                     onClick={() =>
                                       handleCloseButtonClick(question.slug)
                                     }

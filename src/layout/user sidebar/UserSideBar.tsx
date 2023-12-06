@@ -146,14 +146,14 @@ const UserSidebar = () => {
       ${logo3000} 3000w
     `}
               sizes="(min-width: 1060px) 223px, (min-width: 940px) calc(113vw - 957px), (min-width: 880px) calc(110vw - 933px), (min-width: 840px) calc(70vw - 584px), (min-width: 680px) 232px, (min-width: 640px) calc(995vw - 6335px), (min-width: 600px) calc(-135vw + 914px), (min-width: 500px) calc(-95vw + 682px), calc(-7.78vw + 255px)"
-              width={232}
+              width={180}
               height={96}
               loading="lazy"
             />
           </div>
 
           <div className="flex flex-col min-h-screen overflow-y-auto max-h-auto">
-            <ul className="px-2.5 text-[0.9rem] py-5 flex flex-col gap-1 font-medium overflow-x-hidden  md:h-[68%] h-[70%] rounded-md">
+            <ul className="px-2.5 text-[0.9rem] py-1 flex flex-col gap-1 font-medium overflow-x-hidden  md:h-[68%] h-[70%] rounded-md">
               <li className=" border-slate-300">
                 {(open || isTabletMid) && (
                   <div className="py-5 border-y border-slate-300 ">

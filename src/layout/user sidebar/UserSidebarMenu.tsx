@@ -4,11 +4,13 @@ import { motion } from 'framer-motion';
 import { NavLink, useLocation } from 'react-router-dom';
 // import logoKalla from '../../assets/img/logo/singel-logo-kalla.webp';
 import { DropdownSidebarMenuIcon } from '../../assets/icons/Icon';
+import IconRenderer from '../../helpers/IconRenders';
 
 const UserSidebarMenu = ({ data }: any) => {
   const { pathname } = useLocation();
   const [subMenuOpen, setSubMenuOpen] = useState(false);
 
+  const TOPIC_STORAGE_URL = import.meta.env.VITE_TOPIC_STORAGE_URL;
   return (
     <>
       <ul>
@@ -22,16 +24,27 @@ const UserSidebarMenu = ({ data }: any) => {
             to={`/faq/question/${data.slug}`}
             className={`link flex items-center ${pathname.includes(data.name)}`}
           >
-            <img
-              src={data.image}
-              alt={`Logo ${data.name}`}
-              width={30}
-              height={10}
-              loading="eager"
-            />
+            {data.image ? (
+              <img
+                src={`${TOPIC_STORAGE_URL}/${data.image}`}
+                alt={`Logo ${data.name}`}
+                className="w-7 h-7"
+                loading="eager"
+              />
+            ) : (
+              <IconRenderer
+                value={data.icon}
+                className="w-
+              
+              h-
+              
+               "
+              />
+            )}
+
             {/* <img src={data.image} alt={data} /> */}
 
-            <p className="flex-1 ml-2 capitalize">{data.name}</p>
+            <p className="flex-1 ml-2 capitalize text-[15px]">{data.name}</p>
             <DropdownSidebarMenuIcon
               className={` ${subMenuOpen && 'rotate-180'} duration-200 px-2 `}
             />
@@ -45,7 +58,7 @@ const UserSidebarMenu = ({ data }: any) => {
         {data?.questions?.map((question: any) => (
           <li
             key={question.id}
-            className={`flex items-center text-[15px] px-3} rounded-md ${
+            className={`flex items-center text-[14px] px-3} rounded-md ${
               pathname === `/faq/question/${data.slug}/${question.slug}`
                 ? 'bg-slate-200  '
                 : ' '
@@ -53,7 +66,7 @@ const UserSidebarMenu = ({ data }: any) => {
           >
             <NavLink
               to={`/faq/question/${data.slug}/${question.slug}`}
-              className="w-full py-2 px-1 my-[5px] text-[15px] text-black capitalize duration-300 rounded-md link hover:bg-[#E4E6E9] hover:text-black "
+              className="w-full py-2 px-1 my-[5px] text-[14px] text-black capitalize duration-300 rounded-md link hover:bg-[#E4E6E9] hover:text-black "
             >
               {question.question}
             </NavLink>

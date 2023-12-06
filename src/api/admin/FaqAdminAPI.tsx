@@ -154,7 +154,7 @@ const changeIsActiveFaqAdmin = async (idIsActive: any, newIsActive: any) => {
     const headerToken = {
       Authorization: `Bearer ${token}`,
     };
-    const sendData = { is_active: newIsActive };
+    const sendData = { is_status: newIsActive };
 
     const responseIsActiveChange = await RequestApi(
       'PUT',

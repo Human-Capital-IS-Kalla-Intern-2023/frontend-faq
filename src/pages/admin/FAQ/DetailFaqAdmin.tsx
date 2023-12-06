@@ -204,7 +204,6 @@ const DetailFaqAdmin = () => {
                   readOnly={true}
                   value={blogContent}
                   modules={{ toolbar: false }}
-                  className="font-poppins"
                 />
               </div>
             </>

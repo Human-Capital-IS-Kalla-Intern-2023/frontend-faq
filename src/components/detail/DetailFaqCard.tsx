@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import ReactLoading from 'react-loading';
-// import FooterCard from '../../components/detail/FooterCard';
 import { SearchIcon, CloseButtonIcon } from '../../assets/icons/Icon';
 import { faqLike, faqDislike } from '../../api/user/FaqUserAPI';
-// import { faMusic } from '../../assets/icons/categoriIcon';
-
+import 'react-quill/dist/quill.snow.css';
+import ReactQuill from 'react-quill';
 interface DetailFaqCardProps {
   onSearch?: any;
   data?: any;
@@ -75,8 +74,13 @@ const DetailFaqCard: React.FC<DetailFaqCardProps> = ({ onSearch, data }) => {
   };
 
   useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
     if (!data) {
       setIsLoading(true);
+
+      timeoutId = setTimeout(() => {
+        setIsLoading(false);
+      }, 5000);
     }
     if (data) {
       setIsLoading(false);
@@ -87,6 +91,10 @@ const DetailFaqCard: React.FC<DetailFaqCardProps> = ({ onSearch, data }) => {
       onSearch(searchValue);
       setSearchInput(searchValue);
     }
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
   }, [data, onSearch]);
 
   return (
@@ -132,28 +140,35 @@ const DetailFaqCard: React.FC<DetailFaqCardProps> = ({ onSearch, data }) => {
             <div className="items-start content-start justify-start">
               <div className="flex items-center">
                 <Link
-                  to={`/`}
+                  to={`/home`}
                   className="text-[13px] hover:underline text-link"
                 >
                   Home
                 </Link>
-                <span className="text-slate-600 mx-2">{' > '}</span>
+                <span className="mx-2 text-slate-600">{' > '}</span>
                 <Link
-                  to={`faq/question/${data.topics[0].name}`}
+                  to={`/faq/question/${data.topics[0].slug}`}
                   className="text-[13px] hover:underline text-link"
                 >
                   {data.topics[0].name}
                 </Link>
               </div>
-              <div className="w-full pt-2  overflow-x-auto">
+              <div className="w-full pt-2 overflow-x-auto">
                 <div className="items-start content-start justify-start">
                   <div className="border-b border-slate-300">
                     <div className="pt-3 lg:pt-5 text-lg lg:text-2xl py-2 lg:py-3 font-semibold">
                       {data.question}
-                    </div>
                   </div>
-                  <div className="text-[14px] lg:text-[16px] py-4 lg:py-6 leading-10">
-                    {data?.answer}
+                  <div className="text-[16px]  py-6 ">
+                    <div className="">
+                      <ReactQuill
+                        theme="snow"
+                        readOnly={true}
+                        value={data?.answer}
+                        modules={{ toolbar: false }}
+                        className="custom-react-quill"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -165,12 +180,12 @@ const DetailFaqCard: React.FC<DetailFaqCardProps> = ({ onSearch, data }) => {
                 <div className={`flex py-2 lg:py-4 px-2 lg:px-3 rounded-md`}>
                   <div className="">
                     {feedbackGiven ? (
-                      <div className="flex justify-center items-center text-center ">
-                        <div className="pr-2 pl-1 text-sm ">
+                      <div className="flex items-center justify-center text-center ">
+                        <div className="pl-1 pr-2 text-sm ">
                           Terima kasih atas feedback Anda!
                         </div>
                         <button
-                          className="pl-4 flex justify-end "
+                          className="flex justify-end pl-4 "
                           onClick={() => handleCloseButtonClick()}
                         >
                           <CloseButtonIcon className="w-8 h-[18px] hover:bg-slate-200 rounded-full cursor-pointer" />
@@ -182,7 +197,7 @@ const DetailFaqCard: React.FC<DetailFaqCardProps> = ({ onSearch, data }) => {
                           Apakah Ini Membantu?
                         </div>
                         <button
-                          className="pl-4 flex justify-end "
+                          className="flex justify-end pl-4 "
                           onClick={() => handleCloseButtonClick()}
                         >
                           <CloseButtonIcon className="w-8 h-[18px] hover:bg-slate-200 rounded-full cursor-pointer" />
@@ -190,7 +205,7 @@ const DetailFaqCard: React.FC<DetailFaqCardProps> = ({ onSearch, data }) => {
                       </div>
                     )}
                     {!feedbackGiven && (
-                      <div className="w-full flex justify-between space-x-2 mt-2">
+                      <div className="flex justify-between w-full mt-2 space-x-2">
                         <button
                           onClick={() =>
                             handlerLike(data.topics[0].slug, data.slug)
@@ -217,7 +232,7 @@ const DetailFaqCard: React.FC<DetailFaqCardProps> = ({ onSearch, data }) => {
         </>
       ) : (
         // Show "Data Not Found" if no data
-        <div className="flex justify-center items-center text-center text-3xl h-screen">
+        <div className="flex items-center justify-center h-screen text-3xl text-center">
           Data Not Found
         </div>
       )}
