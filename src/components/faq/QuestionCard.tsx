@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import ReactLoading from 'react-loading';
+import 'react-quill/dist/quill.snow.css';
+
+import ReactQuill from 'react-quill';
 import {
   SearchIcon,
   DropdownIcon,
@@ -33,7 +36,6 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
   };
 
   const handleCloseButtonClick = (questionSlug: string) => {
-    console.log(questionSlug);
     setClosedQuestions((prevClosedQuestions) => [
       ...prevClosedQuestions,
       questionSlug,
@@ -148,10 +150,10 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
         <div className="items-start content-start justify-start ">
           <div className="grid mx-auto ">
             <div className="px-7">
-              <h1 className="text-2xl mx-2 font-bold pb-3  border-b border-[#d1d5db] ">
+              <h1 className="text-xl mx-2 font-bold pb-3  border-b border-[#d1d5db] ">
                 {data?.name}
               </h1>
-              <p className="mx-2 mt-3 mb-8">{data?.description}</p>
+              <p className="mx-2 mt-3 mb-8 text-[15px]">{data?.description}</p>
               {data?.questions.map((question) => (
                 <div
                   key={question.id}
@@ -166,15 +168,25 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
                       }`}
                       onClick={() => handleClick(question.id)}
                     >
-                      <span className="text-[17px]">{question.question}</span>
+                      <span className="text-base">{question.question}</span>
                       <span className="transition group-open:rotate-180">
                         <DropdownIcon />
                       </span>
                     </summary>
-                    <p
-                      className="mt-8 group-open:animate-fadeIn px-2"
+                    {/* <p
+                      className="px-2 mt-8 group-open:animate-fadeIn"
                       dangerouslySetInnerHTML={{ __html: question.answer }}
-                    ></p>
+                    ></p> */}
+                    <div className="">
+                      <ReactQuill
+                        theme="snow"
+                        readOnly={true}
+                        value={question.answer}
+                        modules={{ toolbar: false }}
+                        className=""
+                        style={{ fontSize: '14px', border: 'none' }}
+                      />
+                    </div>
 
                     <div className="py-3">
                       <div className="flex justify-between rounded-md bg-[#F0F2F5] pt-2 py-2 px-3">
@@ -188,12 +200,12 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
                           {closedQuestions.includes(question.slug) ? null : (
                             <div className="">
                               {feedbackGiven.includes(question.slug) ? (
-                                <div className="flex justify-center items-center text-center ">
-                                  <div className="pr-2 pl-1 text-sm ">
+                                <div className="flex items-center justify-center text-center ">
+                                  <div className="pl-1 pr-2 text-sm ">
                                     Terima kasih atas feedback Anda!
                                   </div>
                                   <button
-                                    className="pl-4 flex justify-end "
+                                    className="flex justify-end pl-4 "
                                     onClick={() =>
                                       handleCloseButtonClick(question.slug)
                                     }
@@ -202,12 +214,12 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
                                   </button>
                                 </div>
                               ) : (
-                                <div className="flex justify-center items-center text-center pb-3">
-                                  <div className="pr-2 pl-1 text-sm ">
+                                <div className="flex items-center justify-center pb-3 text-center">
+                                  <div className="pl-1 pr-2 text-sm ">
                                     Apakah Ini Membantu?
                                   </div>
                                   <button
-                                    className="pl-4 flex justify-end "
+                                    className="flex justify-end pl-4 "
                                     onClick={() =>
                                       handleCloseButtonClick(question.slug)
                                     }
@@ -217,7 +229,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
                                 </div>
                               )}
                               {!feedbackGiven.includes(question.slug) && (
-                                <div className="w-full flex justify-between space-x-2 mt-2">
+                                <div className="flex justify-between w-full mt-2 space-x-2">
                                   <button
                                     onClick={() =>
                                       handlerLike(data?.slug, question?.slug)
@@ -241,9 +253,9 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
                         </div>
                         <Link
                           to={`/faq/question/${data.slug}/${question.slug}`}
-                          className="flex justify-center items-end pb-1"
+                          className="flex items-end justify-center pb-1"
                         >
-                          <div className="hover:bg-gray duration-200 py-[7px] mt-3 text-white rounded-full px-3 bg-primary group-open:animate-fadeIn">
+                          <div className="hover:bg-gray duration-200 py-[7px] mt-3 text-white rounded-full px-3 bg-primary group-open:animate-fadeIn text-[15px]">
                             Lihat Penuh
                           </div>
                         </Link>
