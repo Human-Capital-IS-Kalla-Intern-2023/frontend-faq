@@ -17,14 +17,14 @@ const PermissionDenied = () => {
         <p className="my-12 text-lg text-black text-gray-500 md:text-xl lg:text-2xl">
           You Don't Have permission To Access This Page!
         </p>
-        <li
-          className="flex items-center py-2 space-x-2 text-gray-100 transition duration-150 rounded bg-primary hover:bg-green-700 px-11"
+        <div
+          className="flex items-center py-2 space-x-2 text-gray-100 transition duration-150 rounded-full bg-primary hover:bg-green-700 px-11"
           title="Return Home"
         >
-          <NavLink to={'/'}>
-            <span className="text-2xl text-white">Return Home</span>
+          <NavLink to={'/home'}>
+            <span className="text-xl text-white">Return To Home</span>
           </NavLink>
-        </li>
+        </div>
       </div>
       <div className="flex justify-center w-2/3 p-4 lg:h-full lg:items-center">
         <img className="w-10/12 " alt="Image Forbideen" src={ForbideenImage} />

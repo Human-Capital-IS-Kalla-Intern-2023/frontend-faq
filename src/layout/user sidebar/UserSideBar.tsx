@@ -2,7 +2,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useMediaQuery } from 'react-responsive';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 // import ReactLoading from 'react-loading';
 
 // Components Import
@@ -26,7 +26,7 @@ import {
 import { getUserSidebar } from '../../api/user/UserSidebarAPI';
 
 const UserSidebar = () => {
-  const isTabletMid = useMediaQuery({ query: '(max-width: 768px)' });
+  const isTabletMid = useMediaQuery({ query: '(max-width: 1024px)' });
   const [open, setOpen] = useState(isTabletMid ? false : true);
   const { pathname } = useLocation();
   const sidebarRef = useRef<HTMLDivElement>(null);
@@ -52,7 +52,7 @@ const UserSidebar = () => {
     ? {
         open: {
           x: 0,
-          width: '22rem',
+          width: '18rem',
 
           transition: {
             damping: 40,
@@ -75,7 +75,7 @@ const UserSidebar = () => {
           },
         },
         closed: {
-          width: '3.2rem',
+          width: 0,
           transition: {
             damping: 40,
           },
@@ -122,7 +122,7 @@ const UserSidebar = () => {
       <div className="shadow-xl">
         <div
           onClick={() => setOpen(false)}
-          className={`md:hidden fixed inset-0 max-h-full z-10 bg-black/50 ${
+          className={`lg:hidden fixed inset-0 max-h-full z-10 bg-black/50 ${
             open ? 'block' : 'hidden'
           } `}
         ></div>
@@ -133,11 +133,12 @@ const UserSidebar = () => {
           animate={open ? 'open' : 'closed'}
           className="bg-white text-gray z-10 w-[22rem]  fixed h-full min-h-screen overflow-y-auto shadow-allSideLow max-h-screen "
         >
-          <div className="flex items-center gap-2.5 font-medium justify-center  pt-3 mx-3">
-            <img
-              alt="Kalla Logo"
-              src={logo232}
-              srcSet={`
+          <Link to={'/home'}>
+            <div className="flex items-center gap-2.5 font-medium justify-center  pt-3 mx-3">
+              <img
+                alt="Kalla Logo"
+                src={logo232}
+                srcSet={`
       ${logo232} 232w,
       ${logo300} 300w,
       ${logo464} 464w,
@@ -145,12 +146,13 @@ const UserSidebar = () => {
       ${logo1280} 1280w,
       ${logo3000} 3000w
     `}
-              sizes="(min-width: 1060px) 223px, (min-width: 940px) calc(113vw - 957px), (min-width: 880px) calc(110vw - 933px), (min-width: 840px) calc(70vw - 584px), (min-width: 680px) 232px, (min-width: 640px) calc(995vw - 6335px), (min-width: 600px) calc(-135vw + 914px), (min-width: 500px) calc(-95vw + 682px), calc(-7.78vw + 255px)"
-              width={180}
-              height={96}
-              loading="lazy"
-            />
-          </div>
+                sizes="(min-width: 1060px) 223px, (min-width: 940px) calc(113vw - 957px), (min-width: 880px) calc(110vw - 933px), (min-width: 840px) calc(70vw - 584px), (min-width: 680px) 232px, (min-width: 640px) calc(995vw - 6335px), (min-width: 600px) calc(-135vw + 914px), (min-width: 500px) calc(-95vw + 682px), calc(-7.78vw + 255px)"
+                width={180}
+                height={96}
+                loading="lazy"
+              />
+            </div>
+          </Link>
 
           <div className="flex flex-col min-h-screen overflow-y-auto max-h-auto">
             <ul className="px-2.5 text-[0.9rem] py-1 flex flex-col gap-1 font-medium overflow-x-hidden  md:h-[68%] h-[70%] rounded-md">
@@ -193,7 +195,10 @@ const UserSidebar = () => {
             <CloseSidebarIcon />
           </motion.div>
         </motion.div>
-        <div className="m-3 md:hidden" onClick={() => setOpen(true)}>
+        <div
+          className="absolute right-0 m-3 top-1 md:top-2 md:block lg:hidden"
+          onClick={() => setOpen(true)}
+        >
           <ReponsiveSidebarIcon />
         </div>
       </div>

@@ -15,40 +15,41 @@ const UserSidebarMenu = ({ data }: any) => {
     <>
       <ul>
         <li
-          className={`hover:bg-[#E4E6E9] rounded-md px-3 py-2 hover:text-black ${
+          className={`hover:bg-[#E4E6E9] rounded-md px-3 py-2   hover:text-black ${
             pathname === `/faq/question/${data.slug}` ? 'bg-slate-200  ' : ' '
           }`}
           onClick={() => setSubMenuOpen(!subMenuOpen)}
         >
-          <NavLink
-            to={`/faq/question/${data.slug}`}
-            className={`link flex items-center ${pathname.includes(data.name)}`}
-          >
-            {data.image ? (
-              <img
-                src={`${TOPIC_STORAGE_URL}/${data.image}`}
-                alt={`Logo ${data.name}`}
-                className="w-7 h-7"
-                loading="eager"
-              />
-            ) : (
-              <IconRenderer
-                value={data.icon}
-                className="w-
-              
-              h-
-              
-               "
-              />
-            )}
+          <div className="flex items-center">
+            <div>
+              {data.image ? (
+                <img
+                  src={`${TOPIC_STORAGE_URL}/${data.image}`}
+                  alt={`Logo ${data.name}`}
+                  className="w-6 h-6"
+                  loading="eager"
+                />
+              ) : (
+                <IconRenderer value={data.icon} className="h-6 w-6" />
+              )}
+            </div>
 
-            {/* <img src={data.image} alt={data} /> */}
-
-            <p className="flex-1 ml-2 capitalize text-[15px]">{data.name}</p>
-            <DropdownSidebarMenuIcon
-              className={` ${subMenuOpen && 'rotate-180'} duration-200 px-2 `}
-            />
-          </NavLink>
+            <div className="ml-2 flex-1 flex items-center">
+              <NavLink
+                to={`/faq/question/${data.slug}`}
+                className={`capitalize text-[15px] ${pathname.includes(
+                  data.name
+                )}`}
+              >
+                {data.name}
+              </NavLink>
+              <DropdownSidebarMenuIcon
+                className={`ml-auto ${
+                  subMenuOpen && 'rotate-180'
+                } duration-200 px-2 cursor-pointer`}
+              />
+            </div>
+          </div>
         </li>
       </ul>
       <motion.ul

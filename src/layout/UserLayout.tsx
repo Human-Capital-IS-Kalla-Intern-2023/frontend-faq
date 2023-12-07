@@ -4,14 +4,9 @@ import UserSidebar from './user sidebar/UserSideBar';
 function UserLayout({ children }: any) {
   const location = useLocation();
 
-  const sidebarPaths = [
-    '/',
-    'faq/topic',
-    'faq/question',
-    '/leavemanagement/faq',
-  ];
+  const sidebarPaths = ['/faq/topic', '/faq/question'];
 
-  const hiddenSidebarPaths = ['/admin'];
+  const hiddenSidebarPaths = ['/admin', '/faq?search'];
 
   const shouldShowSidebar =
     sidebarPaths.some((path) => location.pathname.startsWith(path)) &&
@@ -23,7 +18,7 @@ function UserLayout({ children }: any) {
       <main
         className={
           shouldShowSidebar
-            ? 'flex-1 mx-auto max-w-sm md:max-w-none lg:pl-[22rem]  '
+            ? 'flex-1 mx-auto  md:max-w-none  lg:pl-[22rem]  '
             : 'w-full'
         }
       >
