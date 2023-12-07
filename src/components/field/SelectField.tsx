@@ -11,6 +11,7 @@ interface SelectFieldProps {
   showImageInputCheckbox?: boolean;
   defaultValue?: any;
   imageFieldName?: string;
+  ariaLabel: string;
 }
 
 const SelectField: React.FC<SelectFieldProps> = ({
@@ -23,6 +24,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
   showImageInputCheckbox = false,
   defaultValue,
   imageFieldName,
+  ariaLabel,
 }) => {
   const [useImageInput, setUseImageInput] = useState(false);
 
@@ -38,11 +40,6 @@ const SelectField: React.FC<SelectFieldProps> = ({
       onChange({ target: { name: imageFieldName, value: file } });
     }
   };
-
-  // const isValidFileType = (file: File): boolean => {
-  //   const allowedTypes = ['image/svg+xml', 'image/png'];
-  //   return allowedTypes.includes(file.type);
-  // };
 
   return (
     <>
@@ -72,6 +69,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
           isMulti={isMulti}
           value={value}
           defaultValue={defaultValue}
+          aria-label={ariaLabel}
           className={`w-full my-2 ${isMulti ? '' : 'capitalize'}`}
           options={options}
           onChange={(selectedOptions) =>

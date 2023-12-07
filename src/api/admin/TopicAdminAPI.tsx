@@ -148,18 +148,18 @@ const searchTopicAdmin = async (searchInput: any) => {
 };
 
 // Change Is Active TopicAdmin
-const changeIsActiveTopicAdmin = async (idIsActive: any, newIsActive: any) => {
+const changeIsActiveTopicAdmin = async (slugTopic: any, newIsActive: any) => {
   try {
     const token = TokenHelper();
 
     const headerToken = {
       Authorization: `Bearer ${token}`,
     };
-    const sendData = { is_active: newIsActive };
+    const sendData = { is_status: newIsActive };
 
     const responseIsActiveChange = await RequestApi(
       'PUT',
-      `topic-admin/is_active/${idIsActive}`,
+      `faq/is_active/${slugTopic}`,
       sendData,
       headerToken,
       'Mengubah Active Topic Admin'

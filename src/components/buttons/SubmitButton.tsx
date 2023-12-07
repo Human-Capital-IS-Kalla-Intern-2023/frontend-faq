@@ -9,10 +9,11 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
   title,
   onClick,
   disabled,
+  ariaLabel,
 }) => {
   return (
     <button
-      aria-label="Save and Close"
+      aria-label={ariaLabel}
       className="px-1 py-2 text-white duration-300 rounded-md lg:text-[17px] lg:px-4 lg:py-2 bg-primary hover:bg-green-600 lg:hover:scale-[1.03]"
       onClick={onClick}
       disabled={disabled}
