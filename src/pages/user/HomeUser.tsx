@@ -2,7 +2,6 @@ import ReactLoading from 'react-loading';
 import { useEffect, useState } from 'react';
 import HomeUserCard from '../../components/user/HomeUserCard';
 import logoKalla from '../../assets/img/logo/singel-logo-kalla_52x48.webp';
-
 import { getTopicUser } from '../../api/user/FaqUserAPI';
 
 const HomeUser: React.FC = () => {
@@ -11,7 +10,7 @@ const HomeUser: React.FC = () => {
   const [faqUser, setTopicUser] = useState<any[]>([]);
 
   // GET all topic user data
-  const fetchFaqAdmin = async () => {
+  const fetchFaqUser = async () => {
     setIsLoading(true);
 
     try {
@@ -25,7 +24,7 @@ const HomeUser: React.FC = () => {
   };
 
   useEffect(() => {
-    fetchFaqAdmin();
+    fetchFaqUser();
   }, []);
 
   return (
@@ -35,18 +34,18 @@ const HomeUser: React.FC = () => {
           <ReactLoading type="spin" color="green" height={50} width={50} />
         </div>
       )}
-      <div className="flex py-3 shadow-lg">
+      <div className="flex py-1 shadow-lg md:py-3">
         <div className="flex items-center justify-center text-center">
           <img
             src={logoKalla}
-            className="h-12 ml-5 rounded-full w-[52px]"
+            className="h-11 w-12 md:h-12 ml-5 rounded-full md:w-[52px]"
             width={52}
             height={48}
             alt="logo kalla"
             loading="lazy"
           />
         </div>
-        <h1 className="flex p-[14px] justify-center items-center text-xl">
+        <h1 className="flex p-[14px] justify-center items-center lg:text-xl text-lg">
           Pusat Bantuan
         </h1>
       </div>

@@ -58,18 +58,9 @@ const DetailFaqCard: React.FC<DetailFaqCardProps> = ({ onSearch, data }) => {
   const handleSearch = async (e: any) => {
     e.preventDefault();
     setIsLoading(true);
-    try {
-      await onSearch(searchInput);
-    } catch (error) {
-      throw false;
-    } finally {
-      setIsLoading(false);
 
-      if (searchInput) {
-        navigate(`?search=${searchInput}`);
-      } else {
-        navigate('');
-      }
+    if (searchInput) {
+      navigate(`/faq?search=${searchInput}`);
     }
   };
 
@@ -100,11 +91,13 @@ const DetailFaqCard: React.FC<DetailFaqCardProps> = ({ onSearch, data }) => {
   return (
     <section className="antialiased overlay">
       <div className="w-full ">
-        <div className="flex justify-between bg-white shadow-[0_3px_10px_-3px_rgb(0,0,0,0.1)]">
-          <h1 className="flex p-[14px] justify-center items-center text-xl">
-            Pusat Bantuan
-          </h1>
-          <div className="flex flex-row justify-end w-full p-[14px] md:w-1/2">
+        <div className="md:flex block justify-between bg-white shadow-[0_3px_10px_-3px_rgb(0,0,0,0.1)]">
+          <Link to={'/home'}>
+            <h1 className="md:flex block p-[14px] justify-center items-center md:text-xl text-base">
+              Pusat Bantuan
+            </h1>
+          </Link>
+          <div className="md:flex hidden flex-row md:justify-end md:mr-10 lg:mr-0 w-full p-[14px] md:w-1/2">
             <form className="flex items-center" onSubmit={handleSearch}>
               <label htmlFor="simple-search" className="sr-only">
                 Search
@@ -112,21 +105,38 @@ const DetailFaqCard: React.FC<DetailFaqCardProps> = ({ onSearch, data }) => {
               <div className="relative flex items-center w-full">
                 <input
                   type="text"
-                  className="block w-full px-2 py-2 pr-4 text-black rounded-full cursor-pointer placeholder-gray focus:outline-none focus:placeholder-black bg-[#F0F2F5] pl-14 text-sm"
+                  className="md:block hidden w-full px-2 py-2 lg:pr-4 text-black rounded-full cursor-pointer placeholder-gray focus:outline-none focus:placeholder-black bg-[#F0F2F5] pl-14 text-sm"
                   placeholder="Cari artikel bantuan..."
                   value={searchInput}
                   onChange={handleSearchInputChange}
                 />
                 <button
-                  className="absolute left-0 flex items-center px-4 text-black duration-300 rounded-none "
+                  className="absolute left-0 items-center px-4 text-black duration-300 rounded-none md:flex "
                   onClick={handleSearch}
                   type="submit"
                   aria-label="Search Data"
                 >
+                  {isLoading && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                      <ReactLoading
+                        type="spin"
+                        color="green"
+                        height={50}
+                        width={50}
+                      />
+                    </div>
+                  )}
                   <SearchIcon className="w-[25px] h-[20px] text-gray cursor-pointer " />
                 </button>
               </div>
             </form>
+          </div>
+          <div className="block md:hidden">
+            <Link to={'/faq'}>
+              <div className="absolute items-center px-4 text-black duration-300 rounded-none top-4 right-8 md:flex ">
+                <SearchIcon className="w-[25px] h-[20px] text-gray cursor-pointer " />
+              </div>
+            </Link>
           </div>
         </div>
       </div>
@@ -156,78 +166,79 @@ const DetailFaqCard: React.FC<DetailFaqCardProps> = ({ onSearch, data }) => {
               <div className="w-full pt-2 overflow-x-auto">
                 <div className="items-start content-start justify-start">
                   <div className="border-b border-slate-300">
-                    <div className="pt-3 lg:pt-5 text-lg lg:text-2xl py-2 lg:py-3 font-semibold">
+                    <div className="py-2 pt-3 text-lg font-semibold lg:pt-5 lg:text-2xl lg:py-3">
                       {data.question}
-                  </div>
-                  <div className="text-[16px]  py-6 ">
-                    <div className="">
-                      <ReactQuill
-                        theme="snow"
-                        readOnly={true}
-                        value={data?.answer}
-                        modules={{ toolbar: false }}
-                        className="custom-react-quill"
-                      />
+                    </div>
+                    <div className="text-[16px]  py-6 ">
+                      <div className="">
+                        <ReactQuill
+                          theme="snow"
+                          readOnly={true}
+                          value={data?.answer}
+                          modules={{ toolbar: false }}
+                          className="custom-react-quill"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="fixed bottom-1 right-0 p-1">
-            {closedQuestions ? null : (
-              <div className="flex rounded-md bg-[#F0F2F5] pt-2 py-1 lg:py-2 px-1 lg:px-3">
-                <div className={`flex py-2 lg:py-4 px-2 lg:px-3 rounded-md`}>
-                  <div className="">
-                    {feedbackGiven ? (
-                      <div className="flex items-center justify-center text-center ">
-                        <div className="pl-1 pr-2 text-sm ">
-                          Terima kasih atas feedback Anda!
+            <div className="fixed right-0 p-1 bottom-1">
+              {closedQuestions ? null : (
+                <div className="flex rounded-md bg-[#F0F2F5] pt-2 py-1 lg:py-2 px-1 lg:px-3">
+                  <div className={`flex py-2 lg:py-4 px-2 lg:px-3 rounded-md`}>
+                    <div className="">
+                      {feedbackGiven ? (
+                        <div className="flex items-center justify-center text-center ">
+                          <div className="pl-1 pr-2 text-sm ">
+                            Terima kasih atas feedback Anda!
+                          </div>
+                          <button
+                            className="flex justify-end pl-4 "
+                            onClick={() => handleCloseButtonClick()}
+                          >
+                            <CloseButtonIcon className="w-8 h-[18px] hover:bg-slate-200 rounded-full cursor-pointer" />
+                          </button>
                         </div>
-                        <button
-                          className="flex justify-end pl-4 "
-                          onClick={() => handleCloseButtonClick()}
-                        >
-                          <CloseButtonIcon className="w-8 h-[18px] hover:bg-slate-200 rounded-full cursor-pointer" />
-                        </button>
-                      </div>
-                    ) : (
-                      <div className="flex justify-center items-center text-center pb-1 lg:pb-3">
-                        <div className="pr-2 pl-1 text-xs lg:text-sm ">
-                          Apakah Ini Membantu?
+                      ) : (
+                        <div className="flex items-center justify-center pb-1 text-center lg:pb-3">
+                          <div className="pl-1 pr-2 text-xs lg:text-sm ">
+                            Apakah Ini Membantu?
+                          </div>
+                          <button
+                            className="flex justify-end pl-4 "
+                            onClick={() => handleCloseButtonClick()}
+                          >
+                            <CloseButtonIcon className="w-8 h-[18px] hover:bg-slate-200 rounded-full cursor-pointer" />
+                          </button>
                         </div>
-                        <button
-                          className="flex justify-end pl-4 "
-                          onClick={() => handleCloseButtonClick()}
-                        >
-                          <CloseButtonIcon className="w-8 h-[18px] hover:bg-slate-200 rounded-full cursor-pointer" />
-                        </button>
-                      </div>
-                    )}
-                    {!feedbackGiven && (
-                      <div className="flex justify-between w-full mt-2 space-x-2">
-                        <button
-                          onClick={() =>
-                            handlerLike(data.topics[0].slug, data.slug)
-                          }
-                          className="w-full text-xs lg:text-sm px-1 lg:px-5 py-2 rounded-md bg-[#E4E6EB] hover:bg-[#D8DADF]"
-                        >
-                          Like 👍
-                        </button>
-                        <button
-                          onClick={() =>
-                            handleDislike(data.topics[0].slug, data.slug)
-                          }
-                          className="w-full text-xs lg:text-sm px-1 lg:px-5 py-2 rounded-md bg-[#E4E6EB] hover:bg-[#D8DADF]"
-                        >
-                          Dislike 👎
-                        </button>
-                      </div>
-                    )}
+                      )}
+                      {!feedbackGiven && (
+                        <div className="flex justify-between w-full mt-2 space-x-2">
+                          <button
+                            onClick={() =>
+                              handlerLike(data.topics[0].slug, data.slug)
+                            }
+                            className="w-full text-xs lg:text-sm px-1 lg:px-5 py-2 rounded-md bg-[#E4E6EB] hover:bg-[#D8DADF]"
+                          >
+                            Like 👍
+                          </button>
+                          <button
+                            onClick={() =>
+                              handleDislike(data.topics[0].slug, data.slug)
+                            }
+                            className="w-full text-xs lg:text-sm px-1 lg:px-5 py-2 rounded-md bg-[#E4E6EB] hover:bg-[#D8DADF]"
+                          >
+                            Dislike 👎
+                          </button>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </>
       ) : (
