@@ -29,6 +29,7 @@ import HomeUser from './pages/user/HomeUser';
 import Question from './pages/user/Question';
 import DetailFaqUser from './pages/user/DetailFaqUser';
 import SearchResult from './pages/user/SearchResult';
+import LoginPage from './pages/login/LoginPage';
 
 // Auth Pages
 import NotFound from './pages/auth/NotFound';
@@ -67,6 +68,7 @@ const UserRoutes: React.FC = () => {
   return (
     <UserLayout>
       <Routes>
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/faq/question/:TopicSlug" element={<Question />} />
         <Route path="/faq" element={<SearchResult />} />
 
