@@ -34,7 +34,7 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ data }) => {
     setIsLoading(true);
 
     if (searchInput) {
-      navigate(`/faq?search=${searchInput}`);
+      navigate(`/faq/search?title=${searchInput}`);
     }
   };
 
