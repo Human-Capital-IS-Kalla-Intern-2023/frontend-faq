@@ -3,23 +3,31 @@ import { SearchIcon } from '../../assets/icons/Icon';
 import ReactLoading from 'react-loading';
 import { searchTopicUser } from '../../api/user/FaqUserAPI';
 import IconRenderer from '../../helpers/IconRenders';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import { NotFoundIcon } from '../../assets/icons/Icon';
+
 const SearchResultCard = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
-  const location = useLocation();
-  const searchInputFromUrl = new URLSearchParams(location.search).get('search');
+
+  const [searchParams] = useSearchParams();
+  const searchInputFromUrl = searchParams.get('title');
+
   const [searchInput, setSearchInput] = useState(searchInputFromUrl || '');
+  const navigate = useNavigate();
 
   const handleSearch = async (e: any) => {
     e.preventDefault();
     setIsLoading(true);
     try {
       const result = await searchTopicUser(searchInput);
-      setSearchResult(result.data);
-      setIsInitialLoad(false);
+
+      if (result) {
+        navigate(`?title=${searchInput}`);
+        setSearchResult(result.data);
+        setIsInitialLoad(false);
+      }
     } catch (error) {
       console.error('Error fetching search results:', error);
     } finally {
@@ -54,7 +62,7 @@ const SearchResultCard = () => {
 
   return (
     <section className="flex items-center justify-center mt-10 overflow-y-auto antialiased text-center lg:py-4 lg:mx-16 sm:py-1 overlay">
-      <div className="pt-2 lg:px-6 lg:pt-3 md:w-8/12">
+      <div className="w-full px-4 pt-2 md:px-6 lg:pt-3 md:w-8/12">
         <form className="mb-3" onSubmit={handleSearch}>
           <label htmlFor="simple-search" className="sr-only">
             Search
@@ -69,7 +77,6 @@ const SearchResultCard = () => {
             />
             <button
               className="absolute left-0 flex items-center px-4 text-black duration-300 rounded-none "
-              onClick={handleSearch}
               type="submit"
               aria-label="Search Data"
             >
@@ -94,8 +101,10 @@ const SearchResultCard = () => {
               <div className="flex items-center justify-center w-full my-2 bg-white rounded-md cursor-pointer ">
                 <NotFoundIcon className="w-20 h-20" />
               </div>
-              <div className="mt-6 text-2xl">Data Not Found !</div>
-              <span className="text-sm text-gray">
+              <div className="mt-6 text-2xl font-bold text-red-700">
+                Data Not Found !
+              </div>
+              <span className="text-sm text-gray mt-[3px]">
                 Sorry, we couldn't find any matches for your search.
               </span>
             </div>
@@ -103,12 +112,9 @@ const SearchResultCard = () => {
         ) : (
           <>
             {searchResult?.map((faq: any) => (
-              <>
+              <div key={faq.slug}>
                 <Link to={`/faq/question/${faq.topics[0].name}/${faq.slug}`}>
-                  <div
-                    className="w-full my-2 bg-white rounded-md cursor-pointer hover:bg-slate-200"
-                    key={faq.slug}
-                  >
+                  <div className="w-full my-2 bg-white rounded-md cursor-pointer hover:bg-slate-200">
                     <div className="flex items-center p-4">
                       <div className="px-3 py-2 rounded-full bg-slate-200">
                         {faq.topics[0].image ? (
@@ -137,7 +143,7 @@ const SearchResultCard = () => {
                     </div>
                   </div>
                 </Link>
-              </>
+              </div>
             ))}
           </>
         )}

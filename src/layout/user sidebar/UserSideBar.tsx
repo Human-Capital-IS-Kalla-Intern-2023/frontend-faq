@@ -75,7 +75,7 @@ const UserSidebar = () => {
           },
         },
         closed: {
-          width: 0,
+          width: '3.2rem',
           transition: {
             damping: 40,
           },
@@ -190,7 +190,7 @@ const UserSidebar = () => {
                   }
             }
             transition={{ duration: 0 }}
-            className="z-50 hidden my-3 ml-auto mr-3 cursor-pointer w-fit h-fit md:block"
+            className="z-50 block my-3 ml-auto mr-3 cursor-pointer w-fit h-fit lg:hidden"
           >
             <CloseSidebarIcon />
           </motion.div>
