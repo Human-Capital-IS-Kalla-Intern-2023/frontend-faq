@@ -10,7 +10,7 @@ import ReactLoading from 'react-loading';
 import { LogoutIcon } from '../../assets/icons/Icon';
 
 // Import API
-import { logoutUser } from '../../api/admin/AuthAdminAPI';
+import { logoutUser } from '../../api/AuthAPI';
 
 const ButtonLogout = () => {
   const [isLoading, setIsLoading] = useState(false);
