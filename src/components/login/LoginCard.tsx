@@ -1,10 +1,38 @@
-import { Link } from 'react-router-dom';
 import { LockIcon } from '../../assets/icons/Icon';
 import { LongArrowRightIcon } from '../../assets/icons/Icon';
 import wismakalla from '../../assets/img/logo/wisma-kalla.jpg';
+// import { loginEss } from '../../api/AuthAPI';
+// import ReactLoading from 'react-loading';
+// import { useState } from 'react';
+// import { ErrorAlert } from '../alerts/CustomAlert';
+// import { useNavigate } from 'react-router-dom';
 const LoginCard = () => {
+  // const [loginError, setLoginError] = useState(false);
+  // const [errorTitle, setErrorTitle] = useState('');
+  // const [errorMessage, setErrorMessage] = useState('');
+
+  // const navigate = useNavigate();
+  const handleLoginEss = async () => {
+    window.location.href = 'http://localhost:8000/auth/ess';
+    // setIsLoading(true);
+    // setLoginError(false);
+    // try {
+    //   const response = await loginEss();
+    //   console.log(response);
+    // } catch (error: any) {
+    //   console.error(error);
+    //   setLoginError(true);
+    //   setErrorTitle(`Error Saat Login`);
+    //   setErrorMessage(` ${error.response.data.message}`);
+    // } finally {
+    //   setIsLoading(false);
+    // }
+  };
+
   return (
     <div className="flex flex-wrap content-center justify-center w-full min-h-screen py-8 rounded-l-xl bg-slate-200">
+      {/* {loginError && <ErrorAlert title={errorTitle} text={errorMessage} />} */}
+
       <div className="flex shadow-md">
         {/* <!-- Login form --> */}
         <div className="flex flex-wrap content-center justify-center w-full px-5 py-6 bg-white md:rounded-l-xl rounded-xl md:py-0 md:px-0">
@@ -24,15 +52,15 @@ const LoginCard = () => {
             {/* <!-- Form --> */}
 
             <div className="mt-4 mb-3 px-9">
-              <Link
-                className="flex mb-1.5 w-full justify-center text-center text-base text-white bg-primary hover:bg-green-900 px-2 py-3 rounded-md"
-                to={'/login'}
+              <button
+                className="flex mb-1.5 w-full justify-center text-center text-base text-white bg-primary hover:bg-green-900 px-2 py-3 rounded-md "
+                onClick={handleLoginEss}
               >
                 SIGN IN WITH ESS
                 <div className="pl-9">
                   <LongArrowRightIcon className="w-5 h-6 " />
                 </div>
-              </Link>
+              </button>
             </div>
             {/* <!-- Footer --> */}
             <div className="pt-1 text-center">
