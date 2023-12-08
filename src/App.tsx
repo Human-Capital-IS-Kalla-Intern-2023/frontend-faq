@@ -68,7 +68,6 @@ const UserRoutes: React.FC = () => {
   return (
     <UserLayout>
       <Routes>
-        <Route path="/login" element={<LoginPage />} />
         <Route path="/faq/question/:TopicSlug" element={<Question />} />
         <Route path="/faq/search" element={<SearchResult />} />
 
@@ -95,7 +94,8 @@ const App: React.FC = () => {
         />
 
         <Route path="/home" element={<HomeUser />} />
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="/permissiondenied" element={<PermissionDenied />} />
 

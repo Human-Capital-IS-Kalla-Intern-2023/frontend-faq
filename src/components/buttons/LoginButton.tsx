@@ -1,7 +1,7 @@
 // Import Library And Package
 import React, { useState } from 'react';
 import ReactLoading from 'react-loading';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 // Import Component
 import { ErrorAlert } from '../alerts/CustomAlert';
@@ -19,7 +19,7 @@ const LoginButton: React.FC<LoginButtonProps> = ({ email, passwordInput }) => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const navigate = useNavigate();
-  const location = useLocation();
+  // const location = useLocation();
 
   const handleLoginFormSubmit = async () => {
     setIsLoading(true);
@@ -34,17 +34,15 @@ const LoginButton: React.FC<LoginButtonProps> = ({ email, passwordInput }) => {
       const response = await loginUser(credentials);
 
       if (response) {
-        const currentPath = location.pathname;
+        // const currentPath = location.pathname;
 
-        if (currentPath === '/') {
-          navigate(`/admin/dashboard`);
-        }
+        navigate(`/admin/dashboard`);
       }
     } catch (error: any) {
       console.error(error);
       setLoginError(true);
       setErrorTitle(`Error Saat Login`);
-      setErrorMessage(` ${error.response.data.meta.message}`);
+      setErrorMessage(` ${error.response.data.message}`);
     } finally {
       setIsLoading(false);
     }

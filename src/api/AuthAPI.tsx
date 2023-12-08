@@ -2,7 +2,7 @@
 import Cookies from 'js-cookie';
 
 // Import Helpers
-import { RequestApi } from '../helpers/RequestApi';
+import { RequestApi, RequestApiEss } from '../helpers/RequestApi';
 import TokenHelper from '../helpers/TokenHelpers';
 
 // Login  API
@@ -22,6 +22,25 @@ const loginUser = async (credentials: any) => {
     return true;
   } catch (error) {
     console.error('Terjadi kesalahan saat mencoba login ', error);
+    throw error;
+  }
+};
+
+const loginEss = async () => {
+  try {
+    const responseLogin = await RequestApiEss(
+      'GET',
+      'auth/ess',
+      {},
+      {},
+      'Mencoba Login ess'
+    );
+
+    console.log(responseLogin);
+
+    return true;
+  } catch (error) {
+    console.error('Terjadi kesalahan saat mencoba login ess ', error);
     throw error;
   }
 };
@@ -52,4 +71,4 @@ const logoutUser = async () => {
   }
 };
 
-export { loginUser, logoutUser };
+export { loginUser, logoutUser, loginEss };
