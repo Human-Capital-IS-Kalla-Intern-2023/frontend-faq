@@ -44,7 +44,7 @@ const LoginButton: React.FC<LoginButtonProps> = ({ email, passwordInput }) => {
       console.error(error);
       setLoginError(true);
       setErrorTitle(`Error Saat Login`);
-      setErrorMessage(` ${error.response.data.meta.message}`);
+      setErrorMessage(` ${error.response.data.message}`);
     } finally {
       setIsLoading(false);
     }

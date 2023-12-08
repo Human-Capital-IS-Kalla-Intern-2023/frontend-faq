@@ -1,6 +1,5 @@
-import { defineConfig } from 'vite';
+import { PluginOption, defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
-import { PluginOption } from 'vite';
 import * as fs from 'fs';
 
 function integratedDevServer(mode: string): PluginOption {
@@ -9,8 +8,8 @@ function integratedDevServer(mode: string): PluginOption {
     enforce: 'post',
     apply: 'serve',
     buildStart() {
-      const pathFile = '../backend-faq//public/hot';
-      const hostDevServer = 'http://localhost:4000';
+      const pathFile = '../backend-faq/public/hot';
+      const hostDevServer = 'http://localhost:3000';
       if (mode !== 'production') {
         fs.writeFileSync(pathFile, hostDevServer);
       } else {
@@ -25,5 +24,5 @@ function integratedDevServer(mode: string): PluginOption {
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), integratedDevServer('dev')],
-  server: { port: 4000, origin: 'http://localhost:4000' },
+  server: { port: 3000, origin: 'http://localhost:3000' },
 });
