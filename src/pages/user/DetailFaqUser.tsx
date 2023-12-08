@@ -8,6 +8,7 @@ import { getDetailQuestion } from '../../api/user/FaqUserAPI';
 const DetailFaqUser: React.FC = () => {
   const { TopicSlug, QuestionDetailSlug } = useParams();
   const [isLoading, setIsLoading] = useState(false);
+  const [dataFetched, setDataFetched] = useState(false);
 
   const [detailFaq, setDetailFaq] = useState<any | undefined>(undefined);
 
@@ -23,7 +24,10 @@ const DetailFaqUser: React.FC = () => {
         TopicSlug,
         QuestionDetailSlug
       );
-      setDetailFaq(responseData.data[0]);
+      if (responseData.data[0]) {
+        setDetailFaq(responseData.data[0]);
+      }
+      setDataFetched(true);
     } catch (error: any) {
       console.error('Error fetch all topic user:', error);
     } finally {
@@ -42,7 +46,7 @@ const DetailFaqUser: React.FC = () => {
           <ReactLoading type="spin" color="green" height={50} width={50} />
         </div>
       )}
-      <DetailFaqCard data={detailFaq} />
+      <DetailFaqCard data={detailFaq} isFeatch={dataFetched} />
     </>
   );
 };

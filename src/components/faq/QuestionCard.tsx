@@ -81,7 +81,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
     setIsLoading(true);
 
     if (searchInput) {
-      navigate(`/faq?search=${searchInput}`);
+      navigate(`/faq/search?title=${searchInput}`);
     }
   };
 
@@ -139,7 +139,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
           </div>
 
           <div className="block md:hidden">
-            <Link to={'/faq'}>
+            <Link to={'/faq/search'}>
               <div className="absolute items-center px-4 text-black duration-300 rounded-none top-4 right-8 md:flex ">
                 <SearchIcon className="w-[25px] h-[20px] text-gray cursor-pointer " />
               </div>
@@ -208,7 +208,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
                                       handleCloseButtonClick(question.slug)
                                     }
                                   >
-                                    <CloseButtonIcon className="w-8 h-[18px]  hover:bg-slate-200 rounded-full cursor-pointer" />
+                                    <CloseButtonIcon className="w-8 h-[18px]  hover:bg-slate-200 hover:text-red-600 rounded-full cursor-pointer" />
                                   </button>
                                 </div>
                               ) : (
@@ -222,7 +222,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
                                       handleCloseButtonClick(question.slug)
                                     }
                                   >
-                                    <CloseButtonIcon className="w-8 h-[18px] hover:bg-slate-200 rounded-full cursor-pointer" />
+                                    <CloseButtonIcon className="w-8 h-[18px] hover:bg-slate-200 hover:text-red-600 rounded-full cursor-pointer" />
                                   </button>
                                 </div>
                               )}

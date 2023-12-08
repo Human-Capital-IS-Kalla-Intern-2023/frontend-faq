@@ -1,16 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import ReactLoading from 'react-loading';
 import { SearchIcon, CloseButtonIcon } from '../../assets/icons/Icon';
 import { faqLike, faqDislike } from '../../api/user/FaqUserAPI';
 import 'react-quill/dist/quill.snow.css';
 import ReactQuill from 'react-quill';
+
 interface DetailFaqCardProps {
-  onSearch?: any;
+  isFeatch?: boolean;
   data?: any;
 }
 
-const DetailFaqCard: React.FC<DetailFaqCardProps> = ({ onSearch, data }) => {
+const DetailFaqCard: React.FC<DetailFaqCardProps> = ({ isFeatch, data }) => {
   const [searchInput, setSearchInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [feedbackGiven, setFeedbackGiven] = useState<boolean>(false);
@@ -55,38 +56,14 @@ const DetailFaqCard: React.FC<DetailFaqCardProps> = ({ onSearch, data }) => {
     setSearchInput(e.target.value);
   };
 
-  const handleSearch = async (e: any) => {
+  const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
     if (searchInput) {
-      navigate(`/faq?search=${searchInput}`);
+      navigate(`/faq/search?title=${searchInput}`);
     }
   };
-
-  useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
-    if (!data) {
-      setIsLoading(true);
-
-      timeoutId = setTimeout(() => {
-        setIsLoading(false);
-      }, 5000);
-    }
-    if (data) {
-      setIsLoading(false);
-    }
-    const searchParams = new URLSearchParams(location.search);
-    const searchValue = searchParams.get('search');
-    if (searchValue) {
-      onSearch(searchValue);
-      setSearchInput(searchValue);
-    }
-
-    return () => {
-      clearTimeout(timeoutId);
-    };
-  }, [data, onSearch]);
 
   return (
     <section className="antialiased overlay">
@@ -132,7 +109,7 @@ const DetailFaqCard: React.FC<DetailFaqCardProps> = ({ onSearch, data }) => {
             </form>
           </div>
           <div className="block md:hidden">
-            <Link to={'/faq'}>
+            <Link to={'/faq/search'}>
               <div className="absolute items-center px-4 text-black duration-300 rounded-none top-4 right-8 md:flex ">
                 <SearchIcon className="w-[25px] h-[20px] text-gray cursor-pointer " />
               </div>
@@ -140,7 +117,7 @@ const DetailFaqCard: React.FC<DetailFaqCardProps> = ({ onSearch, data }) => {
           </div>
         </div>
       </div>
-      {isLoading ? (
+      {!isFeatch ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <ReactLoading type="spin" color="green" height={50} width={50} />
         </div>
@@ -198,7 +175,7 @@ const DetailFaqCard: React.FC<DetailFaqCardProps> = ({ onSearch, data }) => {
                             className="flex justify-end pl-4 "
                             onClick={() => handleCloseButtonClick()}
                           >
-                            <CloseButtonIcon className="w-8 h-[18px] hover:bg-slate-200 rounded-full cursor-pointer" />
+                            <CloseButtonIcon className="w-8 h-[18px] hover:bg-slate-200 hover:text-red-600  rounded-full cursor-pointer" />
                           </button>
                         </div>
                       ) : (
@@ -210,7 +187,7 @@ const DetailFaqCard: React.FC<DetailFaqCardProps> = ({ onSearch, data }) => {
                             className="flex justify-end pl-4 "
                             onClick={() => handleCloseButtonClick()}
                           >
-                            <CloseButtonIcon className="w-8 h-[18px] hover:bg-slate-200 rounded-full cursor-pointer" />
+                            <CloseButtonIcon className="w-8 h-[18px] hover:bg-slate-200 hover:text-red-600 rounded-full cursor-pointer" />
                           </button>
                         </div>
                       )}
@@ -242,7 +219,6 @@ const DetailFaqCard: React.FC<DetailFaqCardProps> = ({ onSearch, data }) => {
           </div>
         </>
       ) : (
-        // Show "Data Not Found" if no data
         <div className="flex items-center justify-center h-screen text-3xl text-center">
           Data Not Found
         </div>

@@ -355,6 +355,40 @@ const NotFoundIcon: React.FC<SvgIconProps> = ({ className }) => (
     <path d="M143.9 398.6c-12.5-4.5-19-18.3-14.5-30.7C146.9 319.4 198.9 288 256 288c57.1 0 109.1 31.4 126.6 79.9 4.5 12.4-2 26.2-14.5 30.7-12.4 4.5-26.2-2-30.7-14.5-9.2-25.6-40.2-48.1-81.4-48.1s-72.2 22.5-81.4 48.1c-4.5 12.5-18.3 19-30.7 14.5zM208.4 208c0 17.7-14.4 32-32 32-17.7 0-32-14.3-32-32s14.3-32 32-32c17.6 0 32 14.3 32 32zm96 0c0-17.7 14.3-32 32-32 17.6 0 32 14.3 32 32s-14.4 32-32 32c-17.7 0-32-14.3-32-32zM512 256c0 141.4-114.6 256-256 256S0 397.4 0 256 114.6 0 256 0s256 114.6 256 256zM256 48C141.1 48 48 141.1 48 256s93.1 208 208 208 208-93.1 208-208S370.9 48 256 48z" />
   </svg>
 );
+const LockIcon: React.FC<SvgIconProps> = ({ className }) => (
+  <svg
+    aria-hidden="true"
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 16 20"
+    className={className}
+  >
+    <path
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M11.5 8V4.5a3.5 3.5 0 1 0-7 0V8M8 12v3M2 8h12a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1Z"
+    />
+  </svg>
+);
+const LongArrowRightIcon: React.FC<SvgIconProps> = ({ className }) => (
+  <svg
+    aria-hidden="true"
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 14 10"
+    className={className}
+  >
+    <path
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M1 5h12m0 0L9 1m4 4L9 9"
+    />
+  </svg>
+);
 
 export {
   DashboardIcon,
@@ -367,6 +401,7 @@ export {
   TrashIcon,
   LeftArrowIcon,
   RightArrowIcon,
+  LongArrowRightIcon,
   SearchIcon,
   PlusIcon,
   ArrowButtonIcon,
@@ -383,4 +418,5 @@ export {
   CloseEyeIcon,
   OpenEyeIcon,
   NotFoundIcon,
+  LockIcon,
 };
