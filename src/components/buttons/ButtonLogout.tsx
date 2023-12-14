@@ -35,12 +35,12 @@ const ButtonLogout: React.FC<ButtonLogoutProp> = ({
 
   const handleLogout = async () => {
     setIsLoading(true);
-    const responseData = await logoutUser(remove_token_name, token_helper);
+    const responseData = await logoutUser(token_helper);
 
     if (responseData) {
-      Cookies.remove('access_token');
       setIsLoading(false);
       navigate(`${linkNavigate}`);
+      Cookies.remove(remove_token_name);
     } else {
       setIsLoading(false);
 
@@ -87,7 +87,7 @@ const ButtonLogout: React.FC<ButtonLogoutProp> = ({
           role="link"
         >
           <div className={` ${className}`}>
-            <LogoutIcon className="min-w-max" />
+            <LogoutIcon className="duration-200 min-w-max" />
             <motion.div variants={textAnimation} className="ml-2 link">
               {title}
             </motion.div>

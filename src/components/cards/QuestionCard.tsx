@@ -1,29 +1,20 @@
-import { useEffect, useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import ReactLoading from 'react-loading';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import 'react-quill/dist/quill.snow.css';
-
 import ReactQuill from 'react-quill';
-import {
-  SearchIcon,
-  DropdownIcon,
-  CloseButtonIcon,
-} from '../../assets/icons/Icon';
+import { DropdownIcon, CloseButtonIcon } from '../../assets/icons/Icon';
 import { TopicProps } from '../../state/types/TopicType';
 import { faqLike, faqDislike } from '../../api/user/FaqUserAPI';
+import HeaderFaq from '../headers/HeaderFaq';
 
 interface QuestionCardProps {
-  onSearch?: any;
   data?: TopicProps;
 }
 
-const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
+const QuestionCard: React.FC<QuestionCardProps> = ({ data }) => {
   const [selectedQuestionIds, setSelectedQuestionIds] = useState<number[]>([]);
-  const [searchInput, setSearchInput] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
   const [feedbackGiven, setFeedbackGiven] = useState<string[]>([]);
   const [closedQuestions, setClosedQuestions] = useState<string[]>([]);
-  const navigate = useNavigate();
 
   const handleClick = (questionId: number) => {
     setSelectedQuestionIds((prevIds) => {
@@ -72,84 +63,9 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
     }
   };
 
-  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchInput(e.target.value);
-  };
-
-  const handleSearch = async (e: any) => {
-    e.preventDefault();
-    setIsLoading(true);
-
-    if (searchInput) {
-      navigate(`/faq/search?title=${searchInput}`);
-    } else {
-      navigate(`/faq/search?title=`);
-    }
-  };
-
-  useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    const searchValue = searchParams.get('search');
-    if (searchValue) {
-      onSearch(searchValue);
-      setSearchInput(searchValue);
-    }
-  }, [onSearch]);
-
   return (
     <section className="antialiased overlay">
-      <div className="w-full ">
-        <div className="md:flex block justify-between bg-white shadow-[0_3px_10px_-3px_rgb(0,0,0,0.1)]">
-          <Link to={'/home'}>
-            <h1 className="md:flex block p-[14px] justify-center items-center md:text-xl text-base">
-              Pusat Bantuan
-            </h1>
-          </Link>
-          <div className="md:flex hidden flex-row md:justify-end md:mr-10 lg:mr-0 w-full p-[14px] md:w-1/2">
-            <form className="flex items-center" onSubmit={handleSearch}>
-              <label htmlFor="simple-search" className="sr-only">
-                Search
-              </label>
-              <div className="relative flex items-center w-full">
-                <input
-                  type="text"
-                  className="md:block hidden w-full px-2 py-2 lg:pr-4 text-black rounded-full cursor-pointer placeholder-gray focus:outline-none focus:placeholder-black bg-[#F0F2F5] pl-14 text-sm"
-                  placeholder="Cari artikel bantuan..."
-                  value={searchInput}
-                  onChange={handleSearchInputChange}
-                />
-                <button
-                  className="absolute left-0 items-center px-4 text-black duration-300 rounded-none md:flex "
-                  onClick={handleSearch}
-                  type="submit"
-                  aria-label="Search Data"
-                >
-                  {isLoading && (
-                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-                      <ReactLoading
-                        type="spin"
-                        color="green"
-                        height={50}
-                        width={50}
-                      />
-                    </div>
-                  )}
-                  <SearchIcon className="w-[25px] h-[20px] text-gray cursor-pointer hover:scale-[1.2] duration-300" />
-                </button>
-              </div>
-            </form>
-          </div>
-
-          <div className="block md:hidden">
-            <Link to={'/faq/search'}>
-              <div className="absolute items-center px-4 text-black duration-300 rounded-none top-4 right-8 md:flex ">
-                <SearchIcon className="w-[25px] h-[20px] text-gray cursor-pointer hover:scale-[1.2] duration-300 " />
-              </div>
-            </Link>
-          </div>
-        </div>
-      </div>
-
+      <HeaderFaq />
       <div className="w-full lg:w-[95%] pt-6 lg:pt-10 lg:pl-16 min-h-[101vh]">
         <div className="items-start content-start justify-start ">
           <div className="grid mx-auto ">
