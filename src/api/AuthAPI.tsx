@@ -26,7 +26,7 @@ const loginAdmin = async (credentials: any) => {
 };
 
 // Logout API
-const logoutUser = async (token_to_remove: string, token_helper: any) => {
+const logoutUser = async (token_helper: any) => {
   try {
     const token = token_helper;
 
@@ -41,8 +41,6 @@ const logoutUser = async (token_to_remove: string, token_helper: any) => {
       headerToken,
       'Mencoba Keluar'
     );
-
-    Cookies.remove(`${token_to_remove}`);
 
     return responseData;
   } catch (error) {
