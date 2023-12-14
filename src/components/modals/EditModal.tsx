@@ -219,6 +219,7 @@ const EditModal: React.FC<EditModalProps> = ({
                     value={String(formData[field.name]) || ''}
                     placeholder={`Input ${field.label}`}
                     onChange={handleChange}
+                    label="edit input field"
                   />
                 )}
               </div>
