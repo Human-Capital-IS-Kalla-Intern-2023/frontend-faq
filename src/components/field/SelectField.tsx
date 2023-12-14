@@ -1,19 +1,9 @@
 import React, { useState } from 'react';
 import Select from 'react-select';
 import { useEffect } from 'react';
-interface SelectFieldProps {
-  id: string;
-  name: string;
-  value?: any;
-  isMulti?: boolean;
-  options: any[];
-  onChange: (selectedOptions: any) => void;
-  showImageInputCheckbox?: boolean;
-  defaultValue?: any;
-  imageFieldName?: string;
-  ariaLabel: string;
-  selectedValue?: any;
-}
+
+// Import Props
+import { SelectFieldProps } from '../../state/types/FieldType';
 
 const SelectField: React.FC<SelectFieldProps> = ({
   id,

@@ -1,12 +1,7 @@
 import React from 'react';
 
-interface CheckboxFieldProps {
-  id: string;
-  name: string;
-  checked?: boolean;
-  defaultCheck?: any;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
+// Import Props
+import { CheckboxFieldProps } from '../../state/types/FieldType';
 
 const CheckboxField: React.FC<CheckboxFieldProps> = ({
   id,
