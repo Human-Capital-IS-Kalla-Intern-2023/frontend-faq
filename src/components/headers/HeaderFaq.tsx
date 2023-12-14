@@ -13,7 +13,7 @@ const HeaderFaq: React.FC<HeaderFaqProps> = () => {
   return (
     <div className="w-full">
       <div className="md:flex block justify-between bg-white shadow-[0_3px_10px_-3px_rgb(0,0,0,0.1)]">
-        <Link to={'/home'} className="flex items-center justify-center ">
+        <Link to={'/home'} className="flex items-center lg:justify-center ">
           <h1 className="md:flex block p-[14px] justify-center items-center md:text-xl text-base">
             Pusat Bantuan
           </h1>

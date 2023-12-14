@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ReactLoading from 'react-loading';
+import { Link } from 'react-router-dom';
 
 import { SearchIcon } from '../../assets/icons/Icon';
 
@@ -24,33 +25,47 @@ const HeaderSearch = () => {
     }
   };
   return (
-    <form className="flex items-center mr-5" onSubmit={handleSearch}>
-      <label htmlFor="simple-search" className="sr-only">
-        Search
-      </label>
-      <div className="relative flex items-center w-full">
-        <input
-          type="text"
-          className="md:block hidden w-full px-2 py-2 lg:pr-4 text-black rounded-full cursor-pointer placeholder-gray focus:outline-none focus:placeholder-black bg-[#F0F2F5] pl-14 text-sm"
-          placeholder="Cari artikel bantuan..."
-          value={searchInput}
-          onChange={handleSearchInputChange}
-        />
-        <button
-          className="absolute left-0 items-center px-4 text-black duration-300 rounded-none md:flex "
-          onClick={handleSearch}
-          type="submit"
-          aria-label="Search Data"
-        >
-          {isLoading && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-              <ReactLoading type="spin" color="green" height={50} width={50} />
-            </div>
-          )}
-          <SearchIcon className="w-[25px] h-[20px] text-gray cursor-pointer hover:scale-[1.2] duration-300" />
-        </button>
+    <>
+      <form className="flex items-center mr-5" onSubmit={handleSearch}>
+        <label htmlFor="simple-search" className="sr-only">
+          Search
+        </label>
+        <div className="relative flex items-center w-full">
+          <input
+            type="text"
+            className="md:block hidden w-full px-2 py-2 lg:pr-4 text-black rounded-full cursor-pointer placeholder-gray focus:outline-none focus:placeholder-black bg-[#F0F2F5] pl-14 text-sm"
+            placeholder="Cari artikel bantuan..."
+            value={searchInput}
+            onChange={handleSearchInputChange}
+          />
+          <button
+            className="absolute left-0 items-center px-4 text-black duration-300 rounded-none md:flex "
+            onClick={handleSearch}
+            type="submit"
+            aria-label="Search Data"
+          >
+            {isLoading && (
+              <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                <ReactLoading
+                  type="spin"
+                  color="green"
+                  height={50}
+                  width={50}
+                />
+              </div>
+            )}
+            <SearchIcon className="w-[25px] h-[20px] text-gray cursor-pointer hover:scale-[1.2] duration-300" />
+          </button>
+        </div>
+      </form>
+      <div className="block md:hidden">
+        <Link to={'/faq/search'}>
+          <div className="absolute items-center px-4 text-black duration-300 rounded-none top-4 right-8 md:flex ">
+            <SearchIcon className="w-[25px] h-[20px] text-gray cursor-pointer hover:scale-[1.2] duration-300 " />
+          </div>
+        </Link>
       </div>
-    </form>
+    </>
   );
 };
 
