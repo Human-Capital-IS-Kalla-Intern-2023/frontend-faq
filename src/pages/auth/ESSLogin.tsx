@@ -1,4 +1,4 @@
-import LoginCard from '../../components/login/LoginCard';
+import LoginCard from '../../components/cards/LoginCard';
 
 const ESSLogin = () => {
   return (

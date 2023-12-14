@@ -1,6 +1,6 @@
 import ReactLoading from 'react-loading';
 import { useEffect, useState } from 'react';
-import HomeUserCard from '../../components/user/HomeUserCard';
+import HomeUserCard from '../../components/cards/HomeUserCard';
 import logoKalla from '../../assets/img/logo/singel-logo-kalla_52x48.webp';
 import { getTopicUser } from '../../api/user/FaqUserAPI';
 import ButtonLogout from '../../components/buttons/ButtonLogout';

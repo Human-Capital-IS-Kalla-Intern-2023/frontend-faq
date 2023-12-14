@@ -37,7 +37,7 @@ import NotFound from './pages/auth/NotFound';
 import NotFoundAdmin from './pages/auth/NotFoundAdmin';
 import PermissionDenied from './pages/auth/PermissionDenied';
 import Unauthorized from './pages/auth/Unauthorized';
-import Login from './pages/auth/Login';
+import Login from './pages/auth/LoginAdmin';
 import Callback from './pages/auth/Callback';
 
 import './App.css';
