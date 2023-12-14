@@ -1,6 +1,6 @@
 import LoginCard from '../../components/login/LoginCard';
 
-const LoginPage = () => {
+const ESSLogin = () => {
   return (
     <>
       <LoginCard></LoginCard>
@@ -8,4 +8,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default ESSLogin;

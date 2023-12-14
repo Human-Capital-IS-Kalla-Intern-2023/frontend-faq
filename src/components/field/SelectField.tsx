@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Select from 'react-select';
-
+import { useEffect } from 'react';
 interface SelectFieldProps {
   id: string;
   name: string;
@@ -12,14 +12,15 @@ interface SelectFieldProps {
   defaultValue?: any;
   imageFieldName?: string;
   ariaLabel: string;
+  selectedValue?: any;
 }
 
 const SelectField: React.FC<SelectFieldProps> = ({
   id,
   name,
-  value,
   isMulti,
   options,
+  value,
   onChange,
   showImageInputCheckbox = false,
   defaultValue,
@@ -27,9 +28,17 @@ const SelectField: React.FC<SelectFieldProps> = ({
   ariaLabel,
 }) => {
   const [useImageInput, setUseImageInput] = useState(false);
+  const [selectedValue, setSelectedValue] = useState(defaultValue);
 
   const handleCheckboxChange = () => {
     setUseImageInput(!useImageInput);
+  };
+
+  const handleChange = (selectedOptions: any) => {
+    if (!useImageInput) {
+      setSelectedValue(selectedOptions);
+      onChange({ target: { name, value: selectedOptions } });
+    }
   };
 
   const handleImageInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,6 +49,11 @@ const SelectField: React.FC<SelectFieldProps> = ({
       onChange({ target: { name: imageFieldName, value: file } });
     }
   };
+
+  useEffect(() => {
+    // Update selected value when defaultValue changes
+    setSelectedValue(defaultValue);
+  }, [defaultValue]);
 
   return (
     <>
@@ -67,14 +81,12 @@ const SelectField: React.FC<SelectFieldProps> = ({
           id={id}
           name={name}
           isMulti={isMulti}
-          value={value}
+          value={selectedValue ? selectedValue : value}
           defaultValue={defaultValue}
           aria-label={ariaLabel}
           className={`w-full my-2 ${isMulti ? '' : 'capitalize'}`}
           options={options}
-          onChange={(selectedOptions) =>
-            onChange({ target: { name, value: selectedOptions } })
-          }
+          onChange={handleChange}
           styles={{
             control: (provided) => ({
               ...provided,

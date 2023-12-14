@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import ReactLoading from 'react-loading';
 import { SearchIcon, CloseButtonIcon } from '../../assets/icons/Icon';
@@ -14,9 +14,21 @@ interface DetailFaqCardProps {
 const DetailFaqCard: React.FC<DetailFaqCardProps> = ({ isFeatch, data }) => {
   const [searchInput, setSearchInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [feedbackGiven, setFeedbackGiven] = useState<boolean>(false);
   const [closedQuestions, setClosedQuestions] = useState<boolean>(false);
+  const [feedbackGiven, setFeedbackGiven] = useState<boolean>(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check local storage for feedback status for the current slug
+    const feedbackStatus = localStorage.getItem(`feedback_${data?.slug}`);
+    setClosedQuestions(false);
+    if (feedbackStatus) {
+      setFeedbackGiven(true);
+      setClosedQuestions(true);
+    } else {
+      setFeedbackGiven(false);
+    }
+  }, [data?.slug]);
 
   const handleCloseButtonClick = () => {
     setClosedQuestions(true);
@@ -27,6 +39,9 @@ const DetailFaqCard: React.FC<DetailFaqCardProps> = ({ isFeatch, data }) => {
       const responseData = await faqLike(TopicSlug, QuestionSlug);
       if (responseData) {
         setFeedbackGiven(true);
+
+        // Store feedback status in local storage
+        localStorage.setItem(`feedback_${QuestionSlug}`, 'given');
 
         setTimeout(() => {
           handleCloseButtonClick();
@@ -42,6 +57,9 @@ const DetailFaqCard: React.FC<DetailFaqCardProps> = ({ isFeatch, data }) => {
       const responseData = await faqDislike(TopicSlug, QuestionSlug);
       if (responseData) {
         setFeedbackGiven(true);
+
+        // Store feedback status in local storage
+        localStorage.setItem(`feedback_${QuestionSlug}`, 'given');
 
         setTimeout(() => {
           handleCloseButtonClick();
@@ -62,6 +80,8 @@ const DetailFaqCard: React.FC<DetailFaqCardProps> = ({ isFeatch, data }) => {
 
     if (searchInput) {
       navigate(`/faq/search?title=${searchInput}`);
+    } else {
+      navigate(`/faq/search?title=`);
     }
   };
 
@@ -103,7 +123,7 @@ const DetailFaqCard: React.FC<DetailFaqCardProps> = ({ isFeatch, data }) => {
                       />
                     </div>
                   )}
-                  <SearchIcon className="w-[25px] h-[20px] text-gray cursor-pointer " />
+                  <SearchIcon className="w-[25px] h-[20px] text-gray cursor-pointer hover:scale-[1.2] duration-300 " />
                 </button>
               </div>
             </form>
@@ -111,7 +131,7 @@ const DetailFaqCard: React.FC<DetailFaqCardProps> = ({ isFeatch, data }) => {
           <div className="block md:hidden">
             <Link to={'/faq/search'}>
               <div className="absolute items-center px-4 text-black duration-300 rounded-none top-4 right-8 md:flex ">
-                <SearchIcon className="w-[25px] h-[20px] text-gray cursor-pointer " />
+                <SearchIcon className="w-[25px] h-[20px] text-gray cursor-pointer hover:scale-[1.2] duration-300  " />
               </div>
             </Link>
           </div>
@@ -162,7 +182,7 @@ const DetailFaqCard: React.FC<DetailFaqCardProps> = ({ isFeatch, data }) => {
               </div>
             </div>
             <div className="fixed right-0 p-1 bottom-1">
-              {closedQuestions ? null : (
+              {!closedQuestions && (
                 <div className="flex rounded-md bg-[#F0F2F5] pt-2 py-1 lg:py-2 px-1 lg:px-3">
                   <div className={`flex py-2 lg:py-4 px-2 lg:px-3 rounded-md`}>
                     <div className="">

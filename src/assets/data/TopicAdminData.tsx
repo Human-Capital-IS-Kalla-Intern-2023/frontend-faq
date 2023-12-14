@@ -74,4 +74,4 @@ const getIconList = async () => {
   }
 };
 
-export { colCells, inputField, getIconList };
+export { colCells, inputField, getIconList, generateIconOptions };

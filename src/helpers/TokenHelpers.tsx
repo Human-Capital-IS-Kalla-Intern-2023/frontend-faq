@@ -1,7 +1,7 @@
 // Import Library & Package
 import Cookies from 'js-cookie';
 
-const TokenHelper = () => {
+const TokenHelperUser = () => {
   const token = Cookies.get('access_token');
   if (!token) {
     throw new Error('Access token not available');
@@ -9,4 +9,12 @@ const TokenHelper = () => {
   return token;
 };
 
-export default TokenHelper;
+const TokenHelperAdmin = () => {
+  const token = Cookies.get('admin_access_token');
+  if (!token) {
+    throw new Error('Admin Access token not available');
+  }
+  return token;
+};
+
+export { TokenHelperAdmin, TokenHelperUser };

@@ -2,11 +2,10 @@
 import Cookies from 'js-cookie';
 
 // Import Helpers
-import { RequestApi, RequestApiEss } from '../helpers/RequestApi';
-import TokenHelper from '../helpers/TokenHelpers';
+import { RequestApi } from '../helpers/RequestApi';
 
 // Login  API
-const loginUser = async (credentials: any) => {
+const loginAdmin = async (credentials: any) => {
   try {
     const responseLogin = await RequestApi(
       'POST',
@@ -16,8 +15,8 @@ const loginUser = async (credentials: any) => {
       'Mencoba Login'
     );
 
-    const access_token = responseLogin.data.access_token;
-    Cookies.set('access_token', access_token, { expires: 7 });
+    const admin_access_token = responseLogin.data.access_token;
+    Cookies.set('admin_access_token', admin_access_token, { expires: 7 });
 
     return true;
   } catch (error) {
@@ -26,29 +25,11 @@ const loginUser = async (credentials: any) => {
   }
 };
 
-const loginEss = async () => {
-  try {
-    const responseLogin = await RequestApiEss(
-      'GET',
-      'auth/ess',
-      {},
-      {},
-      'Mencoba Login ess'
-    );
-
-    console.log(responseLogin);
-
-    return true;
-  } catch (error) {
-    console.error('Terjadi kesalahan saat mencoba login ess ', error);
-    throw error;
-  }
-};
-
 // Logout API
-const logoutUser = async () => {
+const logoutUser = async (token_to_remove: string, token_helper: any) => {
   try {
-    const token = TokenHelper();
+    const token = token_helper;
+    console.log(token);
 
     const headerToken = {
       Authorization: `Bearer ${token}`,
@@ -62,13 +43,13 @@ const logoutUser = async () => {
       'Mencoba Keluar'
     );
 
-    Cookies.remove('access_token');
+    Cookies.remove(`${token_to_remove}`);
 
     return responseData;
   } catch (error) {
     console.error('Terjadi kesalahan saat mencoba logout ', error);
-    throw error;
+    return false;
   }
 };
 
-export { loginUser, logoutUser, loginEss };
+export { loginAdmin, logoutUser };

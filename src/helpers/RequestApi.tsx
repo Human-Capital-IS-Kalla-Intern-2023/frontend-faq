@@ -32,27 +32,4 @@ const RequestApi = async (
   }
 };
 
-const RequestApiEss = async (
-  method: string,
-  url: string,
-  data: any = {},
-  headers: any = {},
-  action: string
-) => {
-  try {
-    const response = await axios({
-      method,
-      url: `http://localhost:8000}/${url}`,
-      data,
-      headers: {
-        'Content-Type': 'application/json',
-        ...headers,
-      },
-    });
-
-    return response.data;
-  } catch (error) {
-    return handleErrorResponse(error, action);
-  }
-};
-export { RequestApi, RequestApiEss };
+export { RequestApi };

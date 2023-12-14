@@ -32,7 +32,6 @@ const EditModal: React.FC<EditModalProps> = ({
   const [formData, setFormData] = useState<FormData>({});
   const [isLoading, setIsLoading] = useState(false);
   const firstInputRef = useRef<HTMLInputElement | null>(null);
-
   const handleChange = (e: any) => {
     const { name, value, type, checked } = e.target;
 
@@ -46,17 +45,11 @@ const EditModal: React.FC<EditModalProps> = ({
         ...prevData,
         [name]: value !== '' ? parseFloat(value) : undefined,
       }));
-    } else if (name === apiEnum.ICON) {
-      setFormData((prevData) => ({
-        ...prevData,
-        [apiEnum.IMAGE]: null,
-        [name]: value.value,
-      }));
-    } else if (name === apiEnum.IMAGE) {
+    } else if (name === apiEnum.ICON || name === apiEnum.IMAGE) {
       setFormData((prevData) => ({
         ...prevData,
         [name]: value,
-        [apiEnum.ICON]: null,
+        [name === apiEnum.ICON ? apiEnum.IMAGE : apiEnum.ICON]: null,
       }));
     } else if (type === tagEnum.TEXT) {
       setFormData((prevData) => ({
@@ -79,7 +72,13 @@ const EditModal: React.FC<EditModalProps> = ({
     try {
       setIsLoading(true);
       if (onSubmit && onClose) {
-        await onSubmit(formData, idToEdit);
+        // Create a new payload with only the 'value' property for 'icon'
+        const payload = {
+          ...formData,
+          icon: formData.icon ? formData.icon.value : null,
+        };
+
+        await onSubmit(payload, idToEdit);
         onClose();
       }
     } catch (error) {
@@ -104,8 +103,14 @@ const EditModal: React.FC<EditModalProps> = ({
         }
       });
 
-      if (apiEnum.ICON in initialFormData) {
-        initialData[apiEnum.ICON] = initialFormData[apiEnum.ICON];
+      if (
+        apiEnum.ICON in initialFormData &&
+        initialFormData[apiEnum.ICON] !== null
+      ) {
+        initialData[apiEnum.ICON] = {
+          value: initialFormData[apiEnum.ICON],
+          label: initialFormData[apiEnum.ICON],
+        };
       }
 
       if (apiEnum.IMAGE in initialFormData) {
@@ -182,6 +187,8 @@ const EditModal: React.FC<EditModalProps> = ({
                     onChange={handleChange}
                     showImageInputCheckbox={field.label === 'icon'}
                     imageFieldName={apiEnum.IMAGE}
+                    ariaLabel={field.name}
+                    defaultValue={formData.icon}
                   />
                 )}
 

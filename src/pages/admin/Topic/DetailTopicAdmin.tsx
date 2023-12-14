@@ -4,52 +4,74 @@ import { useNavigate, useParams } from 'react-router-dom';
 import ReactLoading from 'react-loading';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
-import 'react-quill/dist/quill.snow.css';
-import ReactQuill from 'react-quill';
 // Import Component Component
 import CancelButton from '../../../components/buttons/CancelButton';
-
+import { colCellsWithoutTopic } from '../../../assets/data/FaqAdminData';
 // Import API's
-import { getDetailFaqAdmin } from '../../../api/admin/FaqAdminAPI';
+import { getDetailTopicAdmin } from '../../../api/admin/TopicAdminAPI';
 
 import { DropdownIcon } from '../../../assets/icons/Icon';
+import TabelBody from '../../../components/tabels/TabelBody';
 
-interface FaqData {
+interface TopicData {
   id: number;
-  question: string;
+  name: string;
   is_status: number;
-  answer: string;
-  topics: {
-    id: number;
+  description: string;
+  updated_at: string;
+  user: {
     name: string;
+  };
+  questions: {
+    id: number;
+    user_id: number;
+    question: string;
+    slug: string;
+    answer: string;
+    is_status: number;
+    created_at: string;
+    updated_at: string;
+    pivot: {
+      topic_id: number;
+      question_id: number;
+      created_at: string;
+      updated_at: string;
+    };
   }[];
-  likes: number;
-  dislikes: number;
 }
 
-const DetailFaqAdmin = () => {
-  const [faqData, setFaqData] = useState<FaqData>({} as FaqData);
+function formatDateTime(dateTimeString: string) {
+  const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: false, // Ensure 24-hour format
+    timeZone: 'Asia/Makassar', // Set the desired time zone
+  };
 
-  const [faqAdminNameValue, setFaqAdminNameValue] = useState('');
+  const dateTime = new Date(dateTimeString);
+  return dateTime.toLocaleString('id-ID', options); // 'id-ID' is the locale for Indonesian
+}
 
-  const [topicNames, setTopicNames] = useState<any[]>([]);
+const DetailTopicAdmin = () => {
+  const [topicData, setTopicData] = useState<TopicData>({} as TopicData);
   const [isLoading, setIsLoading] = useState(false);
 
   // State variables for dropdown visibility
   const [showInformation, setShowInformation] = useState(true);
-  const [showAnswer, setShowAnswer] = useState(true);
+  const [showQuestion, setShowQuestion] = useState(true);
 
   const handleInformationDropdown = () => {
     setShowInformation(!showInformation);
   };
 
   const handleAnswerDropdown = () => {
-    setShowAnswer(!showAnswer);
+    setShowQuestion(!showQuestion);
   };
 
-  const [blogContent, setBlogContent] = useState('');
-
-  const { QuestionSlug } = useParams();
+  const { TopicSlug } = useParams();
 
   // Checkbox State
   const [leftActiveCheckbox, setLeftActiveCheckbox] = useState(true);
@@ -58,20 +80,20 @@ const DetailFaqAdmin = () => {
 
   //* LOCAL STORAGE SECTION
   const saveDataToLocalStorage = (data: any) => {
-    localStorage.setItem('faqAdminDetailData', JSON.stringify(data));
+    localStorage.setItem('topicAdminDetailData', JSON.stringify(data));
   };
 
   ///* NAVBAR SECTION
   // Handler Cancel Navbar Button
   const cancelHandler = async () => {
-    localStorage.removeItem('faqAdminDetailData');
+    localStorage.removeItem('topicAdminDetailData');
 
-    navigate('/admin/faq');
+    navigate('/admin/topic');
   };
   const editNavigateHandler = async () => {
-    localStorage.removeItem('faqAdminDetailData');
+    localStorage.removeItem('topicAdminDetailData');
 
-    navigate(`/admin/faq/edit/${QuestionSlug}`);
+    navigate(`/admin/topic/edit/${TopicSlug}`);
   };
 
   //* USE EFFECT SECTION
@@ -79,27 +101,24 @@ const DetailFaqAdmin = () => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const response = await getDetailFaqAdmin(QuestionSlug);
-        const faqData = response.data;
-        setFaqData(faqData);
+        const response = await getDetailTopicAdmin(TopicSlug);
+        const topicData = response.data;
+        setTopicData(topicData);
         // Set the topic name to state
-        setTopicNames(faqData.topics);
 
         // Update other fields accordingly
-        setFaqAdminNameValue(faqData.question);
-        setLeftActiveCheckbox(faqData.is_status === 1);
-        setBlogContent(faqData.answer);
+        setLeftActiveCheckbox(topicData.is_status === 1);
 
         // Set the localStorage data
         const newData = {
-          id: faqData.id,
-          question: faqData.question,
-          is_status: faqData.is_status,
-          answer: faqData.answer,
+          id: topicData.id,
+          question: topicData.question,
+          is_status: topicData.is_status,
+          answer: topicData.answer,
         };
         saveDataToLocalStorage(newData);
       } catch (error) {
-        console.error('Error fetching faq details:', error);
+        console.error('Error fetching topic details:', error);
       } finally {
         setIsLoading(false);
       }
@@ -115,7 +134,7 @@ const DetailFaqAdmin = () => {
     return () => {
       isMounted = false;
     };
-  }, [QuestionSlug]);
+  }, [TopicSlug]);
 
   return (
     <>
@@ -128,7 +147,7 @@ const DetailFaqAdmin = () => {
       {/* Header Design  */}
       <header className="flex items-center justify-between p-4 shadow-lg sm:p-5 ">
         <h1 className="p-2 text-base font-medium border-b-2 sm:text-lg md:text-xl lg:text-[22px] border-primary">
-          Detail Frequently Asked Questions
+          Detail Topic
         </h1>
         <div className="hidden text-xs font-medium lg:flex md:flex lg:text-sm">
           <CancelButton onClick={cancelHandler} title="BACK" />
@@ -151,7 +170,7 @@ const DetailFaqAdmin = () => {
                 showInformation ? '' : 'rounded-b-md'
               } transition-all duration-300 ease-in-out`}
             >
-              <h1 className="py-4 pl-4 shadow-lg sm:text-base lg:text-[18px] ">
+              <h1 className="py-4 pl-4  sm:text-base lg:text-[18px] ">
                 INFORMATION
               </h1>
 
@@ -166,23 +185,17 @@ const DetailFaqAdmin = () => {
               <div className="p-4">
                 <div className="">
                   <div className="block w-full py-2  text-[22px] font-bold bg-transparent ">
-                    {faqAdminNameValue}
+                    {topicData?.name}
                   </div>
                 </div>
-                <div className="block my-4 text-base font-medium">
-                  Topic:
-                  {topicNames.map((topic) => (
-                    <span
-                      key={topic.id}
-                      className="px-3 py-[5px] ml-2 text-sm text-white capitalize rounded-full bg-primary"
-                    >
-                      {topic.name}
-                    </span>
-                  ))}
-                </div>
 
-                <div className="my-4">Likes: {faqData?.likes}</div>
-                <div className="my-4">Dislikes: {faqData?.dislikes}</div>
+                <div className="my-4">
+                  Description: {topicData?.description}
+                </div>
+                <div className="my-4">Made By: {topicData?.user?.name}</div>
+                <div className="my-4">
+                  Last Update: {formatDateTime(topicData?.updated_at)}
+                </div>
 
                 <p className="my-4 text-base">
                   {' '}
@@ -199,9 +212,7 @@ const DetailFaqAdmin = () => {
         {/* Right Card Design */}
         <div className="w-full mt-10 overflow-auto rounded-md shadow-2xl">
           <div className="flex justify-between transition-all duration-300 ease-in-out border-gray bg-slate-300 rounded-t-md">
-            <h1 className="py-4 pl-4 shadow-lg sm:text-base lg:text-[18px] ">
-              ANSWER
-            </h1>
+            <h1 className="py-4 pl-4  sm:text-base lg:text-[18px] ">ANSWER</h1>
             <div
               className="flex items-center justify-center mr-4"
               onClick={handleAnswerDropdown}
@@ -209,17 +220,11 @@ const DetailFaqAdmin = () => {
               <DropdownIcon />
             </div>
           </div>
-          {showAnswer && (
-            <>
-              <div className="font-poppins">
-                <ReactQuill
-                  theme="snow"
-                  readOnly={true}
-                  value={blogContent}
-                  modules={{ toolbar: false }}
-                />
-              </div>
-            </>
+          {showQuestion && (
+            <TabelBody
+              colCells={colCellsWithoutTopic}
+              data={topicData.questions}
+            />
           )}
         </div>
       </div>
@@ -238,4 +243,4 @@ const DetailFaqAdmin = () => {
   );
 };
 
-export default DetailFaqAdmin;
+export default DetailTopicAdmin;

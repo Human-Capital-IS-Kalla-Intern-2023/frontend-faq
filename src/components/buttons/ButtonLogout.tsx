@@ -12,29 +12,44 @@ import { LogoutIcon } from '../../assets/icons/Icon';
 // Import API
 import { logoutUser } from '../../api/AuthAPI';
 
-const ButtonLogout = () => {
+interface ButtonLogoutProp {
+  title: string;
+  className: string;
+  bg: string;
+  linkNavigate: string;
+  remove_token_name: string;
+  token_helper: any;
+}
+
+const ButtonLogout: React.FC<ButtonLogoutProp> = ({
+  title,
+  className,
+  bg,
+  linkNavigate,
+  remove_token_name,
+  token_helper,
+}) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const handleLogout = async () => {
     setIsLoading(true);
-
-    const responseData = await logoutUser();
+    const responseData = await logoutUser(remove_token_name, token_helper);
 
     if (responseData) {
       Cookies.remove('access_token');
-      navigate(`/`);
+      setIsLoading(false);
+      navigate(`${linkNavigate}`);
     } else {
+      setIsLoading(false);
+
       Swal.fire({
         icon: 'error',
         title: 'Logout Failed',
         text: 'Something went wrong',
       });
-      navigate(`/`);
     }
-
-    setIsLoading(false);
   };
 
   const textAnimation = {
@@ -49,7 +64,9 @@ const ButtonLogout = () => {
           <ReactLoading type="spin" color="green" height={50} width={50} />
         </div>
       )}
-      <div className="px-1 py-2 mt-3 mb-1 rounded-md hover:bg-primary hover:text-white">
+      <div
+        className={`px-1 py-2 mt-3 mb-1 rounded-full ${bg} hover:bg-primary hover:text-white`}
+      >
         <button
           onClick={() => {
             Swal.fire({
@@ -69,10 +86,10 @@ const ButtonLogout = () => {
           className="link"
           role="link"
         >
-          <div className="flex items-center text-base">
+          <div className={` ${className}`}>
             <LogoutIcon className="min-w-max" />
             <motion.div variants={textAnimation} className="ml-2 link">
-              Log Out
+              {title}
             </motion.div>
           </div>
         </button>

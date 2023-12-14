@@ -9,6 +9,13 @@ const colCells = [
   { key: apiEnum.IS_STATUS, text: 'active' },
 ];
 
+const colCellsWithoutTopic = [
+  { key: apiEnum.QUESTION, text: 'faq name' },
+  { key: apiEnum.LIKES, text: 'likes' },
+  { key: apiEnum.DISLIKES, text: 'dislike' },
+  { key: apiEnum.IS_STATUS, text: 'active' },
+];
+
 const inputField = [
   {
     id: apiEnum.QUESTION,
@@ -32,4 +39,4 @@ const inputField = [
   },
 ];
 
-export { colCells, inputField };
+export { colCells, colCellsWithoutTopic, inputField };

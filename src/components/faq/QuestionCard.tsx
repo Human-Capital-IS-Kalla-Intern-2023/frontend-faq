@@ -82,6 +82,8 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
 
     if (searchInput) {
       navigate(`/faq/search?title=${searchInput}`);
+    } else {
+      navigate(`/faq/search?title=`);
     }
   };
 
@@ -132,7 +134,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
                       />
                     </div>
                   )}
-                  <SearchIcon className="w-[25px] h-[20px] text-gray cursor-pointer " />
+                  <SearchIcon className="w-[25px] h-[20px] text-gray cursor-pointer hover:scale-[1.2] duration-300" />
                 </button>
               </div>
             </form>
@@ -141,7 +143,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ onSearch, data }) => {
           <div className="block md:hidden">
             <Link to={'/faq/search'}>
               <div className="absolute items-center px-4 text-black duration-300 rounded-none top-4 right-8 md:flex ">
-                <SearchIcon className="w-[25px] h-[20px] text-gray cursor-pointer " />
+                <SearchIcon className="w-[25px] h-[20px] text-gray cursor-pointer hover:scale-[1.2] duration-300 " />
               </div>
             </Link>
           </div>

@@ -19,16 +19,14 @@ import logo3000 from '../../assets/img/logo/logo-3000.webp';
 
 import {
   DashboardIcon,
-  ReportIcon,
   FAQIcon,
   TopicIcon,
-  SettingIcon,
   CloseSidebarIcon,
   ReponsiveSidebarIcon,
 } from '../../assets/icons/Icon';
 
 const AdminSideBar = () => {
-  const isTabletMid = useMediaQuery({ query: '(max-width: 768px)' });
+  const isTabletMid = useMediaQuery({ query: '(max-width: 1024px)' });
   const [open, setOpen] = useState(isTabletMid ? false : true);
   const { pathname } = useLocation();
   const sidebarRef = useRef<HTMLDivElement>(null);
@@ -90,7 +88,7 @@ const AdminSideBar = () => {
       <div className="shadow-xl">
         <div
           onClick={() => setOpen(false)}
-          className={`md:hidden fixed inset-0 max-h-full z-10 bg-black/50 ${
+          className={`lg:hidden fixed inset-0 max-h-full z-10 bg-black/50 ${
             open ? 'block' : 'hidden'
           } `}
         ></div>
@@ -141,25 +139,6 @@ const AdminSideBar = () => {
                 </NavLink>
               </li>
 
-              <li
-                className={`px-1 py-2 mb-1 rounded-md text-base  ${
-                  pathname.includes('/admin/reports')
-                    ? 'bg-primary text-white '
-                    : 'hover:bg-slate-300 '
-                }`}
-              >
-                <NavLink to={'/admin/reports'} className="flex items-center">
-                  <ReportIcon className="min-w-max" />
-                  <motion.span
-                    variants={textAnimation}
-                    animate={open ? 'open' : 'closed'}
-                    className="ml-2 link"
-                  >
-                    Reports
-                  </motion.span>
-                </NavLink>
-              </li>
-
               <li className="pt-4 pb-1 border-b border-slate-300 ">
                 <p className="inline-block pl-3 mb-2 text-[17px] text-slate-500">
                   Other Section
@@ -201,49 +180,16 @@ const AdminSideBar = () => {
                   </motion.span>
                 </NavLink>
               </li>
-              <li
-                className={`px-1 py-2 mb-1 rounded-md text-base  ${
-                  pathname.includes('/admin/setting')
-                    ? 'bg-primary text-white '
-                    : 'hover:bg-slate-300 '
-                }`}
-              >
-                <NavLink to={'/admin/setting'} className="flex items-center">
-                  <SettingIcon className="min-w-max" />
-                  <motion.span
-                    variants={textAnimation}
-                    animate={open ? 'open' : 'closed'}
-                    className="ml-2 link"
-                  >
-                    Setting
-                  </motion.span>
-                </NavLink>
-              </li>
 
               <li className="mt-5 border-t border-slate-300">
-                <ButtonLogout />
+                <ButtonLogout
+                  title="Logout"
+                  bg="rounded-md"
+                  className=" flex justify-center items-center text-base"
+                  linkNavigate="/auth/login"
+                  remove_token_name="admin_access_token"
+                />
               </li>
-
-              {/* <li className=" border-slate-300">
-                {(open || isTabletMid) && (
-                  <div className="py-5 border-y border-slate-300 ">
-                    <p className="inline-block pl-3 mb-2 text-[17px] text-slate-500">
-                      Other Section
-                    </p>
-                    {subMenusList?.map((menu: any) => (
-                      <div
-                        key={menu.name}
-                        className="flex flex-col gap-1 px-1 py-2 mb-1 text-base rounded-md hover:bg-primary hover:text-white"
-                      >
-                        <SideBarMenu data={menu} />
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </li>
-              <li className="">
-                <ButtonLogout />
-              </li> */}
             </ul>
           </div>
           <motion.div
@@ -269,7 +215,10 @@ const AdminSideBar = () => {
             <CloseSidebarIcon />
           </motion.div>
         </motion.div>
-        <div className="m-3 md:hidden" onClick={() => setOpen(true)}>
+        <div
+          className="absolute right-0 m-3 top-1 md:top-2 md:block lg:hidden"
+          onClick={() => setOpen(true)}
+        >
           <ReponsiveSidebarIcon />
         </div>
       </div>

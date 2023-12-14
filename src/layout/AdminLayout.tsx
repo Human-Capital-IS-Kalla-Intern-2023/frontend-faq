@@ -15,6 +15,7 @@ function AdminLayout({ children }: any) {
     '/admin/faq/add',
     '/admin/faq/edit',
     '/admin/faq/detail',
+    '/admin/topic/detail',
   ];
 
   const shouldShowSidebar =
