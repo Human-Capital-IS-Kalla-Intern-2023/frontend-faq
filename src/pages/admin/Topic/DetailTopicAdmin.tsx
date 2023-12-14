@@ -47,15 +47,17 @@ function formatDateTime(dateTimeString: string) {
     day: 'numeric',
     hour: 'numeric',
     minute: 'numeric',
-    hour12: false, // Ensure 24-hour format
-    timeZone: 'Asia/Makassar', // Set the desired time zone
+    hour12: false,
+    timeZone: 'Asia/Makassar',
   };
 
   const dateTime = new Date(dateTimeString);
-  return dateTime.toLocaleString('id-ID', options); // 'id-ID' is the locale for Indonesian
+  return dateTime.toLocaleString('id-ID', options);
 }
 
 const DetailTopicAdmin = () => {
+  const { TopicSlug } = useParams();
+
   const [topicData, setTopicData] = useState<TopicData>({} as TopicData);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -70,8 +72,6 @@ const DetailTopicAdmin = () => {
   const handleAnswerDropdown = () => {
     setShowQuestion(!showQuestion);
   };
-
-  const { TopicSlug } = useParams();
 
   // Checkbox State
   const [leftActiveCheckbox, setLeftActiveCheckbox] = useState(true);
@@ -102,7 +102,8 @@ const DetailTopicAdmin = () => {
       try {
         setIsLoading(true);
         const response = await getDetailTopicAdmin(TopicSlug);
-        const topicData = response.data;
+        const topicData = response.data[0];
+        console.log(topicData);
         setTopicData(topicData);
         // Set the topic name to state
 

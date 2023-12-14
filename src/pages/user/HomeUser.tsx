@@ -5,10 +5,13 @@ import logoKalla from '../../assets/img/logo/singel-logo-kalla_52x48.webp';
 import { getTopicUser } from '../../api/user/FaqUserAPI';
 import ButtonLogout from '../../components/buttons/ButtonLogout';
 import { TokenHelperUser } from '../../helpers/TokenHelpers';
+import { useNavigate } from 'react-router-dom';
+
 const HomeUser: React.FC = () => {
   // Loading
   const [isLoading, setIsLoading] = useState(false);
   const [faqUser, setTopicUser] = useState<any[]>([]);
+  const navigate = useNavigate();
 
   // GET all topic user data
   const fetchFaqUser = async () => {
@@ -26,7 +29,11 @@ const HomeUser: React.FC = () => {
 
   useEffect(() => {
     fetchFaqUser();
-  }, []);
+    const accessToken = TokenHelperUser();
+    if (!accessToken) {
+      navigate('/');
+    }
+  }, [navigate]);
 
   return (
     <>

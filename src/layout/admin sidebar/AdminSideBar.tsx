@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useMediaQuery } from 'react-responsive';
 import { NavLink, useLocation } from 'react-router-dom';
-
+import { TokenHelperAdmin } from '../../helpers/TokenHelpers';
 // Components Import
 // import SideBarMenu from './SideBarMenu';
 import ButtonLogout from '../../components/buttons/ButtonLogout';
@@ -185,9 +185,10 @@ const AdminSideBar = () => {
                 <ButtonLogout
                   title="Logout"
                   bg="rounded-md"
-                  className=" flex justify-center items-center text-base"
+                  className="flex items-center justify-center text-base "
                   linkNavigate="/auth/login"
                   remove_token_name="admin_access_token"
+                  token_helper={TokenHelperAdmin()}
                 />
               </li>
             </ul>

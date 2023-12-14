@@ -12,15 +12,13 @@ const Callback = () => {
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const token = searchParams.get('token');
-    console.log(token);
+
     setIsLoading(true);
     if (token) {
       Cookies.set('access_token', token, { expires: 7 });
       setIsLoading(false);
       navigate('/home');
     } else {
-      console.log('nah2');
-
       console.error('Token not found in query parameters');
       setIsLoading(false);
       navigate('/');

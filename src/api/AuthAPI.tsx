@@ -29,7 +29,6 @@ const loginAdmin = async (credentials: any) => {
 const logoutUser = async (token_to_remove: string, token_helper: any) => {
   try {
     const token = token_helper;
-    console.log(token);
 
     const headerToken = {
       Authorization: `Bearer ${token}`,
