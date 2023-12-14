@@ -12,14 +12,8 @@ import { LogoutIcon } from '../../assets/icons/Icon';
 // Import API
 import { logoutUser } from '../../api/AuthAPI';
 
-interface ButtonLogoutProp {
-  title: string;
-  className: string;
-  bg: string;
-  linkNavigate: string;
-  remove_token_name: string;
-  token_helper: any;
-}
+// Import Props
+import { ButtonLogoutProp } from '../../state/types/ButtonType';
 
 const ButtonLogout: React.FC<ButtonLogoutProp> = ({
   title,
