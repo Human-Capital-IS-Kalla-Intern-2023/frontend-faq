@@ -2,27 +2,11 @@
 import React, { useEffect } from 'react';
 import Swal from 'sweetalert2';
 
-interface CustomAlertProps {
-  title: string;
-  text: string;
-  timer?: number;
-}
-
-interface ConfirmationAlertProps {
-  title: string;
-  text?: string;
-  html?: any;
-  onConfirm: () => void;
-  timer?: number;
-  confirmButtonText?: string;
-}
-
-interface ConfimationAlert {
-  title: string;
-  text: string;
-  detail?: string;
-  onConfirm: () => void;
-}
+import {
+  CustomAlertProps,
+  ConfirmationAlertProps,
+  ConfirmationAlert,
+} from '../../state/types/AlertType';
 
 const ErrorAlert: React.FC<CustomAlertProps> = ({ title, text, timer }) => {
   const defaultTimer = 20000;
@@ -96,7 +80,7 @@ const ConfirmationAlert: React.FC<ConfirmationAlertProps> = ({
   return null;
 };
 
-const DeleteConfimationAlert: React.FC<ConfimationAlert> = ({
+const DeleteConfirmationAlert: React.FC<ConfirmationAlert> = ({
   title,
   text,
   detail,
@@ -120,7 +104,7 @@ const DeleteConfimationAlert: React.FC<ConfimationAlert> = ({
   return null;
 };
 
-const CancelConfirmationAlert: React.FC<ConfimationAlert> = ({
+const CancelConfirmationAlert: React.FC<ConfirmationAlert> = ({
   title,
   text,
   detail,
@@ -149,6 +133,6 @@ export {
   SuccessAlert,
   WarningAlert,
   ConfirmationAlert,
-  DeleteConfimationAlert,
+  DeleteConfirmationAlert,
   CancelConfirmationAlert,
 };
