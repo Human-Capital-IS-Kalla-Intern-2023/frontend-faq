@@ -4,18 +4,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import ReactLoading from 'react-loading';
 import { TruncateText } from '../../helpers/TruncateText';
 import IconRenderer from '../../helpers/IconRenders';
-interface Topic {
-  id: number;
-  slug: string;
-  name: string;
-  description: string;
-  image: string;
-  icon: string | null;
-  questions: string;
-}
+import { TopicProps } from '../../state/types/TopicType';
 
 interface HomeUserCardProps {
-  data?: Topic[];
+  data?: TopicProps[];
 }
 
 const HomeUserCard: React.FC<HomeUserCardProps> = ({ data }) => {
