@@ -18,12 +18,12 @@
     src: url(./assets/fonts/Poppins-Bold.woff2) format('woff2');
 } */
 
-/* @font-face {
+@font-face {
   font-family: 'Poppins';
   font-weight: 500;
   src: url(./assets/fonts/Poppins-Medium.woff2) format('woff2');
   font-display: swap;
-} */
+}
 
 body {
   font-family: 'Poppins', sans-serif;
