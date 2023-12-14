@@ -186,7 +186,7 @@ const AdminSideBar = () => {
                   title="Logout"
                   bg="rounded-md"
                   className="flex items-center justify-center text-base "
-                  linkNavigate="/auth/login"
+                  linkNavigate="/auth/admin/login"
                   remove_token_name="admin_access_token"
                   token_helper={TokenHelperAdmin()}
                 />

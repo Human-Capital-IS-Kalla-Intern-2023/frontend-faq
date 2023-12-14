@@ -157,6 +157,7 @@ const AddModal = ({ isOpen, onClose, title, inputFields, onSubmit }: any) => {
                     type={field.type}
                     placeholder={`Input ${field.label}`}
                     onChange={handleChange}
+                    label="add field"
                   />
                 )}
               </div>

@@ -37,7 +37,7 @@ import NotFound from './pages/auth/NotFound';
 import NotFoundAdmin from './pages/auth/NotFoundAdmin';
 import PermissionDenied from './pages/auth/PermissionDenied';
 import Unauthorized from './pages/auth/Unauthorized';
-import Login from './pages/auth/LoginAdmin';
+import LoginAdmin from './pages/auth/LoginAdmin';
 import Callback from './pages/auth/Callback';
 
 import './App.css';
@@ -103,7 +103,7 @@ const App: React.FC = () => {
             isAdminAuthenticated ? (
               <AdminRoutes />
             ) : (
-              <Navigate to="/auth/login" />
+              <Navigate to="/auth/admin/login" />
             )
           }
         />
@@ -120,7 +120,7 @@ const App: React.FC = () => {
         />
 
         <Route path="home" element={<HomeUser />} />
-        <Route path="/auth/login" element={<Login />} />
+        <Route path="/auth/admin/login" element={<LoginAdmin />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="/permissiondenied" element={<PermissionDenied />} />
 
