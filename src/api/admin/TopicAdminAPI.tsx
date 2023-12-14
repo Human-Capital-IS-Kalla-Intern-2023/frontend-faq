@@ -160,7 +160,7 @@ const changeIsActiveTopicAdmin = async (slugTopic: any, newIsActive: any) => {
 
     const responseIsActiveChange = await RequestApi(
       'PUT',
-      `faq/is_active/${slugTopic}`,
+      `faq/topics/is_active/${slugTopic}`,
       sendData,
       headerToken,
       'Mengubah Active Topic Admin'
