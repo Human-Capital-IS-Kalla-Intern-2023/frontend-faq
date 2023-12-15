@@ -4,7 +4,7 @@ import wismakalla from '../../assets/img/logo/wisma-kalla.jpg';
 
 const LoginCard = () => {
   const handleLoginEss = () => {
-    window.location.href = 'http://localhost:8000/auth/ess';
+    window.location.href = `${import.meta.env.VITE_DEV_URL_BACKEND}/auth/ess`;
   };
 
   return (
