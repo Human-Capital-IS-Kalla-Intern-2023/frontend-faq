@@ -57,7 +57,7 @@ const HomeUser: React.FC = () => {
               Pusat Bantuan
             </h1>
           </div>
-          <button className="mr-5">
+          <div className="mr-5">
             <ButtonLogout
               title=""
               bg="bg-slate-200 flex justify-center items-center text-base"
@@ -66,7 +66,7 @@ const HomeUser: React.FC = () => {
               remove_token_name="access_token"
               token_helper={TokenHelperUser()}
             />
-          </button>
+          </div>
         </div>
       </div>
       <HomeUserCard data={faqUser} />

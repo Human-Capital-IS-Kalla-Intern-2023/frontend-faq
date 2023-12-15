@@ -31,9 +31,19 @@ const HeaderFaq: React.FC<HeaderFaqProps> = () => {
         </div>
 
         <div className="block md:hidden">
+          <div className="absolute items-center px-4 text-black duration-300 rounded-none -top-2 right-6 md:flex">
+            <ButtonLogout
+              title=""
+              bg="lg:bg-slate-200 bg-transparent flex justify-center items-center text-base mb-3 ml-2"
+              className="px-1"
+              linkNavigate="/"
+              remove_token_name="access_token"
+              token_helper={TokenHelperUser()}
+            />
+          </div>
           <Link to={'/faq/search'}>
-            <div className="absolute items-center px-4 text-black duration-300 rounded-none top-4 right-8 md:flex ">
-              <SearchIcon className="w-[25px] h-[20px] text-gray cursor-pointer hover:scale-[1.2] duration-300 " />
+            <div className="absolute items-center px-4 text-black duration-300 rounded-none top-3 right-[70px] md:flex ">
+              <SearchIcon className="w-[30px] h-[25px] text-gray cursor-pointer hover:scale-[1.2] duration-300 " />
             </div>
           </Link>
         </div>

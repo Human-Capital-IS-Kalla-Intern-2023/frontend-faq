@@ -59,7 +59,7 @@ const ButtonLogout: React.FC<ButtonLogoutProp> = ({
         </div>
       )}
       <div
-        className={`px-1 py-2 mt-3 mb-1 rounded-full ${bg} hover:bg-primary hover:text-white`}
+        className={`px-1 py-2 mt-3 mb-1 rounded-full ${bg} lg:hover:bg-primary duration-300  lg:hover:text-white`}
       >
         <button
           onClick={() => {
