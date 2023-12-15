@@ -1,32 +1,10 @@
 import { LockIcon } from '../../assets/icons/Icon';
 import { LongArrowRightIcon } from '../../assets/icons/Icon';
 import wismakalla from '../../assets/img/logo/wisma-kalla.jpg';
-// import { loginEss } from '../../api/AuthAPI';
-// import ReactLoading from 'react-loading';
-// import { useState } from 'react';
-// import { ErrorAlert } from '../alerts/CustomAlert';
-// import { useNavigate } from 'react-router-dom';
-const LoginCard = () => {
-  // const [loginError, setLoginError] = useState(false);
-  // const [errorTitle, setErrorTitle] = useState('');
-  // const [errorMessage, setErrorMessage] = useState('');
 
-  // const navigate = useNavigate();
-  const handleLoginEss = async () => {
-    window.location.href = 'http://localhost:8000/auth/ess';
-    // setIsLoading(true);
-    // setLoginError(false);
-    // try {
-    //   const response = await loginEss();
-    //   console.log(response);
-    // } catch (error: any) {
-    //   console.error(error);
-    //   setLoginError(true);
-    //   setErrorTitle(`Error Saat Login`);
-    //   setErrorMessage(` ${error.response.data.message}`);
-    // } finally {
-    //   setIsLoading(false);
-    // }
+const LoginCard = () => {
+  const handleLoginEss = () => {
+    window.location.href = `${import.meta.env.VITE_DEV_URL_BACKEND}/auth/ess`;
   };
 
   return (

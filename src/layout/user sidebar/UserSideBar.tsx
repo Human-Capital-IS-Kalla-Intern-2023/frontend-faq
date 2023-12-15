@@ -196,7 +196,7 @@ const UserSidebar = () => {
           </motion.div>
         </motion.div>
         <div
-          className="absolute right-0 m-3 top-1 md:top-2 md:block lg:hidden"
+          className="absolute right-0 m-3 top-1 md:top-6 md:block lg:hidden"
           onClick={() => setOpen(true)}
         >
           <ReponsiveSidebarIcon />

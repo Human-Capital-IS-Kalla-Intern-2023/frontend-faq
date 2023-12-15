@@ -1,16 +1,7 @@
 import React from 'react';
 
-interface InputFieldProps {
-  id: string;
-  name: string;
-  type: string;
-  value?: string;
-  autoComplete?: string;
-  placeholder: string;
-  required?: boolean;
-  className?: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
+// Import Props
+import { InputFieldProps } from '../../state/types/FieldType';
 
 const InputField: React.FC<InputFieldProps> = ({
   id,

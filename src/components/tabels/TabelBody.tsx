@@ -33,14 +33,14 @@ interface InputField {
 type ColCells = { key: any; text: string } | { keys: any[]; text: string };
 
 interface TabelBodyProps {
-  title: string;
+  title?: string;
   data?: any[];
   colCells: ColCells[];
-  inputFields: InputField[];
+  inputFields?: InputField[];
   detailedData?: any | null;
   fetchDetailedData?: (slug: any) => void;
-  onSubmit: (formData: any, slug: any) => void;
-  onDelete: (slug: any) => void;
+  onSubmit?: (formData: any, slug: any) => void;
+  onDelete?: (slug: any) => void;
   onEditNavigate?: string;
   onDetailNavigate?: string;
   changeIsActive?: (slugIsActive: any, newIsActive: any) => Promise<any>;
@@ -172,7 +172,7 @@ const TabelBody: React.FC<TabelBodyProps> = ({
           if (key === apiEnum.IMAGE) {
             return (
               <img
-                key={key}
+                key={customCell.image + customCell.slug}
                 src={`${TOPIC_STORAGE_URL}/${customCell.image}`}
                 alt={`Image For ${TruncateText(customCell.name, 10)}`}
                 className="w-8 h-8 rounded-full"
@@ -186,7 +186,7 @@ const TabelBody: React.FC<TabelBodyProps> = ({
             return (
               <>
                 <IconRenderer
-                  key={key}
+                  key={customCell.icon + customCell.slug}
                   value={customCell.icon}
                   className="w-7 h-7"
                 />
@@ -229,7 +229,6 @@ const TabelBody: React.FC<TabelBodyProps> = ({
     if (cell.key === 'author') {
       return customCell['user'].name;
     }
-
     if (cell.key === 'name') {
       if (customCell['topics']) {
         const topicNames = customCell['topics'].map((topic: any) => topic.name);
@@ -348,18 +347,28 @@ const TabelBody: React.FC<TabelBodyProps> = ({
   }, [data, location.search, modalDeleteSlug, navigate, openDeleteModal]);
 
   const dropdownRef = useRef<HTMLTableRowElement | null>(null);
+  const isDetailTopicPage = location.pathname.includes('admin/topic/detail');
 
   return (
     <section className="py-3 antialiased sm:py-2 overlay">
-      <div className="max-w-screen-xl px-4 mx-auto">
-        <div className="relative bg-white shadow-custom sm:rounded-lg">
+      <div
+        className={`max-w-screen-xl ${isDetailTopicPage ? '' : 'px-4'} mx-auto`}
+      >
+        <div
+          className={`relative bg-white ${
+            isDetailTopicPage ? '' : 'shadow-custom'
+          } sm:rounded-lg`}
+        >
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-left">
               <thead className="uppercase text-[16px] ">
                 <tr>
-                  <th scope="col" className="invisible w-12 px-2 py-4">
-                    {'#'}
-                  </th>
+                  <th
+                    scope="col"
+                    className={`${
+                      isDetailTopicPage ? 'hidden' : 'invisible'
+                    } w-12 px-2 py-4`}
+                  ></th>
                   {colCells.map((cell, index) => (
                     <th key={index} scope="col" className={`px-2 py-4`}>
                       {cell.text}
@@ -379,10 +388,16 @@ const TabelBody: React.FC<TabelBodyProps> = ({
                       } dropdown-wrapper`}
                       key={index}
                     >
-                      <td className="flex items-center px-2 py-4 font-medium text-center text-black whitespace-nowrap">
+                      <td
+                        className={`${
+                          isDetailTopicPage ? 'hidden' : 'flex'
+                        } items-center px-2 py-4 font-medium text-center text-black whitespace-nowrap`}
+                      >
                         <button
                           id={`dropdown-button-${index}`}
-                          className="inline-flex items-center text-sm font-medium rounded-lg hover:text-center"
+                          className={` items-center text-sm font-medium rounded-lg hover:text-center ${
+                            isDetailTopicPage ? 'hidden' : 'inline-flex'
+                          }`}
                           role="button"
                           aria-label="Dropdown button"
                           onClick={() => toggleDropdown(customCell.slug)}
@@ -439,10 +454,15 @@ const TabelBody: React.FC<TabelBodyProps> = ({
                                 <Link
                                   to={
                                     onDetailNavigate
-                                      ? onDetailNavigate.replace(
-                                          ':QuestionSlug',
-                                          customCell.slug
-                                        )
+                                      ? onDetailNavigate
+                                          .replace(
+                                            ':QuestionSlug',
+                                            customCell.slug
+                                          )
+                                          .replace(
+                                            ':TopicSlug',
+                                            customCell.slug
+                                          )
                                       : `detail/${customCell.slug}`
                                   }
                                   onClick={() =>
@@ -488,8 +508,10 @@ const TabelBody: React.FC<TabelBodyProps> = ({
                                     onClose={closeDeleteModal}
                                     onDelete={() => {
                                       if (deleteId) {
-                                        onDelete(deleteId);
-                                        closeDeleteModal();
+                                        if (onDelete) {
+                                          onDelete(deleteId);
+                                          closeDeleteModal();
+                                        }
                                       }
                                     }}
                                   />

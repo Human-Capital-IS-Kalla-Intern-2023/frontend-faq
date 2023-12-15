@@ -41,7 +41,7 @@ const EditFaqAdmin = () => {
   const [blogContent, setBlogContent] = useState('');
 
   const [formData, setFormData] = useState<{
-    topic_id: number[];
+    topic_id: any[];
     question: string;
     is_status: number;
     answer: any;
@@ -99,40 +99,60 @@ const EditFaqAdmin = () => {
       setIsLoading(true);
       const savedData = localStorage.getItem('faqAdminEditData');
 
-      // Panggil fungsi API untuk menambahkan gaji
-      const responseData = await updateFaqAdmin(QuestionSlug, savedData);
+      if (savedData) {
+        const parsedData = JSON.parse(savedData);
 
-      ConfirmationAlert({
-        title: `${responseData.status}`,
-        html: `${responseData.message}<br/> <small>Click the button below to go faq page</small> `,
-        confirmButtonText: 'Okay & Direct',
-        onConfirm: () => {
-          navigate('/admin/faq');
-          localStorage.removeItem('faqAdminEditData');
-        },
-      });
+        // Transform topic_id to an array of numbers
+        const transformedData = {
+          ...parsedData,
+          topic_id: parsedData.topic_id.map((topic: any) => topic.value),
+        };
+
+        // Panggil fungsi API untuk menambahkan gaji
+        const responseData = await updateFaqAdmin(
+          QuestionSlug,
+          transformedData
+        );
+
+        ConfirmationAlert({
+          title: `${responseData.status}`,
+          html: `${responseData.message}<br/> <small>Click the button below to go faq page</small> `,
+          confirmButtonText: 'Okay & Direct',
+          onConfirm: () => {
+            navigate('/admin/faq');
+            localStorage.removeItem('faqAdminEditData');
+          },
+        });
+      }
     } catch (error: any) {
       console.error('Error editing faq:', error);
       setErrorTitle(`Error editing faq`);
 
-      const errorMessages = Object.values(error.response.data.errors).flat();
-      setErrorMessage(errorMessages.join('\n'));
+      if (error.response.data.errors) {
+        const errorMessages = Object.values(error.response.data.errors);
+        setErrorMessage(errorMessages.join('\n'));
+      } else {
+        setErrorMessage(error.response.data.message);
+      }
     } finally {
       setIsLoading(false);
+      ResetAlert(
+        setSuccessTitle,
+        setSuccessMessage,
+        setErrorTitle,
+        setErrorMessage
+      );
     }
-    ResetAlert(
-      setSuccessTitle,
-      setSuccessMessage,
-      setErrorTitle,
-      setErrorMessage
-    );
   };
 
   ///* LEFT CARD SECTION
   // Handle handle Topic Select
-  const handleTopicSelect = (e: any) => {
-    const selectedOptions = e.target.value;
-    const selectedValues = selectedOptions.map((option: any) => option.value);
+  const handleTopicSelect = (selectedOptions: any) => {
+    const selected = selectedOptions.target.value;
+    const selectedValues = selected.map((option: any) => ({
+      label: option.label,
+      value: option.value,
+    }));
 
     // Update formData with an array of topic IDs
     setFormData({ ...formData, topic_id: selectedValues });
@@ -200,9 +220,11 @@ const EditFaqAdmin = () => {
         setLeftActiveCheckbox(faqData.is_status === 1);
         setBlogContent(faqData.answer);
 
-        // Update other fields accordingly
         const newData = {
-          topic_id: faqData.topic_id,
+          topic_id: faqData.topics.map((topic: any) => ({
+            label: topic.name,
+            value: topic.id,
+          })),
           question: faqData.question,
           is_status: faqData.is_status,
           answer: faqData.answer,
@@ -236,6 +258,7 @@ const EditFaqAdmin = () => {
   useEffect(() => {
     featchTopic();
   }, []);
+
   return (
     <>
       {isLoading && (
@@ -270,13 +293,13 @@ const EditFaqAdmin = () => {
                 Topic *
               </label>
               <SelectField
-                id="dropdown topic"
-                name="dropdown topic"
+                id="dropdown-topic"
+                name="dropdown-topic"
                 isMulti
                 options={topicOptions}
-                onChange={(selectedOption: any) =>
-                  handleTopicSelect(selectedOption)
-                }
+                value={formData.topic_id}
+                onChange={handleTopicSelect}
+                ariaLabel="dropdown topic"
               />
 
               <div className="mt-4 mb-4">

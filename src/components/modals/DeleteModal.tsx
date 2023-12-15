@@ -33,14 +33,14 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
       className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 overlay"
       onClick={handleOverlayClick}
     >
-      <div className="w-1/3 p-6 bg-white rounded shadow-lg">
+      <div className="w-1/3 px-4 py-5 overflow-hidden bg-white rounded shadow-lg break">
         <div className="mb-4 ">
           <WarningIcon className="w-20 h-20 mx-auto text-red-800" />
         </div>
         <h2 className="mb-4 text-[22px] font-black text-center ">
           Delete Confirmation
         </h2>
-        <div className="text-lg text-center text-black">
+        <div className="text-lg text-center text-black whitespace-pre-line">
           Are you sure you want to delete <br />
           <span className="font-semibold">"{deleteData}"</span> ?
         </div>

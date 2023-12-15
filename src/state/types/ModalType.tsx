@@ -8,7 +8,7 @@ export interface DeleteModalProps {
 }
 
 export interface FormData {
-  [key: string]: string | number | null | undefined | never[];
+  [key: string]: any;
 }
 
 export interface EditModalProps {

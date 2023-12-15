@@ -90,7 +90,7 @@ const SearchResultCard = () => {
                   />
                 </div>
               )}
-              <SearchIcon className="w-[28px] h-[23px] lg:w-[30px] lg:h-[25px] text-gray cursor-pointer " />
+              <SearchIcon className="w-[28px] h-[23px] lg:w-[30px] lg:h-[25px] hover:scale-[1.2] duration-300 text-gray cursor-pointer " />
             </button>
           </div>
         </form>

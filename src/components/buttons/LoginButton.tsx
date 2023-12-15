@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { ErrorAlert } from '../alerts/CustomAlert';
 
 // Import API
-import { loginUser } from '../../api/AuthAPI';
+import { loginAdmin } from '../../api/AuthAPI';
 
 // Import Type
 import { LoginButtonProps } from '../../state/types/ButtonType';
@@ -31,7 +31,7 @@ const LoginButton: React.FC<LoginButtonProps> = ({ email, passwordInput }) => {
     };
 
     try {
-      const response = await loginUser(credentials);
+      const response = await loginAdmin(credentials);
 
       if (response) {
         // const currentPath = location.pathname;
