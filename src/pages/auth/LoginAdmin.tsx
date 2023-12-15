@@ -10,7 +10,7 @@ import InputField from '../../components/field/InputField';
 import LoginImg from '../../assets/img/logo/login-img.webp';
 import { OpenEyeIcon, CloseEyeIcon } from '../../assets/icons/Icon';
 
-const Login = () => {
+const LoginAdmin = () => {
   const [passwordInput, setPasswordInput] = useState('');
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [email, setEmail] = useState('');
@@ -49,6 +49,7 @@ const Login = () => {
                 onChange={handleEmailChange}
                 required={true}
                 className="p-2 mt-8 text-sm border rounded-md"
+                label="email"
               />
 
               <div className="relative">
@@ -62,6 +63,7 @@ const Login = () => {
                   placeholder="Password"
                   autoComplete="current-password"
                   required={true}
+                  label="password"
                 />
                 {isPasswordVisible ? (
                   <CloseEyeIcon
@@ -98,4 +100,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginAdmin;

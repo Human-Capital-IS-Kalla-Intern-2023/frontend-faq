@@ -1,11 +1,11 @@
 // Import Helpers
 import { RequestApi } from '../../helpers/RequestApi';
-// import TokenHelper from '../../helpers/TokenHelpers';
+// import TokenHelperAdmin from '../../helpers/TokenHelper';
 
 // GET TopicUser
 const getTopicUser = async () => {
   try {
-    // const token = TokenHelper();
+    // const token = TokenHelperAdmin();
 
     // const headerToken = {
     //   Authorization: `Bearer ${token}`,
@@ -29,7 +29,7 @@ const getTopicUser = async () => {
 // GET Detail TopicUser
 const getListQuestionByTopic = async (slug: any) => {
   try {
-    // const token = TokenHelper();
+    // const token = TokenHelperAdmin();
 
     // const headerToken = {
     //   Authorization: `Bearer ${token}`,
@@ -55,7 +55,7 @@ const getListQuestionByTopic = async (slug: any) => {
 
 const getDetailQuestion = async (slug_topic: any, slug_question: string) => {
   try {
-    // const token = TokenHelper();
+    // const token = TokenHelperAdmin();
 
     // const headerToken = {
     //   Authorization: `Bearer ${token}`,
@@ -78,7 +78,7 @@ const getDetailQuestion = async (slug_topic: any, slug_question: string) => {
 
 const faqLike = async (slug_topic: any, slug_question: string) => {
   try {
-    // const token = TokenHelper();
+    // const token = TokenHelperAdmin();
 
     // const headerToken = {
     //   Authorization: `Bearer ${token}`,
@@ -101,7 +101,7 @@ const faqLike = async (slug_topic: any, slug_question: string) => {
 
 const faqDislike = async (slug_topic: any, slug_question: string) => {
   try {
-    // const token = TokenHelper();
+    // const token = TokenHelperAdmin();
 
     // const headerToken = {
     //   Authorization: `Bearer ${token}`,
@@ -125,7 +125,7 @@ const faqDislike = async (slug_topic: any, slug_question: string) => {
 // Search TopicUser
 const searchTopicUser = async (searchInput: any) => {
   try {
-    // const token = TokenHelper();
+    // const token = TokenHelperAdmin();
 
     // const headerToken = {
     //   Authorization: `Bearer ${token}`,

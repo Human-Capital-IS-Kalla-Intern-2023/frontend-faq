@@ -1,4 +1,4 @@
-import SearchResultCard from '../../components/results/SearchResultCard';
+import SearchResultCard from '../../components/cards/SearchResultCard';
 import logoKalla from '../../assets/img/logo/singel-logo-kalla_52x48.webp';
 import { Link } from 'react-router-dom';
 const SearchResult = () => {

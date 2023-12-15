@@ -128,6 +128,7 @@ const AddModal = ({ isOpen, onClose, title, inputFields, onSubmit }: any) => {
                     onChange={handleChange}
                     showImageInputCheckbox={field.label === 'icon'}
                     imageFieldName={apiEnum.IMAGE}
+                    ariaLabel={field.name}
                   />
                 )}
 
@@ -156,6 +157,7 @@ const AddModal = ({ isOpen, onClose, title, inputFields, onSubmit }: any) => {
                     type={field.type}
                     placeholder={`Input ${field.label}`}
                     onChange={handleChange}
+                    label="add field"
                   />
                 )}
               </div>
