@@ -1,4 +1,4 @@
-import QuestionCard from '../../components/faq/QuestionCard';
+import QuestionCard from '../../components/cards/QuestionCard';
 import ReactLoading from 'react-loading';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';

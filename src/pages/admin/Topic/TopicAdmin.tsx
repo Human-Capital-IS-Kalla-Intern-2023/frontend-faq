@@ -286,6 +286,7 @@ const TopicAdmin: React.FC = () => {
         detailedData={detailedData}
         fetchDetailedData={fetchDetailTopicAdmin}
         changeIsActive={handleChangeIsActiveTopicAdmin}
+        onDetailNavigate="detail/:TopicSlug"
       />
       <TabelFooter
         currentPage={currentPage}

@@ -1,11 +1,11 @@
 // Import Helpers
 import { RequestApi } from '../../helpers/RequestApi';
-import TokenHelper from '../../helpers/TokenHelpers';
+import { TokenHelperAdmin } from '../../helpers/TokenHelpers';
 
 // GET FaqAdmin
 const getFaqAdmin = async () => {
   try {
-    const token = TokenHelper();
+    const token = TokenHelperAdmin();
 
     const headerToken = {
       Authorization: `Bearer ${token}`,
@@ -29,7 +29,7 @@ const getFaqAdmin = async () => {
 // GET Detail FaqAdmin
 const getDetailFaqAdmin = async (slug: any) => {
   try {
-    const token = TokenHelper();
+    const token = TokenHelperAdmin();
 
     const headerToken = {
       Authorization: `Bearer ${token}`,
@@ -53,7 +53,7 @@ const getDetailFaqAdmin = async (slug: any) => {
 // POST FaqAdmin
 const addFaqAdmin = async (formData: any) => {
   try {
-    const token = TokenHelper();
+    const token = TokenHelperAdmin();
 
     const headerToken = {
       Authorization: `Bearer ${token}`,
@@ -77,7 +77,7 @@ const addFaqAdmin = async (formData: any) => {
 // PUT FaqAdmin
 const updateFaqAdmin = async (slug: any, FaqAdminData: any) => {
   try {
-    const token = TokenHelper();
+    const token = TokenHelperAdmin();
 
     const headerToken = {
       Authorization: `Bearer ${token}`,
@@ -101,7 +101,7 @@ const updateFaqAdmin = async (slug: any, FaqAdminData: any) => {
 // DELETE FaqAdmin
 const deleteFaqAdmin = async (slug: any) => {
   try {
-    const token = TokenHelper();
+    const token = TokenHelperAdmin();
 
     const headerToken = {
       Authorization: `Bearer ${token}`,
@@ -125,7 +125,7 @@ const deleteFaqAdmin = async (slug: any) => {
 // Search FaqAdmin
 const searchFaqAdmin = async (searchInput: any) => {
   try {
-    const token = TokenHelper();
+    const token = TokenHelperAdmin();
 
     const headerToken = {
       Authorization: `Bearer ${token}`,
@@ -149,7 +149,7 @@ const searchFaqAdmin = async (searchInput: any) => {
 // Change Is Active FaqAdmin
 const changeIsActiveFaqAdmin = async (idIsActive: any, newIsActive: any) => {
   try {
-    const token = TokenHelper();
+    const token = TokenHelperAdmin();
 
     const headerToken = {
       Authorization: `Bearer ${token}`,

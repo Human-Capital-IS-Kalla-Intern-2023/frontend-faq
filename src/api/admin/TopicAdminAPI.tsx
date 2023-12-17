@@ -1,11 +1,11 @@
 // Import Helpers
 import { RequestApi } from '../../helpers/RequestApi';
-import TokenHelper from '../../helpers/TokenHelpers';
+import { TokenHelperAdmin } from '../../helpers/TokenHelpers';
 
 // GET TopicAdmin
 const getTopicAdmin = async () => {
   try {
-    const token = TokenHelper();
+    const token = TokenHelperAdmin();
 
     const headerToken = {
       Authorization: `Bearer ${token}`,
@@ -29,7 +29,7 @@ const getTopicAdmin = async () => {
 // GET Detail TopicAdmin
 const getDetailTopicAdmin = async (slug: any) => {
   try {
-    const token = TokenHelper();
+    const token = TokenHelperAdmin();
 
     const headerToken = {
       Authorization: `Bearer ${token}`,
@@ -53,7 +53,7 @@ const getDetailTopicAdmin = async (slug: any) => {
 // POST TopicAdmin
 const addTopicAdmin = async (formData: any) => {
   try {
-    const token = TokenHelper();
+    const token = TokenHelperAdmin();
 
     const headerToken = {
       Authorization: `Bearer ${token}`,
@@ -78,10 +78,11 @@ const addTopicAdmin = async (formData: any) => {
 // PUT TopicAdmin
 const updateTopicAdmin = async (slug: any, TopicAdminData: any) => {
   try {
-    const token = TokenHelper();
+    const token = TokenHelperAdmin();
 
     const headerToken = {
       Authorization: `Bearer ${token}`,
+      'Content-Type': 'multipart/form-data',
     };
 
     const reponseUpdateTopicAdmin = await RequestApi(
@@ -102,7 +103,7 @@ const updateTopicAdmin = async (slug: any, TopicAdminData: any) => {
 // DELETE TopicAdmin
 const deleteTopicAdmin = async (slug: any) => {
   try {
-    const token = TokenHelper();
+    const token = TokenHelperAdmin();
 
     const headerToken = {
       Authorization: `Bearer ${token}`,
@@ -126,7 +127,7 @@ const deleteTopicAdmin = async (slug: any) => {
 // Search TopicAdmin
 const searchTopicAdmin = async (searchInput: any) => {
   try {
-    const token = TokenHelper();
+    const token = TokenHelperAdmin();
 
     const headerToken = {
       Authorization: `Bearer ${token}`,
@@ -150,7 +151,7 @@ const searchTopicAdmin = async (searchInput: any) => {
 // Change Is Active TopicAdmin
 const changeIsActiveTopicAdmin = async (slugTopic: any, newIsActive: any) => {
   try {
-    const token = TokenHelper();
+    const token = TokenHelperAdmin();
 
     const headerToken = {
       Authorization: `Bearer ${token}`,
@@ -159,7 +160,7 @@ const changeIsActiveTopicAdmin = async (slugTopic: any, newIsActive: any) => {
 
     const responseIsActiveChange = await RequestApi(
       'PUT',
-      `faq/is_active/${slugTopic}`,
+      `faq/topics/is_active/${slugTopic}`,
       sendData,
       headerToken,
       'Mengubah Active Topic Admin'

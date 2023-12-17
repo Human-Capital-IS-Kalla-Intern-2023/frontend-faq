@@ -4,18 +4,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import ReactLoading from 'react-loading';
 import { TruncateText } from '../../helpers/TruncateText';
 import IconRenderer from '../../helpers/IconRenders';
-interface Topic {
-  id: number;
-  slug: string;
-  name: string;
-  description: string;
-  image: string;
-  icon: string | null;
-  questions: string;
-}
+import { TopicProps } from '../../state/types/TopicType';
 
 interface HomeUserCardProps {
-  data?: Topic[];
+  data?: TopicProps[];
 }
 
 const HomeUserCard: React.FC<HomeUserCardProps> = ({ data }) => {
@@ -32,9 +24,10 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ data }) => {
   const handleSearch = async (e: any) => {
     e.preventDefault();
     setIsLoading(true);
-
     if (searchInput) {
       navigate(`/faq/search?title=${searchInput}`);
+    } else {
+      navigate(`/faq/search?title=`);
     }
   };
 
@@ -54,6 +47,7 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ data }) => {
               className="block w-full px-3 py-3 pr-4 text-sm text-black rounded-full cursor-pointer lg:py-4 placeholder-gray focus:outline-none focus:placeholder-black bg-slate-100 md:rounded-xl pl-14 lg:text-md"
               placeholder="Cari artikel bantuan..."
               value={searchInput}
+              min={1}
               onChange={handleSearchInputChange}
             />
             <button
@@ -72,23 +66,8 @@ const HomeUserCard: React.FC<HomeUserCardProps> = ({ data }) => {
                   />
                 </div>
               )}
-              <SearchIcon className="w-[28px] h-[23px] lg:w-[30px] lg:h-[25px] text-gray cursor-pointer " />
+              <SearchIcon className="w-[28px] h-[23px] lg:w-[30px] lg:h-[25px] text-gray cursor-pointer hover:scale-[1.2] duration-300 " />
             </button>
-            {/* {showDropdown && (
-              <div className="absolute top-14 w-full h-[425px]  overflow-y-auto bg-white  rounded-md shadow-lg cursor-pointer">
-                {data?.map((topic: any) => (
-                  <div
-                    key={topic.id}
-                    className="flex items-center p-4"
-                    onClick={() => handleDropdownItemClick(topic.slug)}
-                  >
-                    <IconRenderer value={topic.icon} className="w-7 h-7" />
-
-                    <div className="pl-3">{topic.name}</div>
-                  </div>
-                ))}
-              </div>
-            )} */}
           </div>
         </form>
       </div>
