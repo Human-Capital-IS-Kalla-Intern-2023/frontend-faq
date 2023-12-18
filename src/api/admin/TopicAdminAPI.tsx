@@ -86,7 +86,7 @@ const updateTopicAdmin = async (slug: any, TopicAdminData: any) => {
     };
 
     const reponseUpdateTopicAdmin = await RequestApi(
-      'PUT',
+      'POST',
       `faq/topics/${slug}`,
       TopicAdminData,
       headerToken,

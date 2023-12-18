@@ -148,6 +148,7 @@ const TopicAdmin: React.FC = () => {
     } catch (error: any) {
       console.error('Error editing topic admin:', error);
       setErrorTitle(`Error editing topic admin`);
+
       if (error.response.data.errors) {
         const errorMessages = Object.values(error.response.data.errors);
         setErrorMessage(errorMessages.join('\n'));
