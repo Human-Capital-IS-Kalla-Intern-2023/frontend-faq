@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import ReactLoading from 'react-loading';
 
-import DetailFaqCard from '../../components/detail/DetailFaqCard';
+import DetailFaqCard from '../../components/cards/DetailFaqCard';
 import { useParams } from 'react-router-dom';
 import { getDetailQuestion } from '../../api/user/FaqUserAPI';
 
