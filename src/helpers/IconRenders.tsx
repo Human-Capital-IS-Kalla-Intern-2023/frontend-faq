@@ -10,8 +10,6 @@ interface IconRendererProps {
 const IconRenderer: React.FC<IconRendererProps> = ({ value, className }) => {
   const selectedIcon = iconList.find((item: any) => item.value === value);
 
-  console.log(selectedIcon);
-
   if (selectedIcon) {
     return <FontAwesomeIcon icon={selectedIcon.icon} className={className} />;
   }
