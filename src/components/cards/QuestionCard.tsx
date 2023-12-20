@@ -6,7 +6,8 @@ import { DropdownIcon, CloseButtonIcon } from '../../assets/icons/Icon';
 import { TopicProps } from '../../state/types/TopicType';
 import { faqLike, faqDislike } from '../../api/user/FaqUserAPI';
 import HeaderFaq from '../headers/HeaderFaq';
-
+import ThanksFeedbackCard from './ThanksFeedbackCard';
+import FeedbackButtons from '../buttons/FeedbackButtons';
 interface QuestionCardProps {
   data?: TopicProps;
 }
@@ -116,19 +117,11 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ data }) => {
                           {closedQuestions.includes(question.slug) ? null : (
                             <div className="w-full md:w-fit">
                               {feedbackGiven.includes(question.slug) ? (
-                                <div className="flex items-center justify-center text-center ">
-                                  <div className="pl-1 pr-2 text-sm ">
-                                    Terima kasih atas feedback Anda!
-                                  </div>
-                                  <button
-                                    className="flex justify-end pl-4 "
-                                    onClick={() =>
-                                      handleCloseButtonClick(question.slug)
-                                    }
-                                  >
-                                    <CloseButtonIcon className="w-8 h-[18px]  hover:bg-slate-200 hover:text-red-600 rounded-full cursor-pointer" />
-                                  </button>
-                                </div>
+                                <ThanksFeedbackCard
+                                  handleCloseButtonClick={
+                                    handleCloseButtonClick
+                                  }
+                                />
                               ) : (
                                 <div className="flex items-center justify-between pb-3 text-center md:justify-center">
                                   <div className="pl-1 pr-2 text-sm">
@@ -145,24 +138,14 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ data }) => {
                                 </div>
                               )}
                               {!feedbackGiven.includes(question.slug) && (
-                                <div className="flex justify-between w-full mt-2 space-x-2">
-                                  <button
-                                    onClick={() =>
-                                      handlerLike(data?.slug, question?.slug)
-                                    }
-                                    className="w-full text-sm px-5 py-2 rounded-md bg-[#E4E6EB] hover:bg-[#D8DADF]"
-                                  >
-                                    Ya 👍
-                                  </button>
-                                  <button
-                                    onClick={() =>
-                                      handleDislike(data?.slug, question?.slug)
-                                    }
-                                    className="text-sm w-full px-5 py-2 rounded-md bg-[#E4E6EB] hover:bg-[#D8DADF]"
-                                  >
-                                    Tidak 👎
-                                  </button>
-                                </div>
+                                <FeedbackButtons
+                                  onLikeClick={() =>
+                                    handlerLike(data?.slug, question?.slug)
+                                  }
+                                  onDislikeClick={() =>
+                                    handleDislike(data?.slug, question?.slug)
+                                  }
+                                />
                               )}
                             </div>
                           )}
