@@ -6,6 +6,9 @@ import { faqLike, faqDislike } from '../../api/user/FaqUserAPI';
 import 'react-quill/dist/quill.snow.css';
 import ReactQuill from 'react-quill';
 import HeaderFaq from '../headers/HeaderFaq';
+import ThanksFeedbackCard from './ThanksFeedbackCard';
+import FeedbackButtons from '../buttons/FeedbackButtons';
+
 interface DetailFaqCardProps {
   isFeatch?: boolean;
   data?: any;
@@ -120,17 +123,9 @@ const DetailFaqCard: React.FC<DetailFaqCardProps> = ({ isFeatch, data }) => {
                   <div className={`flex py-2 lg:py-4 px-2 lg:px-3 rounded-md`}>
                     <div className="">
                       {feedbackGiven ? (
-                        <div className="flex items-center justify-center text-center ">
-                          <div className="pl-1 pr-2 text-sm ">
-                            Terima kasih atas feedback Anda!
-                          </div>
-                          <button
-                            className="flex justify-end pl-4 "
-                            onClick={() => handleCloseButtonClick()}
-                          >
-                            <CloseButtonIcon className="w-8 h-[18px] hover:bg-slate-200 hover:text-red-600  rounded-full cursor-pointer" />
-                          </button>
-                        </div>
+                        <ThanksFeedbackCard
+                          handleCloseButtonClick={handleCloseButtonClick}
+                        />
                       ) : (
                         <div className="flex items-center justify-center pb-1 text-center lg:pb-3">
                           <div className="pl-1 pr-2 text-xs lg:text-sm ">
@@ -145,24 +140,14 @@ const DetailFaqCard: React.FC<DetailFaqCardProps> = ({ isFeatch, data }) => {
                         </div>
                       )}
                       {!feedbackGiven && (
-                        <div className="flex justify-between w-full mt-2 space-x-2">
-                          <button
-                            onClick={() =>
-                              handlerLike(data.topics[0].slug, data.slug)
-                            }
-                            className="w-full text-xs lg:text-sm px-1 lg:px-5 py-2 rounded-md bg-[#E4E6EB] hover:bg-[#D8DADF]"
-                          >
-                            Like 👍
-                          </button>
-                          <button
-                            onClick={() =>
-                              handleDislike(data.topics[0].slug, data.slug)
-                            }
-                            className="w-full text-xs lg:text-sm px-1 lg:px-5 py-2 rounded-md bg-[#E4E6EB] hover:bg-[#D8DADF]"
-                          >
-                            Dislike 👎
-                          </button>
-                        </div>
+                        <FeedbackButtons
+                          onLikeClick={() =>
+                            handlerLike(data.topics[0].slug, data.slug)
+                          }
+                          onDislikeClick={() =>
+                            handleDislike(data.topics[0].slug, data.slug)
+                          }
+                        />
                       )}
                     </div>
                   </div>
