@@ -7,6 +7,7 @@ import InputField from '../field/InputField';
 import SelectField from '../field/SelectField';
 import TextAreaField from '../field/TextAreaField';
 import CloseButton from '../buttons/CloseButton';
+import IconRenderer from '../../helpers/IconRenders';
 
 // Imoport Assets
 import { getIconList } from '../../assets/data/TopicAdminData';
@@ -109,7 +110,12 @@ const EditModal: React.FC<EditModalProps> = ({
       ) {
         initialData[apiEnum.ICON] = {
           value: initialFormData[apiEnum.ICON],
-          label: initialFormData[apiEnum.ICON],
+          label: (
+            <>
+              <IconRenderer value={initialFormData[apiEnum.ICON]} />{' '}
+              {initialFormData[apiEnum.ICON]}
+            </>
+          ),
         };
       }
 

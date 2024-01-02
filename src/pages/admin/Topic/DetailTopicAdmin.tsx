@@ -103,7 +103,6 @@ const DetailTopicAdmin = () => {
         setIsLoading(true);
         const response = await getDetailTopicAdmin(TopicSlug);
         const topicData = response.data[0];
-        console.log(topicData);
         setTopicData(topicData);
         // Set the topic name to state
 
